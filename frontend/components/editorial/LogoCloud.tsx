@@ -22,7 +22,7 @@ const defaultLogos: LogoItem[] = [
 ];
 
 export const LogoCloud: React.FC<LogoCloudProps> = ({
-  title = 'Sample Sector Practice Engagements [PLACEHOLDER EXAMPLES]',
+  title = 'Sample Sector Practice Engagements [DEMO CLIENT EXAMPLES]',
   logos = defaultLogos,
   className,
 }) => {
@@ -40,6 +40,9 @@ export const LogoCloud: React.FC<LogoCloudProps> = ({
               key={idx}
               className="p-4 border border-slate-200/80 bg-white rounded flex flex-col items-center justify-center min-h-[80px] hover:border-gold/50 transition-colors"
             >
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 font-bold uppercase tracking-wider mb-1">
+                [DEMO CLIENT]
+              </span>
               <span className="font-serif text-sm font-semibold text-navy text-center">
                 {logo.name}
               </span>

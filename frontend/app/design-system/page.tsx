@@ -691,7 +691,7 @@ export default function DesignSystemPage() {
 
           <div className="pt-6">
             <SectionHeader
-              overline="Verified Media Moments"
+              overline="Sample Media Moments [DEMO]"
               title="Media Gallery & Keynotes"
               description="A curated preview of executive briefings, major announcements, and strategic public affairs forums."
             />

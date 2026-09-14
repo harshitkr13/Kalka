@@ -23,13 +23,13 @@ export default function OurWorkPage() {
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">
-              Strategic Portfolio
+              Strategic Portfolio [SAMPLE CASE STUDIES]
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
-              Verified Outcomes in High-Stakes Communications
+              Selected Strategic Communications Case Studies [SAMPLE PORTFOLIO]
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed font-light">
-              We engineer authority, insulate enterprise value, and lead corporate dialogues across critical market milestones.
+              Illustrating how strategic narrative alignment, media discipline, and crisis readiness navigate critical market milestones.
             </p>
           </div>
         </section>
@@ -37,9 +37,9 @@ export default function OurWorkPage() {
         <section className="py-20 lg:py-28 bg-slate-50/50 border-b border-slate-200">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <SectionHeader
-              overline="Strategic Engagements"
-              title="Selected Case Studies & Impact Demonstrations"
-              description="Detailed examinations of complex narrative pivots, acute crisis defense, and global category definition."
+              overline="Strategic Engagements [SAMPLE ARCHIVE]"
+              title="Selected Case Studies & Impact Demonstrations [SAMPLE]"
+              description="Detailed demonstration examinations of complex narrative pivots, acute crisis defense, and category definition."
             />
 
             <div className="space-y-8">

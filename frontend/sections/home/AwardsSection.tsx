@@ -9,8 +9,8 @@ export const AwardsSection: React.FC = () => {
     <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          overline="Recognition & Honors"
-          title="Industry Commendations for Strategic Excellence"
+          overline="Recognition & Honors [SAMPLE ARCHIVE]"
+          title="Industry Commendations for Strategic Excellence [SAMPLE]"
           description="Honored by peer organizations and industry bodies for benchmark excellence in corporate communication and crisis advisory."
         />
 
@@ -21,8 +21,8 @@ export const AwardsSection: React.FC = () => {
               className="p-7 border border-slate-200 rounded bg-slate-50/40 space-y-4 hover:border-gold transition-colors"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-gold-dark uppercase tracking-wider">
-                  {award.year}
+                <span className="px-2 py-0.5 rounded bg-gold/10 text-gold-dark text-[10px] font-bold uppercase tracking-wider">
+                  [SAMPLE RECOGNITION]
                 </span>
                 <Award className="w-5 h-5 text-gold" />
               </div>

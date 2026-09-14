@@ -11,7 +11,7 @@ export interface MediaMention {
 export const mediaMentionsData: MediaMention[] = [
   {
     id: 'm1',
-    publication: 'Financial Times [SAMPLE FEATURE]',
+    publication: 'National Financial Daily [DEMO OUTLET]',
     headline: 'The New Rules of Crisis Containment for Multi-Jurisdiction Enterprises',
     date: 'September 2026',
     category: 'Crisis Advisory',
@@ -20,7 +20,7 @@ export const mediaMentionsData: MediaMention[] = [
   },
   {
     id: 'm2',
-    publication: 'The Economic Times [SAMPLE FEATURE]',
+    publication: 'Pan-Asian Business Review [DEMO OUTLET]',
     headline: 'Real Estate Developers Turn to Strategic Communications Amid Urban Scrutiny',
     date: 'August 2026',
     category: 'Real Estate PR',
@@ -29,7 +29,7 @@ export const mediaMentionsData: MediaMention[] = [
   },
   {
     id: 'm3',
-    publication: 'Bloomberg Markets [SAMPLE FEATURE]',
+    publication: 'Global Markets Dispatch [DEMO OUTLET]',
     headline: 'Why Tech IPO Candidates Are Re-evaluating Category Creation Early',
     date: 'July 2026',
     category: 'Capital Markets',

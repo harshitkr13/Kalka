@@ -23,8 +23,8 @@ const offices = [
   {
     city: 'New Delhi (HQ)',
     title: 'National Headquarters & Media Relations Bureau',
-    address: 'Kalka Co. Media Tower, Barakhamba Road, Connaught Place, New Delhi 110001',
-    phone: '+91 11 4000 0000',
+    address: '[OFFICE PLACEHOLDER: Sample Corporate Address, Barakhamba Road, Connaught Place, New Delhi 110001]',
+    phone: '+91 11 4000 0000 [DEMO]',
     email: 'delhi@kalka.co.in',
     hours: 'Mon – Fri: 08:30 – 19:30 IST',
     desk: 'Corporate, Public Affairs & National Bureaus',
@@ -32,8 +32,8 @@ const offices = [
   {
     city: 'Mumbai',
     title: 'Financial & Capital Markets Practice',
-    address: 'Maker Chambers VI, Nariman Point, Mumbai 400021',
-    phone: '+91 22 6000 0000',
+    address: '[OFFICE PLACEHOLDER: Sample Financial Desk, Nariman Point, Mumbai 400021]',
+    phone: '+91 22 6000 0000 [DEMO]',
     email: 'mumbai@kalka.co.in',
     hours: 'Mon – Fri: 08:30 – 20:00 IST',
     desk: 'M&A, Investor Relations & Corporate Finance',
@@ -41,8 +41,8 @@ const offices = [
   {
     city: 'Bengaluru',
     title: 'Technology & Enterprise Growth Practice',
-    address: 'Prestige Meridian, MG Road, Bengaluru 560001',
-    phone: '+91 80 4500 0000',
+    address: '[OFFICE PLACEHOLDER: Sample Tech Practice, MG Road, Bengaluru 560001]',
+    phone: '+91 80 4500 0000 [DEMO]',
     email: 'bengaluru@kalka.co.in',
     hours: 'Mon – Fri: 09:00 – 19:00 IST',
     desk: 'SaaS, DeepTech & Unicorn Scaling Desks',
@@ -50,8 +50,8 @@ const offices = [
   {
     city: 'London (Liaison)',
     title: 'International Markets & Cross-Border Desk',
-    address: 'Berkeley Square House, Mayfair, London W1J 6BD, United Kingdom',
-    phone: '+44 20 7946 0000',
+    address: '[OFFICE PLACEHOLDER: Sample Liaison Bureau, Mayfair, London W1J 6BD, UK]',
+    phone: '+44 20 7946 0000 [DEMO]',
     email: 'london@kalka.co.in',
     hours: 'Mon – Fri: 09:00 – 18:00 GMT',
     desk: 'Cross-Border Capital & Sovereign Positioning',
@@ -414,13 +414,13 @@ export const ContactFormSection: React.FC = () => {
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-semibold uppercase tracking-widest text-gold block">
-              Presence & Bureaus
+              Presence & Bureaus [OFFICE PLACEHOLDERS]
             </span>
             <h2 className="font-serif text-3xl font-bold text-navy">
-              Consultancy Hubs & Bureaus
+              Consultancy Hubs & Regional Desks [DEMO]
             </h2>
             <p className="text-sm text-slate-600">
-              Operating across strategic national commercial centers and international capital hubs.
+              Sample regional presence across strategic commercial centers and international capital hubs.
             </p>
           </div>
 
@@ -432,10 +432,12 @@ export const ContactFormSection: React.FC = () => {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-serif text-xl font-bold text-navy">
+                    <span className="font-serif text-lg font-bold text-navy">
                       {office.city}
                     </span>
-                    <Building2 className="w-5 h-5 text-gold" />
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-500 font-bold uppercase tracking-wider">
+                      [OFFICE PLACEHOLDER]
+                    </span>
                   </div>
                   <p className="text-xs font-semibold text-gold-dark">
                     {office.title}

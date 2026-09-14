@@ -13,9 +13,9 @@ export const SelectedWork: React.FC = () => {
     <section className="py-20 lg:py-28 bg-white border-b border-slate-200">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          overline="Selected Strategic Work"
-          title="Case Studies in High-Impact Reputation Engineering"
-          description="Demonstrated outcomes where strategic narrative alignment preserved enterprise valuation and created market-defining prominence."
+          overline="Selected Strategic Work [SAMPLE CASE STUDY]"
+          title="Case Studies in High-Impact Reputation Engineering [SAMPLE]"
+          description="Demonstrated outcomes where strategic narrative alignment preserved enterprise valuation and created market-defining prominence [SAMPLE DATA]."
         />
 
         {featured && (

@@ -15,7 +15,7 @@ export interface CaseStudyData {
 export const caseStudiesData: CaseStudyData[] = [
   {
     slug: 'national-logistics-narrative-pivot',
-    title: 'Strategic Narrative Pivot for National Logistics Consortium',
+    title: 'Strategic Narrative Pivot for National Logistics Consortium [SAMPLE CASE STUDY]',
     clientIndustry: 'Real Estate & Infrastructure',
     engagementType: 'Strategic Repositioning & Media Relations',
     featured: true,
@@ -32,7 +32,7 @@ export const caseStudiesData: CaseStudyData[] = [
   },
   {
     slug: 'tier-1-medical-network-crisis-containment',
-    title: 'Acute Crisis Containment for Premier Healthcare Network',
+    title: 'Acute Crisis Containment for Premier Healthcare Network [SAMPLE CASE STUDY]',
     clientIndustry: 'Healthcare & Life Sciences',
     engagementType: 'Emergency Crisis Advisory',
     featured: true,
@@ -49,7 +49,7 @@ export const caseStudiesData: CaseStudyData[] = [
   },
   {
     slug: 'fintech-series-c-announcement',
-    title: 'Global Category Definition & Series C Announcement',
+    title: 'Global Category Definition & Series C Announcement [SAMPLE CASE STUDY]',
     clientIndustry: 'Technology & Startups',
     engagementType: 'Category Creation & Thought Leadership',
     featured: true,
@@ -66,7 +66,7 @@ export const caseStudiesData: CaseStudyData[] = [
   },
   {
     slug: 'heritage-hospitality-rebranding',
-    title: 'Heritage Brand Revitalization for Luxury Hospitality Group',
+    title: 'Heritage Brand Revitalization for Luxury Hospitality Group [SAMPLE CASE STUDY]',
     clientIndustry: 'Luxury Hospitality & Travel',
     engagementType: 'Brand Positioning & Editorial PR',
     featured: false,

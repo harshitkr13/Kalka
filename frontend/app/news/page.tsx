@@ -20,13 +20,13 @@ export default function NewsPage() {
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">
-              Press Room
+              Press Room [SAMPLE RELEASES]
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
               Firm Announcements & Practice Developments
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed font-light">
-              Official press notes, strategic expansion disclosures, and leadership developments from Kalka Co.
+              Illustrative press notes, strategic expansion disclosures, and leadership developments from Kalka Co.
             </p>
           </div>
         </section>
@@ -34,15 +34,18 @@ export default function NewsPage() {
         <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <SectionHeader
-              overline="Corporate Bulletins"
-              title="Official Communications Archive"
+              overline="Corporate Bulletins [SAMPLE ARCHIVE]"
+              title="Sample Communications & Practice Archive"
               align="left"
             />
 
             <div className="divide-y divide-slate-200">
               {newsData.map((item) => (
                 <article key={item.id} className="py-8 space-y-3">
-                  <div className="flex items-center gap-3 text-xs text-slate-500">
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
+                    <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider">
+                      [SAMPLE RELEASE]
+                    </span>
                     <span className="text-gold-dark font-semibold uppercase tracking-wider">
                       {item.category}
                     </span>

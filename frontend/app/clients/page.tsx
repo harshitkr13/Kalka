@@ -20,7 +20,7 @@ export default function ClientsPage() {
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">
-              Client Portfolio
+              Client Sectors [DEMO PORTFOLIO]
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
               Trusted Advisor to Market Leaders Across Critical Sectors

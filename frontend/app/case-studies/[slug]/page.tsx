@@ -53,12 +53,15 @@ export default async function CaseStudyDetailPage({ params }: Props) {
               className="[&_a]:text-slate-400 [&_span]:text-gold"
             />
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20">
                 {study.clientIndustry}
               </span>
               <span className="text-xs text-slate-400 uppercase tracking-wider">
                 {study.engagementType}
+              </span>
+              <span className="px-2.5 py-1 rounded bg-gold/10 border border-gold/30 text-gold text-xs font-bold uppercase tracking-wider">
+                [SAMPLE CASE STUDY]
               </span>
             </div>
 
@@ -78,6 +81,9 @@ export default async function CaseStudyDetailPage({ params }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
               {study.metrics.map((m, idx) => (
                 <div key={idx} className="p-4 border border-navy-border rounded bg-navy-surface/40">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block mb-1">
+                    [DEMO METRIC]
+                  </span>
                   <p className="font-serif text-3xl sm:text-4xl font-bold text-gold">
                     {m.value}
                   </p>
@@ -135,10 +141,10 @@ export default async function CaseStudyDetailPage({ params }: Props) {
             {/* The Outcome */}
             <div className="space-y-4 pt-8 border-t border-slate-200 p-8 bg-slate-50 border border-slate-200 rounded">
               <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
-                04 • Verified Impact
+                04 • Strategic Outcome [SAMPLE OUTCOME]
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
-                Measurable Strategic Outcome
+                Measurable Strategic Outcome [DEMO]
               </h2>
               <p className="text-base text-slate-700 leading-relaxed">
                 {study.outcome}

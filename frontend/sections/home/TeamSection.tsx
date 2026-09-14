@@ -12,7 +12,7 @@ export const TeamSection: React.FC = () => {
     <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          overline="Advisory Leadership"
+          overline="Advisory Leadership [SAMPLE PROFILES]"
           title="Seasoned Counselors Guiding High-Stakes Mandates"
           description="Our partners bring decades of battlefield experience from premier newsrooms, corporate boardrooms, and crisis command centers."
         />
@@ -23,8 +23,13 @@ export const TeamSection: React.FC = () => {
               key={member.id}
               className="p-7 border border-slate-200 rounded bg-slate-50/40 space-y-4 hover:border-gold transition-colors"
             >
-              <div className="w-16 h-16 rounded bg-navy text-gold font-serif font-bold text-xl flex items-center justify-center">
-                <Users className="w-7 h-7" />
+              <div className="flex items-center justify-between">
+                <div className="w-16 h-16 rounded bg-navy text-gold font-serif font-bold text-xl flex items-center justify-center">
+                  <Users className="w-7 h-7" />
+                </div>
+                <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider">
+                  [SAMPLE PROFILE]
+                </span>
               </div>
 
               <div>

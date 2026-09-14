@@ -9,9 +9,9 @@ export const MediaCoverage: React.FC = () => {
     <section className="py-20 lg:py-28 bg-slate-50/50 border-b border-slate-200 text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          overline="Media Mentions & Features"
-          title="Shaping the Industry Discourse Across Premier Publications"
-          description="Our perspective and strategic counsel cited across recognized business and financial periodicals."
+          overline="Illustrative Media Coverage [DEMO ARCHIVE]"
+          title="Perspective & Commentary Across Commercial Periodicals [SAMPLE]"
+          description="Demonstration media citations and analytical perspectives illustrating executive narrative positioning [SAMPLE ARCHIVE]."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -21,9 +21,14 @@ export const MediaCoverage: React.FC = () => {
               className="p-7 bg-white border border-slate-200 rounded shadow-subtle flex flex-col justify-between space-y-6 hover:border-gold transition-colors"
             >
               <div className="space-y-4">
-                <Quote className="w-6 h-6 text-gold-dark/60" />
+                <div className="flex items-center justify-between">
+                  <Quote className="w-6 h-6 text-gold-dark/60" />
+                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider">
+                    [DEMO COVERAGE]
+                  </span>
+                </div>
                 <p className="text-sm text-slate-700 italic leading-relaxed">
-                  "{item.quoteExcerpt}"
+                  &ldquo;{item.quoteExcerpt}&rdquo;
                 </p>
               </div>
 

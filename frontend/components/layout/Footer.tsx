@@ -55,12 +55,12 @@ export const Footer: React.FC = () => {
           {/* Offices / Contact Placeholder */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-widest text-white">
-              Consultancy Hubs
+              Consultancy Hubs [OFFICE PLACEHOLDER]
             </h4>
             <div className="text-xs space-y-2 text-slate-400">
               <div>
                 <p className="text-slate-200 font-medium">Headquarters</p>
-                <p>[Approved office address placeholder]</p>
+                <p>[OFFICE PLACEHOLDER: Registered Address Pending Formal Filing]</p>
               </div>
               <div className="pt-2">
                 <p className="text-slate-200 font-medium">Direct Inquiries</p>

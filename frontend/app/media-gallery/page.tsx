@@ -61,13 +61,13 @@ export default function MediaGalleryPage() {
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">
-              Media Moments
+              Media Moments [SAMPLE ARCHIVE]
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
               Media Gallery & Event Documentaries
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed font-light">
-              Visual records of high-impact press conferences, private executive briefings, and major strategic milestone announcements.
+              Illustrative visual records of high-impact press conferences, private executive briefings, and major strategic milestone announcements [SAMPLE ASSETS].
             </p>
           </div>
         </section>
@@ -75,8 +75,8 @@ export default function MediaGalleryPage() {
         <section className="py-20 lg:py-28 bg-white border-b border-slate-200">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <SectionHeader
-              overline="Visual Archive"
-              title="Selected Keynotes, Press Briefings & Executive Salons"
+              overline="Visual Archive [SAMPLE ASSETS]"
+              title="Sample Keynotes, Press Briefings & Executive Salons"
               description="Click on any media entry to launch the high-resolution lightbox viewer."
             />
 

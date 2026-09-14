@@ -20,7 +20,7 @@ export default function TeamPage() {
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">
-              Leadership Council
+              Leadership Council [SAMPLE PROFILES]
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
               Advisory Leadership & Senior Practice Counsel
@@ -34,7 +34,7 @@ export default function TeamPage() {
         <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
-              overline="Practice Directors"
+              overline="Practice Directors [SAMPLE ROSTER]"
               title="Senior Counselors Leading Marquee Engagements"
               description="Each client mandate is directed by dedicated partners who bring deep sector alliances and unvarnished strategic perspective."
             />
@@ -46,8 +46,13 @@ export default function TeamPage() {
                   className="p-8 border border-slate-200 rounded bg-white hover:border-gold/80 hover:shadow-elevated transition-all duration-200 flex flex-col justify-between space-y-6"
                 >
                   <div className="space-y-4">
-                    <div className="w-16 h-16 rounded bg-navy text-gold flex items-center justify-center font-serif font-bold text-xl">
-                      <Users className="w-7 h-7" />
+                    <div className="flex items-center justify-between">
+                      <div className="w-16 h-16 rounded bg-navy text-gold flex items-center justify-center font-serif font-bold text-xl">
+                        <Users className="w-7 h-7" />
+                      </div>
+                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider">
+                        [SAMPLE PROFILE]
+                      </span>
                     </div>
                     <div>
                       <h3 className="font-serif text-2xl font-semibold text-navy">

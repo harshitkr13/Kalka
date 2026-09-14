@@ -120,7 +120,7 @@ export default function PrivacyPolicyPage() {
                 <p><strong>Office:</strong> Data Protection & Compliance Cell</p>
                 <p><strong>Entity:</strong> Kalka Co. Media Consultancy</p>
                 <p><strong>Email:</strong> privacy@kalka.co.in</p>
-                <p><strong>Address:</strong> Kalka Co. Media Tower, Barakhamba Road, Connaught Place, New Delhi 110001</p>
+                <p><strong>Address:</strong> [OFFICE PLACEHOLDER: Registered Address Pending Formal Filing, New Delhi 110001]</p>
               </div>
             </div>
 
