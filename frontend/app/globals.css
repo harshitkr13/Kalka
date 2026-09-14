@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navy-deep: #050a15;
+    --navy-primary: #0a1628;
+    --navy-surface: #112240;
+    --navy-border: #1d3557;
+    --gold: #c9a84c;
+    --gold-light: #d4b86a;
+    --gold-dark: #a88a3a;
+    --cream: #f5f0e8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1a1916;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Georgia', serif;
+    letter-spacing: -0.02em;
+  }
+
+  /* Accessible high-contrast focus rings */
+  :focus-visible {
+    outline: 2px solid #c9a84c;
+    outline-offset: 3px;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f5f0e8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #b0ada5;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8a8780;
+  }
+}
+
+@layer components {
+  .editorial-card {
+    @apply bg-white border border-slate-200 transition-all duration-200 hover:border-gold/60 hover:shadow-elevated;
+  }
+
+  .editorial-section {
+    @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-container mx-auto;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
