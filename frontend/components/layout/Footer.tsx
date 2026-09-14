@@ -74,8 +74,9 @@ export const Footer: React.FC = () => {
         <div className="mt-12 pt-8 border-t border-navy-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Kalka Co. Media Consultancy. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+            <Link href="/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
+            <Link href="/cookie-policy" className="hover:text-slate-300 transition-colors">Cookie Policy</Link>
             <Link href="/design-system" className="text-gold/80 hover:text-gold transition-colors">Design System (Dev)</Link>
           </div>
         </div>

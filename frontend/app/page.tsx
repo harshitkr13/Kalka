@@ -1,75 +1,86 @@
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { Button } from '@/components/ui/Button';
-import { ArrowRight, Layers, ShieldCheck, Sparkles } from 'lucide-react';
+import { Hero } from '@/sections/Hero';
+import { TrustSection } from '@/sections/home/TrustSection';
+import { AboutTeaser } from '@/sections/home/AboutTeaser';
+import { ServicesGrid } from '@/sections/home/ServicesGrid';
+import { WhyKalka } from '@/sections/home/WhyKalka';
+import { IndustriesScroll } from '@/sections/home/IndustriesScroll';
+import { ApproachSection } from '@/sections/home/ApproachSection';
+import { SelectedWork } from '@/sections/home/SelectedWork';
+import { MediaCoverage } from '@/sections/home/MediaCoverage';
+import { AwardsSection } from '@/sections/home/AwardsSection';
+import { InsightsSection } from '@/sections/home/InsightsSection';
+import { TeamSection } from '@/sections/home/TeamSection';
+import { FinalCta } from '@/sections/home/FinalCta';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+  description: 'Advising market leaders, corporate boards, and transformative organizations on high-stakes narrative positioning, crisis communications, and media impact.',
+  openGraph: {
+    title: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+    description: 'Premier media relations, corporate narrative governance, and executive thought leadership consultancy.',
+    url: 'https://kalka.co',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+  },
+};
+
+export default function HomePage() {
   return (
-    <div className="flex-1 flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+      {/* 1. Navigation */}
       <Navbar />
 
-      <main className="flex-1 max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 text-center">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold-dark text-xs font-semibold uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>Phase 1 Verified Foundation</span>
-          </div>
+      <main className="flex-1">
+        {/* 2. Hero */}
+        <Hero
+          badge="Strategic Communication. Lasting Impact."
+          headline="We engineer authority and insulate corporate reputation in pivotal moments."
+          subheadline="Kalka Co. provides high-stakes media relations, executive thought leadership, and 24/7 crisis containment to institutional market leaders."
+          primaryCtaLabel="Start a Conversation"
+          secondaryCtaLabel="Explore Case Studies"
+        />
 
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-navy leading-tight">
-            Kalka Co. Media Consultancy
-          </h1>
+        {/* 3. Trust / Client Logos */}
+        <TrustSection />
 
-          <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-light">
-            Strategic Communication. Lasting Impact.
-          </p>
+        {/* 4. About Kalka Co. */}
+        <AboutTeaser />
 
-          <p className="text-sm text-slate-500 max-w-xl mx-auto">
-            The Phase 1 Design System & Interactive UI Foundation is active. Public marketing routes will be developed in Phase 2. Explore the complete component catalog and live interactive playground below.
-          </p>
+        {/* 5. Services */}
+        <ServicesGrid />
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <Link href="/design-system">
-              <Button variant="gold" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
-                Launch Design System Showcase
-              </Button>
-            </Link>
-          </div>
+        {/* 6. Why Kalka */}
+        <WhyKalka />
 
-          <div className="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left border-t border-slate-200 mt-12">
-            <div className="p-5 border border-slate-200 rounded bg-slate-50/50">
-              <div className="w-8 h-8 rounded bg-navy text-gold flex items-center justify-center font-bold text-sm mb-3">
-                01
-              </div>
-              <h3 className="font-serif text-base font-semibold text-navy">Design Tokens</h3>
-              <p className="text-xs text-slate-500 mt-1">
-                Navy, Obsidian, Gold, and Editorial Cream palette with accessible typographic scales.
-              </p>
-            </div>
+        {/* 7. Industries */}
+        <IndustriesScroll />
 
-            <div className="p-5 border border-slate-200 rounded bg-slate-50/50">
-              <div className="w-8 h-8 rounded bg-navy text-gold flex items-center justify-center font-bold text-sm mb-3">
-                02
-              </div>
-              <h3 className="font-serif text-base font-semibold text-navy">UI Primitives</h3>
-              <p className="text-xs text-slate-500 mt-1">
-                Accessible Buttons, Dialogs, Drawers, Accordions, Tabs, Forms, and Toasts.
-              </p>
-            </div>
+        {/* 8. Approach / Methodology */}
+        <ApproachSection />
 
-            <div className="p-5 border border-slate-200 rounded bg-slate-50/50">
-              <div className="w-8 h-8 rounded bg-navy text-gold flex items-center justify-center font-bold text-sm mb-3">
-                03
-              </div>
-              <h3 className="font-serif text-base font-semibold text-navy">Composite Cards</h3>
-              <p className="text-xs text-slate-500 mt-1">
-                Domain cards for Services, Industries, Insights, and Case Studies with placeholder controls.
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* 9. Selected Work */}
+        <SelectedWork />
+
+        {/* 10. Media Coverage */}
+        <MediaCoverage />
+
+        {/* 11. Awards / Recognition */}
+        <AwardsSection />
+
+        {/* 12. Insights */}
+        <InsightsSection />
+
+        {/* 13. Team */}
+        <TeamSection />
+
+        {/* 14. Final CTA */}
+        <FinalCta />
       </main>
 
+      {/* 15. Footer */}
       <Footer />
     </div>
   );

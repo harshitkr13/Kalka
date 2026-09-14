@@ -1,0 +1,216 @@
+export interface ServiceData {
+  slug: string;
+  name: string;
+  category: string;
+  tagline: string;
+  shortDescription: string;
+  fullDescription: string;
+  capabilities: string[];
+  process: { step: string; title: string; description: string }[];
+  relatedIndustries: string[];
+  badge?: string;
+}
+
+export const servicesData: ServiceData[] = [
+  {
+    slug: 'public-relations',
+    name: 'Public Relations',
+    category: 'Core Practice',
+    tagline: 'Precision media architecture and earned authority.',
+    shortDescription: 'Securing commanding presence across national and international media channels with strategic narrative control.',
+    fullDescription: 'We engineer reputation capital through rigorous public relations campaigns. Our advisory model moves beyond reactive press releases to proactive narrative ownership, positioning institutional clients at the forefront of market dialogue.',
+    badge: 'Flagship Practice',
+    capabilities: [
+      'Strategic Narrative Development',
+      'Editorial Pitching & Newsroom Access',
+      'Press Conference Orchestration',
+      'Spokesperson Training & Positioning',
+      'Executive Op-Ed Placement',
+      'Media Perception Audits',
+    ],
+    process: [
+      { step: '01', title: 'Narrative Audit', description: 'Comprehensive diagnostic of market perception, media exposure, and peer positioning.' },
+      { step: '02', title: 'Strategic Blueprint', description: 'Formulating core message pillars, editorial angles, and tiered journalist outreach lists.' },
+      { step: '03', title: 'Media Execution', description: 'Direct engagement with premier business editors, broadcast producers, and industry correspondents.' },
+      { step: '04', title: 'Impact Synthesis', description: 'Quantifying narrative sentiment, reach, and qualitative message resonance.' },
+    ],
+    relatedIndustries: ['Real Estate & Infrastructure', 'Corporate & Conglomerates', 'Technology & Startups'],
+  },
+  {
+    slug: 'media-relations',
+    name: 'Media Relations',
+    category: 'Media Practice',
+    tagline: 'Deep institutional access to tier-1 business and financial editors.',
+    shortDescription: 'Cultivating enduring, high-trust alliances between corporate leadership and premier journalistic networks.',
+    fullDescription: 'Our seasoned media strategists operate directly within the rhythms of the national and international press. We ensure your corporate developments, strategic transitions, and market milestones receive the depth, nuance, and prominence they deserve.',
+    capabilities: [
+      'Tier-1 Bureau Chief Briefings',
+      'Exclusive Feature Negotiations',
+      'Broadcast & Podcast Placements',
+      'Embargo & Rapid Distribution Systems',
+      'Media Dinner & Roundtable Hosting',
+    ],
+    process: [
+      { step: '01', title: 'Story Framing', description: 'Translating corporate milestones into compelling macroeconomic and business narratives.' },
+      { step: '02', title: 'Targeted Access', description: 'Curating private briefings with beat-specific journalists who shape sector sentiment.' },
+      { step: '03', title: 'Message Defense', description: 'Pre-interview briefing packs, anticipated inquiry scenarios, and message alignment.' },
+      { step: '04', title: 'Sustained Engagement', description: 'Maintaining continual editorial dialogue beyond one-off announcements.' },
+    ],
+    relatedIndustries: ['Financial Services', 'Corporate & Conglomerates', 'Healthcare & Life Sciences'],
+  },
+  {
+    slug: 'corporate-communications',
+    name: 'Corporate Communications',
+    category: 'Advisory Practice',
+    tagline: 'Unified narrative governance for complex organizations.',
+    shortDescription: 'Aligning internal leadership, investors, regulatory stakeholders, and the public with unwavering clarity.',
+    fullDescription: 'When corporate structures span multiple operating companies, regulatory jurisdictions, and stakeholder groups, message discipline is paramount. We build integrated communications systems that reinforce institutional credibility at every touchpoint.',
+    capabilities: [
+      'Stakeholder Narrative Mapping',
+      'M&A and Transaction Communications',
+      'Annual Report & ESG Narrative Framing',
+      'Internal Leadership Alignment',
+      'Regulatory & Public Affairs Messaging',
+    ],
+    process: [
+      { step: '01', title: 'Stakeholder Mapping', description: 'Identifying key constituent groups, information consumption habits, and scrutiny zones.' },
+      { step: '02', title: 'Message Architecture', description: 'Establishing consistent corporate narrative guides across all executive communication.' },
+      { step: '03', title: 'Channel Integration', description: 'Deploying synchronized updates across shareholder portals, press releases, and internal townhalls.' },
+      { step: '04', title: 'Reputation Auditing', description: 'Measuring stakeholder trust indices and institutional sentiment over time.' },
+    ],
+    relatedIndustries: ['Corporate & Conglomerates', 'Real Estate & Infrastructure', 'Clean Energy'],
+  },
+  {
+    slug: 'reputation-management',
+    name: 'Reputation Management',
+    category: 'Reputation Practice',
+    tagline: 'Protecting and enhancing enterprise enterprise goodwill.',
+    shortDescription: 'Strategic stewardship of corporate goodwill, mitigating systemic risk and fortifying institutional prestige.',
+    fullDescription: 'A corporate reputation built over decades can face unprecedented velocity of scrutiny. We provide proactive reputation fortification, continuous digital sentiment surveillance, and long-term brand equity enhancement.',
+    capabilities: [
+      'Corporate Vulnerability Assessments',
+      'Executive Digital Footprint Audits',
+      'Search & Narrative Sentiment Balancing',
+      'Stakeholder Trust Rebuilding Plans',
+      'Third-Party Advocacy Networks',
+    ],
+    process: [
+      { step: '01', title: 'Vulnerability Diagnostic', description: 'Deep-dive audit into public records, social channels, and market perceptions.' },
+      { step: '02', title: 'Fortification Protocol', description: 'Publishing authoritative corporate benchmarks, whitepapers, and verified milestones.' },
+      { step: '03', title: 'Real-time Defense', description: 'Active sentiment monitoring systems that alert leadership to emerging narrative risks.' },
+      { step: '04', title: 'Legacy Consolidation', description: 'Embedding corporate citizenship and governance credentials into ongoing media cycles.' },
+    ],
+    relatedIndustries: ['Healthcare & Life Sciences', 'Financial Services', 'Luxury Hospitality'],
+  },
+  {
+    slug: 'thought-leadership',
+    name: 'Thought Leadership',
+    category: 'Executive Advisory',
+    tagline: 'Elevating executives into authoritative industry voices.',
+    shortDescription: 'Transforming c-suite insight into influential perspectives that guide policy, capital, and industry consensus.',
+    fullDescription: 'True thought leadership does not sell; it enlightens and commands respect. We partner with founders, chairpersons, and managing directors to articulate profound viewpoints that shape the future of their industries.',
+    capabilities: [
+      'Ghostwriting for International Publications',
+      'Keynote Speechwriting & Stage Presence',
+      'Industry Whitepapers & Survey Reports',
+      'Executive Podcast & Think-Tank Curation',
+      'Awards & Honors Submissions Advisory',
+    ],
+    process: [
+      { step: '01', title: 'Perspective Extraction', description: 'Structured partner-led executive interviews to distill original industry hypotheses.' },
+      { step: '02', title: 'Intellectual Formatting', description: 'Drafting rigorous op-eds, survey insights, and analytical essays.' },
+      { step: '03', title: 'Platform Placement', description: 'Securing publication slots in tier-1 business periodicals and elite conference stages.' },
+      { step: '04', title: 'Amplification', description: 'Syndicating executive ideas across digital professional channels and policy circles.' },
+    ],
+    relatedIndustries: ['Technology & Startups', 'Financial Services', 'Corporate & Conglomerates'],
+  },
+  {
+    slug: 'content-development',
+    name: 'Content Development',
+    category: 'Editorial Practice',
+    tagline: 'Publishing-grade storytelling for corporate leadership.',
+    shortDescription: 'High-caliber corporate publications, editorial whitepapers, and strategic brand journalism.',
+    fullDescription: 'In an era of noise, editorial quality is the ultimate differentiator. Our team of veteran financial journalists and corporate editors crafts content that satisfies both analytical scrutiny and emotional resonance.',
+    capabilities: [
+      'Corporate Brand Books & Profiles',
+      'Institutional Impact Reports',
+      'Executive Newsletters & Dispatches',
+      'Documentary Scripting & Corporate Video',
+      'Case Study Research & Publishing',
+    ],
+    process: [
+      { step: '01', title: 'Editorial Discovery', description: 'Uncovering the authentic human stories and quantitative proofs behind enterprise success.' },
+      { step: '02', title: 'Narrative Crafting', description: 'Drafting prose that meets top-tier publication standards for style and precision.' },
+      { step: '03', title: 'Design Integration', description: 'Pairing text with sophisticated corporate layouts, data charts, and photography.' },
+      { step: '04', title: 'Multi-Format Delivery', description: 'Deploying digital long-forms, print editions, and modular social excerpts.' },
+    ],
+    relatedIndustries: ['Real Estate & Infrastructure', 'Luxury Hospitality', 'Healthcare & Life Sciences'],
+  },
+  {
+    slug: 'crisis-communications',
+    name: 'Crisis Communications',
+    category: 'Emergency Advisory',
+    tagline: 'Rapid narrative defense and operational reputation containment.',
+    shortDescription: '24/7 rapid deployment advisory protecting enterprise valuation and trust under acute public pressure.',
+    badge: 'Critical Advisory',
+    fullDescription: 'When crises hit, the first hour dictates the outcome. We provide battlefield-tested crisis containment: evaluating facts in real time, neutralizing misinformation, preparing calm spokespeople, and restoring market equilibrium.',
+    capabilities: [
+      'Rapid Response Command Cell (24/7)',
+      'Dark Site & Holding Statement Protocols',
+      'Hostile Press & Social Inquiries Management',
+      'Board & Shareholder Crisis Communications',
+      'Post-Crisis Narrative Rehabilitation',
+    ],
+    process: [
+      { step: '01', title: 'Triage & Fact Gathering', description: 'Establishing immediate containment, verifying factual ground truth, and assessing liability.' },
+      { step: '02', title: 'Command Alignment', description: 'Drafting verified holding statements, briefing board members, and assigning sole spokespersons.' },
+      { step: '03', title: 'Active Engagement', description: 'Engaging credentialed journalists directly to prevent speculative headline spirals.' },
+      { step: '04', title: 'Remediation Roadmap', description: 'Post-incident narrative recovery, policy clarification, and trust rebuilding campaigns.' },
+    ],
+    relatedIndustries: ['Corporate & Conglomerates', 'Healthcare & Life Sciences', 'Real Estate & Infrastructure'],
+  },
+  {
+    slug: 'brand-positioning',
+    name: 'Brand Positioning',
+    category: 'Strategic Practice',
+    tagline: 'Carving distinct, defensible market territory for enterprises.',
+    shortDescription: 'Defining the intellectual and commercial space your organization uniquely commands.',
+    fullDescription: 'We help enterprise leadership establish unassailable competitive positioning. Through market analysis and narrative differentiation, we ensure your firm is never viewed as a commodity, but as an indispensable authority.',
+    capabilities: [
+      'Brand Architecture & Tiering',
+      'Value Proposition Engineering',
+      'Competitive Narrative Differentiation',
+      'Verbal Identity & Nomenclature Guidelines',
+      'Corporate Rebranding PR Campaigns',
+    ],
+    process: [
+      { step: '01', title: 'Market Auditing', description: 'Evaluating competitor claims, white spaces, and industry positioning benchmarks.' },
+      { step: '02', title: 'Positioning Formulation', description: 'Defining the singular, defensible value assertion that sets your brand apart.' },
+      { step: '03', title: 'Playbook Creation', description: 'Codifying verbal tone, key messages, elevator statements, and visual guidelines.' },
+      { step: '04', title: 'Market Unveiling', description: 'Executing high-visibility launch campaigns to introduce the re-energized brand.' },
+    ],
+    relatedIndustries: ['Technology & Startups', 'Luxury Hospitality', 'Corporate & Conglomerates'],
+  },
+  {
+    slug: 'digital-communications',
+    name: 'Digital Communications',
+    category: 'Digital Practice',
+    tagline: 'Strategic corporate narrative dissemination in digital spheres.',
+    shortDescription: 'Curating executive LinkedIn presence, institutional social strategy, and digital reputation ecosystems.',
+    fullDescription: "Digital channels represent an enterprise's most immediate window to investors, talent, and customers. We curate corporate digital communication that reflects the same decorum, strategy, and precision as national broadsheets.",
+    capabilities: [
+      'Executive LinkedIn Personal Brand Stewardship',
+      'Corporate Social Media Governance',
+      'Digital Crisis Monitoring & Sentiment Dashboards',
+      'Influencer & Industry Analyst Engagements',
+      'Interactive Annual Digital Presentations',
+    ],
+    process: [
+      { step: '01', title: 'Digital Audit', description: 'Assessing current channel effectiveness, follower sentiment, and executive visibility.' },
+      { step: '02', title: 'Editorial Calendar', description: 'Developing thematic quarterly content cadences aligned with business milestones.' },
+      { step: '03', title: 'High-Value Execution', description: 'Publishing data-backed carousels, video briefings, and thought-provoking op-eds.' },
+      { step: '04', title: 'Sentiment Tracking', description: 'Real-time analytics on community sentiment, executive reach, and peer benchmarks.' },
+    ],
+    relatedIndustries: ['Technology & Startups', 'Financial Services', 'Real Estate & Infrastructure'],
+  },
+];
