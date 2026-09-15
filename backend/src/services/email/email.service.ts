@@ -8,8 +8,8 @@ class EmailService {
   private isConfigured: boolean;
 
   constructor() {
-    this.fromEmail = process.env.EMAIL_FROM || 'Kalka Co. <contact@kalka.co>';
-    this.adminEmail = process.env.NOTIFICATION_RECEIVER_EMAIL || 'admin@kalka.co';
+    this.fromEmail = process.env.EMAIL_FROM || 'Kalka Co. Media Consultancy <djdurgesh8@gmail.com>';
+    this.adminEmail = process.env.NOTIFICATION_RECEIVER_EMAIL || 'djdurgesh8@gmail.com';
     this.isConfigured = Boolean(process.env.EMAIL_API_KEY);
   }
 
@@ -71,7 +71,7 @@ class EmailService {
         html: visitorMail.html,
         text: visitorMail.text,
         from: this.fromEmail,
-        replyTo: 'contact@kalka.co',
+        replyTo: 'djdurgesh8@gmail.com',
       });
     } catch (err) {
       // Non-blocking catch

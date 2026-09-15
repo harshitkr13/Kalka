@@ -118,7 +118,7 @@ export async function submitPublicContact(
       if (res.status === 503) {
         return {
           success: false,
-          error: 'Inquiry service is temporarily degraded. Please email contact@kalka.co or call our direct switchboard.',
+          error: 'Inquiry service is temporarily degraded. Please email djdurgesh8@gmail.com or call our direct switchboard.',
           errorCode: 'DATABASE_UNAVAILABLE',
         };
       }
@@ -138,7 +138,7 @@ export async function submitPublicContact(
   } catch {
     return {
       success: false,
-      error: 'Network connection failed while transmitting inquiry. Please check your connection or email contact@kalka.co directly.',
+      error: 'Network connection failed while transmitting inquiry. Please check your connection or email djdurgesh8@gmail.com directly.',
       errorCode: 'NETWORK_ERROR',
     };
   }

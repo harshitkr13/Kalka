@@ -17,53 +17,15 @@ import {
   ShieldCheck,
   HelpCircle,
   X,
-  AlertTriangle
+  AlertTriangle,
+  Clock
 } from 'lucide-react';
 import { submitPublicContact, PublicContactResponse } from '@/lib/api/leads';
-
-const offices = [
-  {
-    city: 'New Delhi (HQ)',
-    title: 'National Headquarters & Media Relations Bureau',
-    address: '[OFFICE PLACEHOLDER: Sample Corporate Address, Barakhamba Road, Connaught Place, New Delhi 110001]',
-    phone: '+91 11 4000 0000 [DEMO]',
-    email: 'delhi@kalka.co.in',
-    hours: 'Mon – Fri: 08:30 – 19:30 IST',
-    desk: 'Corporate, Public Affairs & National Bureaus',
-  },
-  {
-    city: 'Mumbai',
-    title: 'Financial & Capital Markets Practice',
-    address: '[OFFICE PLACEHOLDER: Sample Financial Desk, Nariman Point, Mumbai 400021]',
-    phone: '+91 22 6000 0000 [DEMO]',
-    email: 'mumbai@kalka.co.in',
-    hours: 'Mon – Fri: 08:30 – 20:00 IST',
-    desk: 'M&A, Investor Relations & Corporate Finance',
-  },
-  {
-    city: 'Bengaluru',
-    title: 'Technology & Enterprise Growth Practice',
-    address: '[OFFICE PLACEHOLDER: Sample Tech Practice, MG Road, Bengaluru 560001]',
-    phone: '+91 80 4500 0000 [DEMO]',
-    email: 'bengaluru@kalka.co.in',
-    hours: 'Mon – Fri: 09:00 – 19:00 IST',
-    desk: 'SaaS, DeepTech & Unicorn Scaling Desks',
-  },
-  {
-    city: 'London (Liaison)',
-    title: 'International Markets & Cross-Border Desk',
-    address: '[OFFICE PLACEHOLDER: Sample Liaison Bureau, Mayfair, London W1J 6BD, UK]',
-    phone: '+44 20 7946 0000 [DEMO]',
-    email: 'london@kalka.co.in',
-    hours: 'Mon – Fri: 09:00 – 18:00 GMT',
-    desk: 'Cross-Border Capital & Sovereign Positioning',
-  },
-];
 
 const urgencyLevels = [
   { value: 'standard', label: 'Standard Strategic Consultation (Response within 24 business hours)' },
   { value: 'priority', label: 'High-Priority Executive Briefing (Response within 4 business hours)' },
-  { value: 'crisis', label: 'Acute Crisis Incident (Immediate 60-Minute Activation by Partner)' },
+  { value: 'crisis', label: 'Acute Crisis Incident (Immediate 60-Minute Activation)' },
 ];
 
 export const ContactFormSection: React.FC = () => {
@@ -142,7 +104,7 @@ export const ContactFormSection: React.FC = () => {
       }
     } catch {
       setSubmissionError(
-        'Unable to connect to the communications server. Please try again or reach out to counsel@kalka.co.in directly.'
+        'Unable to connect to the communications server. Please try again or reach out to djdurgesh8@gmail.com directly.'
       );
     } finally {
       setIsSubmitting(false);
@@ -177,36 +139,35 @@ export const ContactFormSection: React.FC = () => {
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-widest text-gold">
-                  Active Crisis Desk
+                <span className="text-xs font-bold uppercase tracking-widest text-gold font-mono">
+                  Priority Response Desk
                 </span>
-                <span className="text-[11px] text-red-200">[HOTLINE AVAILABLE 24/7]</span>
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
                 Facing an Active Media or Regulatory Incident?
               </h3>
               <p className="text-sm text-red-200 max-w-2xl leading-relaxed">
-                Our Crisis Command Unit operates around the clock. Rapid containment protocols activate immediately upon partner notification.
+                Our crisis command protocols activate immediately. Reach our priority hotline or direct WhatsApp channel.
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 flex-shrink-0">
             <a
-              href="tel:+911140000000"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-red-800 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors"
+              href="tel:+918745001570"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-red-800 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors font-mono"
             >
               <PhoneCall className="w-4 h-4" />
-              Emergency Crisis Line
+              Call Hotline: 8745001570
             </a>
             <a
-              href="https://wa.me/?text=Urgent%20Crisis%20Inquiry%20-%20Kalka%20Co"
+              href="https://wa.me/918745001570?text=Urgent%20Consultation%20Inquiry%20-%20Kalka%20Co"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors font-mono"
             >
               <MessageSquare className="w-4 h-4" />
-              WhatsApp Crisis Desk
+              WhatsApp: 8745001570
             </a>
           </div>
         </div>
@@ -217,14 +178,14 @@ export const ContactFormSection: React.FC = () => {
           {/* Form Side */}
           <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded border border-slate-200 shadow-premium">
             <div className="mb-8 space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-gold block">
-                Initiate Scoping
+              <span className="text-xs font-semibold uppercase tracking-widest text-gold block font-mono">
+                Initiate Consultation
               </span>
               <h2 className="font-serif text-3xl font-bold text-navy">
                 Advisory Consultation Request
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Please specify your institutional context and preferred engagement horizon. All inquiries are protected by our advisory non-disclosure protocols.
+                Please specify your institutional context and preferred engagement horizon. All inquiries are protected by our advisory confidentiality protocols.
               </p>
             </div>
 
@@ -287,7 +248,7 @@ export const ContactFormSection: React.FC = () => {
                     Inquiry Securely Transmitted
                   </h3>
                   <p className="text-sm text-slate-700 max-w-md mx-auto leading-relaxed">
-                    Thank you, <strong>{formData.fullName}</strong>. Your consultation brief for <strong>{formData.organization}</strong> has been logged and routed to our practice desk.
+                    Thank you, <strong>{formData.fullName}</strong>. Your consultation brief for <strong>{formData.organization}</strong> has been logged and routed to our team.
                   </p>
                 </div>
 
@@ -318,30 +279,30 @@ export const ContactFormSection: React.FC = () => {
                   </div>
                   <div className="flex justify-between pt-1">
                     <span className="text-slate-500 font-medium">Direct Desk:</span>
-                    <span className="font-semibold text-navy">counsel@kalka.co.in</span>
+                    <span className="font-semibold text-navy font-mono">djdurgesh8@gmail.com</span>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent(
+                    href={`https://wa.me/918745001570?text=${encodeURIComponent(
                       `Hello Kalka Co. Team, following up regarding advisory enquiry reference: ${submissionResult.reference} for ${formData.organization}.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm font-mono"
                   >
                     <MessageSquare className="w-4 h-4" />
-                    WhatsApp Direct Follow-up
+                    WhatsApp Direct: 8745001570
                   </a>
                   <a
-                    href={`mailto:counsel@kalka.co.in?subject=${encodeURIComponent(
+                    href={`mailto:djdurgesh8@gmail.com?subject=${encodeURIComponent(
                       `Inquiry Reference ${submissionResult.reference} — ${formData.organization}`
                     )}`}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-navy hover:bg-navy-dark text-white text-xs font-bold uppercase tracking-wider transition-colors border border-navy-border shadow-sm"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-navy hover:bg-navy-dark text-white text-xs font-bold uppercase tracking-wider transition-colors border border-navy-border shadow-sm font-mono"
                   >
                     <Mail className="w-4 h-4 text-gold" />
-                    Official Email Counsel
+                    Email: djdurgesh8@gmail.com
                   </a>
                 </div>
 
@@ -361,11 +322,11 @@ export const ContactFormSection: React.FC = () => {
                       <strong className="block font-semibold">Submission Notice</strong>
                       <p>{submissionError}</p>
                       <p className="text-slate-600 mt-1">
-                        For urgent advisory matters, reach our direct desk at{' '}
-                        <a href="mailto:counsel@kalka.co.in" className="underline font-medium text-navy">
-                          counsel@kalka.co.in
+                        For urgent matters, reach our direct desk at{' '}
+                        <a href="mailto:djdurgesh8@gmail.com" className="underline font-medium text-navy font-mono">
+                          djdurgesh8@gmail.com
                         </a>{' '}
-                        or call <span className="font-medium text-navy">+91 11 4000 0000</span>.
+                        or call <span className="font-medium text-navy font-mono">+91 87450 01570</span> / <span className="font-medium text-navy font-mono">+91 76830 15257</span>.
                       </p>
                     </div>
                   </div>
@@ -392,7 +353,7 @@ export const ContactFormSection: React.FC = () => {
                     </label>
                     <Input
                       required
-                      placeholder="e.g. Alok Singhania"
+                      placeholder="e.g. Alok Sharma"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     />
@@ -404,7 +365,7 @@ export const ContactFormSection: React.FC = () => {
                     <Input
                       required
                       type="email"
-                      placeholder="a.singhania@group.in"
+                      placeholder="name@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
@@ -418,17 +379,17 @@ export const ContactFormSection: React.FC = () => {
                     </label>
                     <Input
                       required
-                      placeholder="e.g. Apex Infrastructure Ltd."
+                      placeholder="e.g. Enterprise Ltd."
                       value={formData.organization}
                       onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
-                      Designation / Board Role
+                      Designation / Role
                     </label>
                     <Input
-                      placeholder="e.g. Managing Director / Chief Counsel"
+                      placeholder="e.g. Managing Director / Communications Head"
                       value={formData.designation}
                       onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
                     />
@@ -438,12 +399,12 @@ export const ContactFormSection: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
-                      Direct Phone / Secure Mobile *
+                      Direct Phone *
                     </label>
                     <Input
                       required
                       type="tel"
-                      placeholder="+91 98100 00000"
+                      placeholder="+91 87450 01570"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
@@ -454,7 +415,7 @@ export const ContactFormSection: React.FC = () => {
                     </label>
                     <Input
                       type="tel"
-                      placeholder="+91 98100 00000"
+                      placeholder="+91 87450 01570"
                       value={formData.whatsapp}
                       onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                     />
@@ -492,7 +453,7 @@ export const ContactFormSection: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
-                    Executive Brief / Narrative Context *
+                    Brief / Communication Objectives *
                   </label>
                   <Textarea
                     required
@@ -536,7 +497,7 @@ export const ContactFormSection: React.FC = () => {
           {/* Right: Direct Desks & Confidentiality FAQs */}
           <div className="lg:col-span-5 space-y-8">
             {/* Direct Desks Card */}
-            <div className="bg-navy p-8 rounded text-white border border-navy-border space-y-6">
+            <div className="bg-navy p-8 rounded text-white border border-navy-border space-y-6 shadow-premium">
               <h3 className="font-serif text-2xl font-bold text-white">
                 Direct Contact Desks
               </h3>
@@ -545,9 +506,9 @@ export const ContactFormSection: React.FC = () => {
                 <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
                   <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">General & Scoping Counsel</strong>
-                    <a href="mailto:counsel@kalka.co.in" className="text-gold hover:underline">
-                      counsel@kalka.co.in
+                    <strong className="block text-white">Business Enquiries & Counsel</strong>
+                    <a href="mailto:djdurgesh8@gmail.com" className="text-gold hover:underline font-mono">
+                      djdurgesh8@gmail.com
                     </a>
                   </div>
                 </div>
@@ -555,9 +516,9 @@ export const ContactFormSection: React.FC = () => {
                 <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
                   <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">Press & Media Desk</strong>
-                    <a href="mailto:press@kalka.co.in" className="text-gold hover:underline">
-                      press@kalka.co.in
+                    <strong className="block text-white">Careers & Talent</strong>
+                    <a href="mailto:djdurgesh8@gmail.com" className="text-gold hover:underline font-mono">
+                      djdurgesh8@gmail.com
                     </a>
                   </div>
                 </div>
@@ -565,15 +526,45 @@ export const ContactFormSection: React.FC = () => {
                 <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
                   <PhoneCall className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">Executive Switchboard</strong>
-                    <span className="text-slate-300">+91 (0) 11 4000 0000</span>
+                    <strong className="block text-white">Direct Telephones</strong>
+                    <div className="space-y-1 mt-1 font-mono">
+                      <a href="tel:+918745001570" className="block text-slate-300 hover:text-white">
+                        +91 87450 01570
+                      </a>
+                      <a href="tel:+917683015257" className="block text-slate-300 hover:text-white">
+                        +91 76830 15257
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+                  <MessageSquare className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-white">WhatsApp Desk</strong>
+                    <a
+                      href="https://wa.me/918745001570?text=Hello%20Kalka%20Co.%20Media%20Consultancy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-400 hover:underline font-mono"
+                    >
+                      +91 87450 01570
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+                  <Clock className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-white">Business Hours</strong>
+                    <span className="text-slate-300 font-mono">09:30 - 18:30 IST</span>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4 border-t border-navy-border/60">
                 <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Notice: Kalka Co. does not accept unsolicited press releases for broad dissemination without prior advisory representation.
+                  Notice: Kalka Co. Media Consultancy does not accept unsolicited press releases for broad dissemination without prior advisory representation.
                 </p>
               </div>
             </div>
@@ -589,57 +580,68 @@ export const ContactFormSection: React.FC = () => {
               </p>
               <div className="pt-2 text-xs text-slate-500">
                 <span>Direct inquiries regarding conflicts: </span>
-                <strong className="text-navy">compliance@kalka.co.in</strong>
+                <strong className="text-navy font-mono">djdurgesh8@gmail.com</strong>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Global Hubs Grid */}
+        {/* Location & Presence */}
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-widest text-gold block">
-              Presence & Bureaus [OFFICE PLACEHOLDER]
+            <span className="text-xs font-semibold uppercase tracking-widest text-gold block font-mono">
+              Firm Location
             </span>
             <h2 className="font-serif text-3xl font-bold text-navy">
-              Consultancy Hubs & Regional Desks [DEMO]
+              Headquarters & Communications Bureau
             </h2>
             <p className="text-sm text-slate-600">
-              Sample regional presence across strategic commercial centers and international capital hubs.
+              National operations based in Haryana.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {offices.map((office) => (
-              <div
-                key={office.city}
-                className="bg-white p-6 rounded border border-slate-200 hover:shadow-card transition-all flex flex-col justify-between"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-serif text-lg font-bold text-navy">
-                      {office.city}
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-500 font-bold uppercase tracking-wider">
-                      [OFFICE PLACEHOLDER]
-                    </span>
-                  </div>
-                  <p className="text-xs font-semibold text-gold-dark">
-                    {office.title}
-                  </p>
-                  <p className="text-xs text-slate-600 leading-relaxed flex items-start gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0 mt-0.5" />
-                    <span>{office.address}</span>
-                  </p>
+          <div className="max-w-xl mx-auto">
+            <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-card space-y-6">
+              <div className="space-y-2 border-b border-slate-100 pb-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-serif text-2xl font-bold text-navy">
+                    Faridabad
+                  </span>
+                  <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-navy/5 text-navy font-mono font-bold uppercase tracking-wider">
+                    Headquarters
+                  </span>
+                </div>
+                <p className="text-xs font-semibold text-gold-dark font-mono">
+                  Faridabad, Haryana 121003
+                </p>
+              </div>
+
+              <div className="space-y-3 text-xs text-slate-600">
+                <div className="flex items-center gap-2 text-navy font-medium">
+                  <MapPin className="w-4 h-4 text-gold flex-shrink-0" />
+                  <span>Faridabad, Haryana 121003</span>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 space-y-1.5 text-xs text-slate-500">
-                  <p><strong>Desk:</strong> {office.desk}</p>
-                  <p><strong>Hours:</strong> {office.hours}</p>
-                  <p><strong>Email:</strong> <span className="text-navy">{office.email}</span></p>
+                <div>
+                  <a
+                    href="https://maps.app.goo.gl/fo8sk45WeLVydMjv5?g_st=ic"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 text-gold" />
+                    <span>View on Google Maps</span>
+                  </a>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-[11px]">
+                  <p><strong>Business Hours:</strong> 09:30 - 18:30 IST</p>
+                  <p><strong>Phones:</strong> +91 87450 01570 / +91 76830 15257</p>
+                  <p><strong>WhatsApp:</strong> 8745001570</p>
+                  <p><strong>Email:</strong> <span className="text-navy font-semibold">djdurgesh8@gmail.com</span></p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 

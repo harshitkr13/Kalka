@@ -154,8 +154,8 @@ WHAT HAPPENS NEXT
 DIRECT CONTACT
 --------------
 If you require immediate clarification or need to augment your brief:
-Email:  contact@kalka.co
-Phone:  +91 11 4000 0000
+Email:  djdurgesh8@gmail.com
+Phone:  +91 87450 01570 / +91 76830 15257
 
 Sincerely,
 
@@ -183,20 +183,20 @@ Kalka Co. Media Consultancy
 <body>
   <div class="card">
     <div class="header">
-      <div class="brand">KALKA CO.</div>
-      <div class="subbrand">Strategic Communications & Advisory</div>
+      <div class="brand">KALKA CO. MEDIA CONSULTANCY</div>
+      <div class="subbrand">Strategic Communication. Lasting Impact.</div>
     </div>
     <div class="content">
       <h2>Inquiry Securely Transmitted</h2>
       <p>Dear ${payload.fullName},</p>
-      <p>Thank you for initiating communication with Kalka Co. on behalf of <strong>${payload.company}</strong>.</p>
+      <p>Thank you for initiating communication with Kalka Co. Media Consultancy on behalf of <strong>${payload.company}</strong>.</p>
       <p>Your strategic brief has been routed to our practice directors. All initial inquiries are handled with strict discretion and protected by our advisory non-disclosure protocols.</p>
       
       <div class="callout">
         <strong>Engagement Protocol:</strong> Our practice lead will evaluate your requirements and provide an initial scoping response within standard operating horizons (24 business hours).
       </div>
 
-      <p>If you have urgent documents or supplementary context to provide, please reply directly to this confirmation or reach our executive desk at <a href="mailto:contact@kalka.co" style="color: #d97706; text-decoration: none; font-weight: 500;">contact@kalka.co</a>.</p>
+      <p>If you have urgent documents or supplementary context to provide, please reply directly to this confirmation or reach our executive desk at <a href="mailto:djdurgesh8@gmail.com" style="color: #d97706; text-decoration: none; font-weight: 500;">djdurgesh8@gmail.com</a>.</p>
 
       <p style="margin-top: 24px;">Sincerely,<br><strong>Executive Advisory Desk</strong><br>Kalka Co. Media Consultancy</p>
     </div>

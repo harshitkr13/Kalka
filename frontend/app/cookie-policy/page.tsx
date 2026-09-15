@@ -98,7 +98,7 @@ export default function CookiePolicyPage() {
                 4. Inquiries Regarding Cookies
               </h2>
               <p className="text-xs text-slate-600">
-                For questions regarding cookie deployment, contact: <strong>privacy@kalka.co.in</strong>.
+                For questions regarding cookie deployment, contact: <strong>djdurgesh8@gmail.com</strong>.
               </p>
             </div>
 

@@ -10,23 +10,23 @@ export const AboutTeaser: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Editorial Narrative */}
           <div className="lg:col-span-7 space-y-6">
-            <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
+            <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block font-mono">
               About Kalka Co. Media Consultancy
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-navy leading-tight">
-              We operate at the critical intersection of corporate narrative, market perception, and enterprise valuation.
+              Strategic Communication. Lasting Impact.
             </h2>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-light">
-              Kalka Co. is an elite media consultancy and public relations advisory firm. We counsel corporate boards, managing directors, and visionary founders through complex milestones, acute media scrutiny, and long-term reputation architecture.
+              Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management.
             </p>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Our seasoned counselors do not rely on automated distribution or superficial spin. We combine senior newsroom instincts with rigorous corporate strategy, ensuring your voice commands authority across the institutions that matter most.
+              We combine newsroom instincts with structured corporate strategy, ensuring your voice commands authority across the institutions and stakeholder communities that matter most.
             </p>
 
             <div className="pt-2">
               <Link href="/about">
                 <Button variant="outline" size="md" rightIcon={<ArrowRight className="w-4 h-4" />}>
-                  Explore Our Philosophy & Counsel
+                  Explore Our Firm
                 </Button>
               </Link>
             </div>
@@ -35,31 +35,31 @@ export const AboutTeaser: React.FC = () => {
           {/* Right Highlight Box */}
           <div className="lg:col-span-5 bg-navy-deep text-white p-8 sm:p-10 rounded border border-navy-border shadow-elevated space-y-6">
             <div className="border-b border-navy-border pb-4">
-              <span className="text-xs uppercase tracking-widest text-gold font-semibold block">
+              <span className="text-xs uppercase tracking-widest text-gold font-semibold block font-mono">
                 The Kalka Standard
               </span>
               <h3 className="font-serif text-xl font-semibold text-white mt-1">
-                Strategic Discipline in Every Word
+                Strategic Discipline in Every Engagement
               </h3>
             </div>
 
             <ul className="space-y-4 text-sm text-slate-300">
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
-                <span><strong>Tier-1 Newsroom Access:</strong> Decades of direct relationships with senior editors and correspondents.</span>
+                <span><strong>Strategic Communication:</strong> Clear, disciplined messaging that positions organizations for enduring visibility.</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
-                <span><strong>Crisis Readiness:</strong> 24/7 dedicated rapid command cell defending reputations under acute public scrutiny.</span>
+                <span><strong>Media Relations:</strong> Direct editorial dialogue with business journalists, editors, and industry publications.</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
-                <span><strong>Data Integrity:</strong> Strict governance protecting client confidences and verified milestones.</span>
+                <span><strong>Reputation Management:</strong> Protecting institutional goodwill and navigating high-stakes public dialogue.</span>
               </li>
             </ul>
 
-            <div className="pt-4 border-t border-navy-border text-xs text-slate-400">
-              [SAMPLE STRATEGIC FOUNDATION BENCHMARK]
+            <div className="pt-4 border-t border-navy-border text-xs text-slate-400 font-mono">
+              Faridabad, Haryana • Strategic Counsel Desk
             </div>
           </div>
         </div>

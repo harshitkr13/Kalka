@@ -25,7 +25,7 @@ describe('Public Content API Endpoints', () => {
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(res.body.data.siteName).toBe('Kalka Co. Media Consultancy');
-    expect(res.body.data.contactEmail).toBe('contact@kalka.co');
+    expect(res.body.data.contactEmail).toBe('djdurgesh8@gmail.com');
   });
 
   it('GET /api/services should return standard envelope with list', async () => {

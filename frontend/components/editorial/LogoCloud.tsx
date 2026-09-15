@@ -1,29 +1,20 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { associatedClients } from '@/lib/content/clients';
 
 export interface LogoItem {
   name: string;
-  category: string;
+  category?: string;
+  approvalStatus?: string;
 }
 
 export interface LogoCloudProps {
   title?: string;
-  logos?: LogoItem[];
   className?: string;
 }
 
-const defaultLogos: LogoItem[] = [
-  { name: 'Apex Capital Advisors', category: 'Financial Advisory' },
-  { name: 'Vanguard Realty Group', category: 'Real Estate' },
-  { name: 'Meridian Health Network', category: 'Healthcare' },
-  { name: 'Solaria Infrastructure', category: 'Clean Energy' },
-  { name: 'Stratum Global Logistics', category: 'Supply Chain' },
-  { name: 'Kalyan Hospitality', category: 'Luxury Travel' },
-];
-
 export const LogoCloud: React.FC<LogoCloudProps> = ({
-  title = 'Sample Sector Practice Engagements [DEMO CLIENT EXAMPLES]',
-  logos = defaultLogos,
+  title = 'Associated Brands & Organizations',
   className,
 }) => {
   return (
@@ -34,26 +25,23 @@ export const LogoCloud: React.FC<LogoCloudProps> = ({
             {title}
           </p>
         )}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
-          {logos.map((logo, idx) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
+          {associatedClients.map((client, idx) => (
             <div
               key={idx}
-              className="p-4 border border-slate-200/80 bg-white rounded flex flex-col items-center justify-center min-h-[80px] hover:border-gold/50 transition-colors"
+              className="p-5 border border-slate-200/80 bg-white rounded-lg flex flex-col items-center justify-center min-h-[90px] shadow-sm hover:border-gold/50 transition-colors"
             >
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 font-bold uppercase tracking-wider mb-1">
-                [DEMO CLIENT]
+              <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-800 border border-amber-500/20 font-semibold uppercase tracking-wider mb-2">
+                PENDING APPROVAL
               </span>
-              <span className="font-serif text-sm font-semibold text-navy text-center">
-                {logo.name}
-              </span>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider mt-1">
-                {logo.category}
+              <span className="font-serif text-sm sm:text-base font-bold text-navy text-center">
+                {client.name}
               </span>
             </div>
           ))}
         </div>
         <p className="text-[11px] text-slate-400 mt-6 italic">
-          * Note: In accordance with data integrity guidelines (05_DATA_SOURCES), client partner marks will be installed upon formal client approval.
+          * Note: Public display marked as Pending Approval in accordance with firm advisory governance.
         </p>
       </div>
     </div>

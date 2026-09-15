@@ -25,10 +25,10 @@ export interface ISettings extends Document {
 const SettingsSchema = new Schema<ISettings>(
   {
     siteName: { type: String, default: 'Kalka Co. Media Consultancy', trim: true },
-    siteTagline: { type: String, default: 'Strategic Media Consultancy', trim: true },
-    contactEmail: { type: String, default: 'contact@kalka.co', trim: true },
-    contactPhone: { type: String, default: '+91 11 0000 0000', trim: true },
-    primaryOffice: { type: String, default: 'New Delhi', trim: true },
+    siteTagline: { type: String, default: 'Strategic Communication. Lasting Impact.', trim: true },
+    contactEmail: { type: String, default: 'djdurgesh8@gmail.com', trim: true },
+    contactPhone: { type: String, default: '+91 87450 01570 / +91 76830 15257', trim: true },
+    primaryOffice: { type: String, default: 'Faridabad, Haryana 121003', trim: true },
     socialLinks: {
       linkedin: { type: String, trim: true },
       twitter: { type: String, trim: true },
@@ -36,10 +36,15 @@ const SettingsSchema = new Schema<ISettings>(
       youtube: { type: String, trim: true },
     },
     seoDefaults: {
-      title: { type: String, default: 'Kalka Co. — Strategic Media Consultancy', trim: true },
+      title: {
+        type: String,
+        default: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+        trim: true,
+      },
       description: {
         type: String,
-        default: 'High-stakes media consultancy and strategic communications advisory.',
+        default:
+          'Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management.',
         trim: true,
       },
       ogImage: { type: String, trim: true },

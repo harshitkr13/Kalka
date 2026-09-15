@@ -1,54 +1,30 @@
 import React from 'react';
-import Link from 'next/link';
-import { ArrowRight, Quote } from 'lucide-react';
+import { Radio } from 'lucide-react';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
-import { mediaMentionsData } from '@/lib/content/mediaMentions';
 
 export const MediaCoverage: React.FC = () => {
   return (
     <section className="py-20 lg:py-28 bg-slate-50/50 border-b border-slate-200 text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          overline="Illustrative Media Coverage [DEMO ARCHIVE]"
-          title="Perspective & Commentary Across Commercial Periodicals [SAMPLE]"
-          description="Demonstration media citations and analytical perspectives illustrating executive narrative positioning [SAMPLE ARCHIVE]."
+          overline="Media & Press"
+          title="Media Coverage & Press Mentions"
+          description="Perspectives, commentary, and media features across publications."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {mediaMentionsData.map((item) => (
-            <div
-              key={item.id}
-              className="p-7 bg-white border border-slate-200 rounded shadow-subtle flex flex-col justify-between space-y-6 hover:border-gold transition-colors"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Quote className="w-6 h-6 text-gold-dark/60" />
-                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider">
-                    [DEMO COVERAGE]
-                  </span>
-                </div>
-                <p className="text-sm text-slate-700 italic leading-relaxed">
-                  &ldquo;{item.quoteExcerpt}&rdquo;
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100">
-                <span className="text-xs font-semibold text-navy block font-serif">
-                  {item.publication}
-                </span>
-                <span className="text-[11px] text-slate-400 block mt-0.5">
-                  {item.headline} • {item.date}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <Link href="/media-mentions" className="text-xs font-semibold uppercase tracking-wider text-navy hover:text-gold-dark inline-flex items-center gap-1 transition-colors">
-            <span>View All Media Features</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+        <div className="p-10 sm:p-12 rounded-xl bg-white border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+            <Radio className="w-6 h-6 text-gold-dark" />
+          </div>
+          <h3 className="font-serif text-xl sm:text-2xl font-bold text-navy">
+            Media Coverage Information Coming Soon
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Verified media features, press mentions, and commentary archives are currently being compiled. For press inquiries, contact{' '}
+            <a href="mailto:djdurgesh8@gmail.com" className="text-navy font-semibold underline">
+              djdurgesh8@gmail.com
+            </a>.
+          </p>
         </div>
       </div>
     </section>

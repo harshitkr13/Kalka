@@ -1,67 +1,27 @@
 import React from 'react';
-import Link from 'next/link';
-import { ArrowRight, Users } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
-import { teamData } from '@/lib/content/team';
-import { Button } from '@/components/ui/Button';
 
 export const TeamSection: React.FC = () => {
-  const leadership = teamData.slice(0, 3);
-
   return (
     <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          overline="Advisory Leadership [SAMPLE PROFILES]"
-          title="Seasoned Counselors Guiding High-Stakes Mandates"
-          description="Our partners bring decades of battlefield experience from premier newsrooms, corporate boardrooms, and crisis command centers."
+          overline="Advisory Team"
+          title="Advisory Leadership"
+          description="Strategic communications counselors guiding high-stakes mandates."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {leadership.map((member) => (
-            <div
-              key={member.id}
-              className="p-7 border border-slate-200 rounded bg-slate-50/40 space-y-4 hover:border-gold transition-colors"
-            >
-              <div className="flex items-center justify-between">
-                <div className="w-16 h-16 rounded bg-navy text-gold font-serif font-bold text-xl flex items-center justify-center">
-                  <Users className="w-7 h-7" />
-                </div>
-                <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider">
-                  [SAMPLE PROFILE]
-                </span>
-              </div>
-
-              <div>
-                <h3 className="font-serif text-xl font-semibold text-navy">
-                  {member.name}
-                </h3>
-                <span className="text-xs uppercase tracking-wider text-gold-dark font-semibold block mt-0.5">
-                  {member.designation} • {member.practiceArea}
-                </span>
-              </div>
-
-              <p className="text-sm text-slate-600 leading-relaxed pt-2 border-t border-slate-200">
-                {member.bio}
-              </p>
-
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {member.expertise.map((exp) => (
-                  <span key={exp} className="text-[10px] px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-600">
-                    {exp}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-14 text-center">
-          <Link href="/team">
-            <Button variant="outline" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Meet the Full Advisory Leadership Team
-            </Button>
-          </Link>
+        <div className="p-10 sm:p-12 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+            <Users className="w-6 h-6 text-gold-dark" />
+          </div>
+          <h3 className="font-serif text-xl sm:text-2xl font-bold text-navy">
+            Leadership Information Coming Soon
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Advisory leadership and practice counselor profiles are currently being updated. For practice leads and consultations, please initiate an inquiry through our contact desk.
+          </p>
         </div>
       </div>
     </section>

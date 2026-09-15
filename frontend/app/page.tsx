@@ -17,10 +17,12 @@ import { FinalCta } from '@/sections/home/FinalCta';
 
 export const metadata: Metadata = {
   title: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
-  description: 'Advising market leaders, corporate boards, and transformative organizations on high-stakes narrative positioning, crisis communications, and media impact.',
+  description:
+    'Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management.',
   openGraph: {
     title: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
-    description: 'Premier media relations, corporate narrative governance, and executive thought leadership consultancy.',
+    description:
+      'Strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement.',
     url: 'https://kalka.co',
     siteName: 'Kalka Co. Media Consultancy',
     type: 'website',
@@ -37,10 +39,10 @@ export default function HomePage() {
         {/* 2. Hero */}
         <Hero
           badge="Strategic Communication. Lasting Impact."
-          headline="We engineer authority and insulate corporate reputation in pivotal moments."
-          subheadline="Kalka Co. provides high-stakes media relations, executive thought leadership, and 24/7 crisis containment to institutional market leaders."
+          headline="Building Visibility, Strengthening Reputation, Creating Lasting Impact."
+          subheadline="Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management."
           primaryCtaLabel="Start a Conversation"
-          secondaryCtaLabel="Explore Case Studies"
+          secondaryCtaLabel="Explore Advisory Practices"
         />
 
         {/* 3. Trust / Client Logos */}

@@ -2,13 +2,12 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
-import { teamData } from '@/lib/content/team';
+import { Users } from 'lucide-react';
 import { FinalCta } from '@/sections/home/FinalCta';
-import { Users, Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Advisory Leadership & Senior Counselors | Kalka Co.',
-  description: 'Meet the senior leadership, practice directors, and media strategists guiding Kalka Co. engagements.',
+  title: 'Advisory Leadership | Kalka Co. Media Consultancy',
+  description: 'Advisory leadership at Kalka Co. Media Consultancy.',
 };
 
 export default function TeamPage() {
@@ -19,72 +18,36 @@ export default function TeamPage() {
       <main className="flex-1">
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">
-              Leadership Council [SAMPLE PROFILES]
+            <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block font-mono">
+              Advisory Leadership
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
-              Advisory Leadership & Senior Practice Counsel
+              Advisory Leadership & Practice Counsel
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed font-light">
-              Our partners combine senior newsroom pedigree, corporate board experience, and crisis management precision.
+              Seasoned communications strategists guiding corporate narratives, media relations, and reputation governance.
             </p>
           </div>
         </section>
 
         <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
-          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <SectionHeader
-              overline="Practice Directors [SAMPLE ROSTER]"
-              title="Senior Counselors Leading Marquee Engagements"
-              description="Each client mandate is directed by dedicated partners who bring deep sector alliances and unvarnished strategic perspective."
+              overline="Leadership"
+              title="Practice Directors & Counselors"
+              description="Guiding corporate and media relations mandates."
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamData.map((member) => (
-                <div
-                  key={member.id}
-                  className="p-8 border border-slate-200 rounded bg-white hover:border-gold/80 hover:shadow-elevated transition-all duration-200 flex flex-col justify-between space-y-6"
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="w-16 h-16 rounded bg-navy text-gold flex items-center justify-center font-serif font-bold text-xl">
-                        <Users className="w-7 h-7" />
-                      </div>
-                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider">
-                        [SAMPLE PROFILE]
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-serif text-2xl font-semibold text-navy">
-                        {member.name}
-                      </h3>
-                      <span className="text-xs uppercase tracking-wider text-gold-dark font-semibold block mt-1">
-                        {member.designation} • {member.practiceArea}
-                      </span>
-                    </div>
-                    <p className="text-sm text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
-                      {member.bio}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100 space-y-3">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
-                      Core Specializations
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {member.expertise.map((exp) => (
-                        <span key={exp} className="text-xs px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-medium">
-                          {exp}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 p-6 bg-slate-50 border border-slate-200 rounded text-center text-xs text-slate-500">
-              * Note: In compliance with project data governance (05_DATA_SOURCES), executive profiles are presented with verified practice scope placeholders during active development.
+            <div className="p-12 sm:p-16 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+              <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+                <Users className="w-7 h-7 text-gold-dark" />
+              </div>
+              <h3 className="font-serif text-2xl font-bold text-navy">
+                Leadership Information Coming Soon
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Advisory leadership and practice counselor profiles are currently being updated. For practice leads and consultations, please initiate an inquiry through our contact desk.
+              </p>
             </div>
           </div>
         </section>

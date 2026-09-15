@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
               <div className="p-4 bg-slate-50 rounded border border-slate-200 text-xs space-y-1">
                 <p><strong>Office:</strong> Data Protection & Compliance Cell</p>
                 <p><strong>Entity:</strong> Kalka Co. Media Consultancy</p>
-                <p><strong>Email:</strong> privacy@kalka.co.in</p>
+                <p><strong>Email:</strong> djdurgesh8@gmail.com</p>
                 <p><strong>Address:</strong> [OFFICE PLACEHOLDER: Registered Address Pending Formal Filing, New Delhi 110001]</p>
               </div>
             </div>

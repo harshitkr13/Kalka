@@ -5,7 +5,7 @@ export const TrustSection: React.FC = () => {
   return (
     <section aria-label="Institutional Trust" className="border-b border-slate-200">
       <LogoCloud
-        title="Trusted Strategic Communications Advisor Across High-Stakes Sectors [SAMPLE DEMO ROSTER]"
+        title="Associated Brands & Organizations"
       />
     </section>
   );

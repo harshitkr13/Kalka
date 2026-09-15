@@ -10,19 +10,15 @@ export async function getPublicSettings(_req: Request, res: Response, next: Next
       // Fallback default settings if none created yet
       settings = {
         siteName: 'Kalka Co. Media Consultancy',
-        siteTagline: 'Strategic Media Consultancy',
-        contactEmail: 'contact@kalka.co',
-        contactPhone: '+91 11 0000 0000',
-        primaryOffice: 'New Delhi',
-        socialLinks: {
-          linkedin: 'https://linkedin.com',
-          twitter: 'https://twitter.com',
-          instagram: 'https://instagram.com',
-          youtube: 'https://youtube.com',
-        },
+        siteTagline: 'Strategic Communication. Lasting Impact.',
+        contactEmail: 'djdurgesh8@gmail.com',
+        contactPhone: '+91 87450 01570 / +91 76830 15257',
+        primaryOffice: 'Faridabad, Haryana 121003',
+        socialLinks: {},
         seoDefaults: {
-          title: 'Kalka Co. — Strategic Media Consultancy',
-          description: 'High-stakes media consultancy and strategic communications advisory.',
+          title: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+          description:
+            'Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management.',
         },
         isMaintenanceMode: false,
       } as unknown as typeof settings;
