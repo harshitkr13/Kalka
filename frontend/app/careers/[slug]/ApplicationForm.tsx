@@ -94,8 +94,6 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
       <div className="space-y-2">
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-gold/10 text-gold-dark text-[11px] font-semibold uppercase tracking-wider">
           <span>Apply for this Role</span>
-          <span>|</span>
-          <span className="text-slate-400 font-normal">[SAMPLE / DEMO]</span>
         </div>
         <h3 className="font-serif text-2xl font-bold text-navy">
           Candidate Application

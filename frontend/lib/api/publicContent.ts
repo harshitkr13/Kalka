@@ -347,24 +347,23 @@ export async function getPublicClients(): Promise<PublicClientData[]> {
     if (res.ok) {
       const body = await res.json();
       if (body.success && Array.isArray(body.data) && body.data.length > 0) {
-        return body.data.map((item: any): PublicClientData => ({
-          name: item.name,
-          slug: item.slug,
-          industry: item.industry,
-          shortDescription: item.shortDescription || '',
-          approvalStatus: item.approvalStatus || 'PENDING_APPROVAL',
-          logo: item.approvalStatus === 'APPROVED' ? item.logo : undefined,
-          logoAsset: item.approvalStatus === 'APPROVED' ? item.logoAsset : undefined,
-        }));
+        return body.data
+          .filter((item: any) => item.approvalStatus === 'APPROVED')
+          .map((item: any): PublicClientData => ({
+            name: item.name,
+            slug: item.slug,
+            industry: item.industry,
+            shortDescription: item.shortDescription || '',
+            approvalStatus: 'APPROVED',
+            logo: item.logo,
+            logoAsset: item.logoAsset,
+          }));
       }
     }
   } catch {
-    // Fallback to static list
+    // Graceful fallback
   }
-  return associatedClients.map((c) => ({
-    name: c.name,
-    approvalStatus: 'PENDING APPROVAL',
-  }));
+  return [];
 }
 
 /**

@@ -1,17 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Modal } from '@/components/ui/Modal';
 import { Badge } from '@/components/ui/Badge';
+import { ImageIcon } from 'lucide-react';
 
 export interface GalleryItemData {
   id: string;
   title: string;
   category: string;
-  datePlaceholder: string;
-  description: string;
+  datePlaceholder?: string;
+  description?: string;
   caption?: string;
+  imageUrl?: string;
 }
 
 export interface GalleryProps {
@@ -32,24 +35,40 @@ export const Gallery: React.FC<GalleryProps> = ({ items, className }) => {
             className="group cursor-pointer bg-white border border-slate-200 rounded overflow-hidden hover:border-gold hover:shadow-elevated transition-all duration-200 text-left"
           >
             {/* Visual Frame */}
-            <div className="h-44 bg-navy-deep flex items-center justify-center p-6 text-center text-slate-400 group-hover:bg-navy transition-colors">
-              <div>
-                <Badge variant="gold" size="sm" className="mb-2">
-                  {item.category}
-                </Badge>
-                <p className="text-xs font-serif text-slate-300">
-                  [DEMO GALLERY MEDIA]
-                </p>
-              </div>
+            <div className="relative h-48 bg-navy-deep overflow-hidden flex items-center justify-center text-center text-slate-400 group-hover:bg-navy transition-colors">
+              {item.imageUrl ? (
+                <Image
+                  src={item.imageUrl}
+                  alt={item.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              ) : (
+                <div className="p-6">
+                  <Badge variant="gold" size="sm" className="mb-2">
+                    {item.category}
+                  </Badge>
+                  <div className="flex items-center justify-center gap-1.5 text-xs text-slate-400">
+                    <ImageIcon className="w-4 h-4 text-gold/60" />
+                    <span>Visual Asset</span>
+                  </div>
+                </div>
+              )}
             </div>
             {/* Info */}
             <div className="p-4">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
-                {item.datePlaceholder}
-              </span>
+              {item.datePlaceholder && (
+                <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+                  {item.datePlaceholder}
+                </span>
+              )}
               <h4 className="font-serif text-base font-semibold text-navy mt-1 group-hover:text-gold-dark transition-colors">
                 {item.title}
               </h4>
+              {item.caption && (
+                <p className="text-xs text-slate-600 mt-1 line-clamp-2">{item.caption}</p>
+              )}
             </div>
           </div>
         ))}
@@ -61,23 +80,38 @@ export const Gallery: React.FC<GalleryProps> = ({ items, className }) => {
           isOpen={!!selectedItem}
           onClose={() => setSelectedItem(null)}
           title={selectedItem.title}
-          description={`${selectedItem.category} • ${selectedItem.datePlaceholder}`}
+          description={
+            [selectedItem.category, selectedItem.datePlaceholder].filter(Boolean).join(' • ')
+          }
           size="lg"
         >
           <div className="space-y-4">
-            <div className="h-64 bg-navy-deep rounded flex items-center justify-center text-slate-300 text-center p-8">
-              <div>
-                <p className="font-serif text-lg font-semibold text-gold">
-                  [DEMO HIGH-RESOLUTION MEDIA VIEWER]
-                </p>
-                <p className="text-xs text-slate-400 mt-2">
-                  Verified assets will load via Cloudinary media manager in production.
-                </p>
-              </div>
+            <div className="relative h-72 sm:h-96 bg-navy-deep rounded overflow-hidden flex items-center justify-center">
+              {selectedItem.imageUrl ? (
+                <Image
+                  src={selectedItem.imageUrl}
+                  alt={selectedItem.title}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1200px) 100vw, 1000px"
+                />
+              ) : (
+                <div className="text-slate-300 text-center p-8">
+                  <ImageIcon className="w-12 h-12 text-gold/60 mx-auto mb-3" />
+                  <p className="font-serif text-lg font-semibold text-gold">
+                    {selectedItem.title}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-2">
+                    Visual archive asset record.
+                  </p>
+                </div>
+              )}
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed">
-              {selectedItem.description}
-            </p>
+            {(selectedItem.description || selectedItem.caption) && (
+              <p className="text-sm text-slate-700 leading-relaxed">
+                {selectedItem.description || selectedItem.caption}
+              </p>
+            )}
           </div>
         </Modal>
       )}

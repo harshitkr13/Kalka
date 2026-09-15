@@ -30,12 +30,9 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps & { className?: string }
             <Badge variant="gold" size="sm">
               {clientIndustry}
             </Badge>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-navy-surface border border-navy-border text-slate-300 font-bold uppercase tracking-wider">
-              [SAMPLE CASE STUDY]
-            </span>
           </div>
           <p className="text-[11px] uppercase tracking-widest text-slate-400 font-semibold">
-            [DEMO METRIC]
+            Key Metric
           </p>
           <div className="font-serif text-4xl lg:text-5xl font-bold text-gold mt-2">
             {metricPlaceholder}
@@ -47,7 +44,7 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps & { className?: string }
 
         <div className="mt-8 pt-4 border-t border-navy-border relative z-10">
           <span className="text-[11px] text-slate-400 uppercase tracking-wider">
-            [SAMPLE CASE STUDY ARCHIVE]
+            Client Advisory Engagement
           </span>
         </div>
       </div>

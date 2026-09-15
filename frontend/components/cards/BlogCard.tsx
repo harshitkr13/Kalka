@@ -35,7 +35,7 @@ export const BlogCard: React.FC<BlogCardProps & { className?: string }> = ({
         ) : (
           <div className="text-center p-6 select-none">
             <span className="text-xs font-serif text-slate-400 tracking-wider uppercase block">
-              [SAMPLE EDITORIAL MEDIA]
+              Editorial Perspective
             </span>
             <span className="text-[11px] text-slate-400 mt-1 block">
               Kalka Strategic Intelligence

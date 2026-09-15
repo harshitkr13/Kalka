@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
+import { ShieldCheck } from 'lucide-react';
 import { getPublicClients } from '@/lib/api/publicContent';
 import { FinalCta } from '@/sections/home/FinalCta';
 import { cn } from '@/lib/utils';
@@ -41,42 +42,59 @@ export default async function ClientsPage() {
               description="Associated organizations and clients where public representation is maintained."
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {clients.map((client, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 border border-slate-200 rounded-lg bg-slate-50/40 space-y-3 hover:border-gold transition-colors flex flex-col justify-between"
-                >
-                  <div>
-                    <span
-                      className={cn(
-                        'text-[9px] font-mono px-2 py-0.5 rounded font-semibold uppercase tracking-wider inline-block mb-3 border',
-                        client.approvalStatus === 'APPROVED'
-                          ? 'bg-emerald-500/10 text-emerald-800 border-emerald-500/20'
-                          : 'bg-amber-500/10 text-amber-800 border-amber-500/20'
-                      )}
+            {clients.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {clients.map((client, idx) => (
+                    <div
+                      key={idx}
+                      className="p-6 border border-slate-200 rounded-lg bg-slate-50/40 space-y-3 hover:border-gold transition-colors flex flex-col justify-between"
                     >
-                      {client.approvalStatus === 'APPROVED' ? 'APPROVED CLIENT' : 'PENDING APPROVAL'}
-                    </span>
-                    {client.approvalStatus === 'APPROVED' && client.logo ? (
-                      <div className="mb-3">
-                        <img src={client.logo} alt={client.name} className="h-10 object-contain" />
+                      <div>
+                        <span
+                          className={cn(
+                            'text-[9px] font-mono px-2 py-0.5 rounded font-semibold uppercase tracking-wider inline-block mb-3 border',
+                            client.approvalStatus === 'APPROVED'
+                              ? 'bg-emerald-500/10 text-emerald-800 border-emerald-500/20'
+                              : 'bg-amber-500/10 text-amber-800 border-amber-500/20'
+                          )}
+                        >
+                          {client.approvalStatus === 'APPROVED' ? 'APPROVED CLIENT' : 'PENDING APPROVAL'}
+                        </span>
+                        {client.approvalStatus === 'APPROVED' && client.logo ? (
+                          <div className="mb-3">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={client.logo} alt={client.name} className="h-10 object-contain" />
+                          </div>
+                        ) : null}
+                        <h3 className="font-serif text-xl font-bold text-navy">
+                          {client.name}
+                        </h3>
+                        {client.industry && (
+                          <p className="text-xs text-slate-500 mt-1 font-mono">{client.industry}</p>
+                        )}
                       </div>
-                    ) : null}
-                    <h3 className="font-serif text-xl font-bold text-navy">
-                      {client.name}
-                    </h3>
-                    {client.industry && (
-                      <p className="text-xs text-slate-500 mt-1 font-mono">{client.industry}</p>
-                    )}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className="p-6 bg-slate-50 border border-slate-200 rounded text-center text-xs text-slate-500">
-              * Note: Public display marked as Pending Approval in accordance with firm advisory governance.
-            </div>
+                <div className="p-6 bg-slate-50 border border-slate-200 rounded text-center text-xs text-slate-500">
+                  * Note: Public display marked as Pending Approval in accordance with firm advisory governance.
+                </div>
+              </>
+            ) : (
+              <div className="p-12 sm:p-16 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+                  <ShieldCheck className="w-7 h-7 text-gold-dark" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-navy">
+                  Client Representation Archives
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Client representations and institutional advisory engagements are governed by strict mutual non-disclosure agreements. Public representation archives are published following formal advisory clearance.
+                </p>
+              </div>
+            )}
           </div>
         </section>
 

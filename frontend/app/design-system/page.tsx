@@ -436,7 +436,7 @@ export default function DesignSystemPage() {
                 clientIndustry="Infrastructure & Supply Chain"
                 challengeBrief="Following a major multi-state expansion, the leadership team required clear market positioning to engage institutional investors and national business media."
                 metricPlaceholder="340%+"
-                metricLabel="Tier-1 Editorial Share of Voice Gain [SAMPLE DEMO]"
+                metricLabel="Tier-1 Editorial Share of Voice Gain"
               />
             </div>
 
@@ -691,7 +691,7 @@ export default function DesignSystemPage() {
 
           <div className="pt-6">
             <SectionHeader
-              overline="Sample Media Moments [DEMO]"
+              overline="Media Moments"
               title="Media Gallery & Keynotes"
               description="A curated preview of executive briefings, major announcements, and strategic public affairs forums."
             />

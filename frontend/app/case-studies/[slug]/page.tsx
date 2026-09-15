@@ -1,13 +1,14 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { FinalCta } from '@/sections/home/FinalCta';
-import { caseStudiesData } from '@/lib/content/caseStudies';
+import { getPublicCaseStudies, getPublicCaseStudyBySlug } from '@/lib/api/publicContent';
 import { ArrowRight, CheckCircle2, ShieldCheck, Quote } from 'lucide-react';
 
 interface Props {
@@ -15,12 +16,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return caseStudiesData.map((c) => ({ slug: c.slug }));
+  const studies = await getPublicCaseStudies();
+  return studies.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const study = caseStudiesData.find((c) => c.slug === slug);
+  const study = await getPublicCaseStudyBySlug(slug);
   if (!study) return { title: 'Case Study Not Found | Kalka Co.' };
 
   return {
@@ -31,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CaseStudyDetailPage({ params }: Props) {
   const { slug } = await params;
-  const study = caseStudiesData.find((c) => c.slug === slug);
+  const study = await getPublicCaseStudyBySlug(slug);
 
   if (!study) {
     notFound();
@@ -60,9 +62,6 @@ export default async function CaseStudyDetailPage({ params }: Props) {
               <span className="text-xs text-slate-400 uppercase tracking-wider">
                 {study.engagementType}
               </span>
-              <span className="px-2.5 py-1 rounded bg-gold/10 border border-gold/30 text-gold text-xs font-bold uppercase tracking-wider">
-                [SAMPLE CASE STUDY]
-              </span>
             </div>
 
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-4xl leading-tight">
@@ -72,29 +71,41 @@ export default async function CaseStudyDetailPage({ params }: Props) {
             <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed font-light">
               {study.summary}
             </p>
+
+            {study.coverImage && (
+              <div className="relative w-full h-64 sm:h-96 rounded-xl overflow-hidden mt-8 border border-white/10 shadow-2xl">
+                <Image
+                  src={study.coverImage}
+                  alt={study.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1200px) 100vw, 1200px"
+                />
+              </div>
+            )}
           </div>
         </section>
 
         {/* Metrics Banner */}
-        <section className="bg-navy border-b border-navy-border py-10 text-white">
-          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-              {study.metrics.map((m, idx) => (
-                <div key={idx} className="p-4 border border-navy-border rounded bg-navy-surface/40">
-                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block mb-1">
-                    [DEMO METRIC]
-                  </span>
-                  <p className="font-serif text-3xl sm:text-4xl font-bold text-gold">
-                    {m.value}
-                  </p>
-                  <p className="text-xs text-slate-300 mt-1 uppercase tracking-wider font-medium">
-                    {m.label}
-                  </p>
-                </div>
-              ))}
+        {study.metrics && study.metrics.length > 0 && (
+          <section className="bg-navy border-b border-navy-border py-10 text-white">
+            <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                {study.metrics.map((m, idx) => (
+                  <div key={idx} className="p-4 border border-navy-border rounded bg-navy-surface/40">
+                    <p className="font-serif text-3xl sm:text-4xl font-bold text-gold">
+                      {m.value}
+                    </p>
+                    <p className="text-xs text-slate-300 mt-1 uppercase tracking-wider font-medium">
+                      {m.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Detailed Breakdown: Challenge, Strategy, Execution, Outcome */}
         <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
@@ -141,10 +152,10 @@ export default async function CaseStudyDetailPage({ params }: Props) {
             {/* The Outcome */}
             <div className="space-y-4 pt-8 border-t border-slate-200 p-8 bg-slate-50 border border-slate-200 rounded">
               <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
-                04 • Strategic Outcome [SAMPLE OUTCOME]
+                04 • Strategic Outcome
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
-                Measurable Strategic Outcome [DEMO]
+                Measurable Strategic Impact
               </h2>
               <p className="text-base text-slate-700 leading-relaxed">
                 {study.outcome}

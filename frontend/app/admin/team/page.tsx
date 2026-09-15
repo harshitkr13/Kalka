@@ -104,6 +104,7 @@ export default function AdminTeamPage() {
       render: (item) => (
         <div className="flex items-center gap-3">
           {item.photo ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={item.photo}
               alt={item.name}
