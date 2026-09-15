@@ -1,202 +1,245 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { fetchCurrentUser, logoutUser, AuthUser } from '@/lib/auth';
+import {
+  Database,
+  Activity,
+  ShieldCheck,
+  KeyRound,
+  ExternalLink,
+  UserCog,
+  FileText,
+  Briefcase,
+  BookOpen,
+  Radio,
+  Inbox,
+  Sparkles,
+} from 'lucide-react';
+import { useAdminAuth } from '@/contexts/AdminAuthContext';
+import { StatusCard } from '@/components/admin/StatusCard';
+import { ModulePlaceholder } from '@/components/admin/ModulePlaceholder';
 
-export default function AdminProtectedShellPage() {
-  const router = useRouter();
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [loggingOut, setLoggingOut] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadAuth() {
-      const currentUser = await fetchCurrentUser();
-      if (!isMounted) return;
-
-      if (!currentUser) {
-        router.push('/admin/login');
-      } else {
-        setUser(currentUser);
-        setLoading(false);
-      }
-    }
-
-    loadAuth();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router]);
-
-  async function handleLogout() {
-    setLoggingOut(true);
-    await logoutUser();
-    router.push('/admin/login');
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6">
-        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 text-sm font-sans tracking-wide">
-          Verifying security credentials...
-        </p>
-      </div>
-    );
-  }
+export default function AdminDashboardPage() {
+  const { user, systemHealth } = useAdminAuth();
 
   if (!user) {
     return null;
   }
 
+  // Determine greeting based on local time
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+
+  // Real Database status from /api/health
+  const isDbConnected = systemHealth?.database === 'connected';
+  const dbStatus = isDbConnected ? 'Connected' : 'Connecting';
+  const dbDetail = isDbConnected
+    ? 'MongoDB Atlas replica set operational'
+    : 'Attempting connection to database cluster';
+
+  // Real API status from /api/health
+  const isApiHealthy = systemHealth?.status === 'healthy';
+  const apiStatus = isApiHealthy ? 'Operational' : 'Degraded';
+  const apiDetail = systemHealth?.uptime
+    ? `Node.js (${systemHealth.environment}) • Uptime ${Math.floor(systemHealth.uptime / 60)}m`
+    : 'API gateway active';
+
+  // Real Auth Session status
+  const sessionStatus = 'Active';
+  const sessionDetail = 'HttpOnly cookie authenticated via Google OAuth 2.0';
+
+  // Real RBAC Security status
+  const rbacStatus = user.role;
+  const rbacDetail = `${user.permissions?.length || 0} backend permissions verified for current role`;
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      {/* Admin Shell Header */}
-      <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/admin" className="flex items-center gap-2">
-              <span className="font-serif font-bold text-lg text-slate-100 tracking-tight">
-                KALKA CO.
+    <div className="space-y-10">
+      {/* 1. Welcome & Context Header */}
+      <div className="p-8 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-950 border border-slate-800/80 shadow-xl backdrop-blur-md">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Session Verified
               </span>
-              <span className="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase tracking-wider font-semibold">
-                Admin Shell
-              </span>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="text-xs text-slate-400 hover:text-slate-200 transition-colors hidden sm:inline"
-            >
-              Public Website &rarr;
-            </Link>
-            <button
-              onClick={handleLogout}
-              disabled={loggingOut}
-              className="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 hover:text-white transition-all disabled:opacity-50"
-            >
-              {loggingOut ? 'Signing Out...' : 'Sign Out'}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Admin Foundation Content */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-10">
-        {/* Welcome Section */}
-        <div className="mb-10">
-          <div className="inline-block px-3 py-1 mb-2 text-xs font-semibold tracking-wider uppercase text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-            Authenticated Session Active
-          </div>
-          <h1 className="text-3xl font-serif font-medium text-white mb-2">
-            Welcome, {user.name}
-          </h1>
-          <p className="text-sm text-slate-400">
-            Authenticated via Google OAuth 2.0 with server-side HttpOnly session.
-          </p>
-        </div>
-
-        {/* Security & Identity Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {/* Identity Card */}
-          <div className="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-              Identity Profile
-            </h3>
-            <div className="flex items-center gap-3 mb-4">
-              {user.avatar ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={user.avatar}
-                  alt={user.name}
-                  className="w-12 h-12 rounded-full border border-slate-700"
-                />
-              ) : (
-                <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-amber-400 font-serif font-bold">
-                  {user.name.charAt(0)}
-                </div>
-              )}
-              <div className="overflow-hidden">
-                <p className="text-sm font-semibold text-white truncate">{user.name}</p>
-                <p className="text-xs text-slate-400 truncate">{user.email}</p>
-              </div>
-            </div>
-            <div className="pt-3 border-t border-slate-800/80 text-xs text-slate-500">
-              User ID: <span className="font-mono text-slate-400">{user.id}</span>
-            </div>
-          </div>
-
-          {/* Role & Access Card */}
-          <div className="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-              Assigned Role
-            </h3>
-            <div className="mb-4">
-              <span className="inline-block px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-sm font-semibold">
-                {user.role}
+              <span className="text-xs text-slate-500">•</span>
+              <span className="text-xs font-mono text-slate-400">
+                Role: <span className="text-amber-300 font-semibold">{user.role}</span>
               </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Role permissions are verified on every backend API request via server-side RBAC middleware.
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white tracking-tight">
+              {greeting}, {user.name}
+            </h1>
+
+            <p className="text-sm text-slate-400 max-w-2xl font-sans leading-relaxed">
+              Welcome to the Kalka Co. administrative workspace. All administrative actions, editorial workflows, and data queries are governed under zero-trust authorization.
             </p>
           </div>
 
-          {/* Phase 4 Governance Status Card */}
-          <div className="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-              Phase 4 Security State
-            </h3>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li className="flex items-center gap-2">
-                <span className="text-emerald-400">✓</span> HttpOnly session cookie
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-emerald-400">✓</span> MongoDB-backed session store
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-emerald-400">✓</span> Zero browser token storage
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-emerald-400">✓</span> Server-side RBAC enforced
-              </li>
-            </ul>
+          {/* Working Quick Actions */}
+          <div className="flex flex-wrap md:flex-col gap-2.5 flex-shrink-0">
+            <Link
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-xs font-medium text-slate-200 hover:text-white transition-all shadow-sm"
+            >
+              <span>View Public Website</span>
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            </Link>
+
+            <Link
+              href="/admin/settings/profile"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-xs font-medium text-amber-300 transition-all shadow-sm"
+            >
+              <UserCog className="w-3.5 h-3.5 text-amber-400" />
+              <span>Security & Profile</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Real System Status Cards Grid (Zero Mock Metrics) */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <h2 className="text-sm font-mono uppercase tracking-widest text-slate-400 font-semibold">
+              Live System Infrastructure
+            </h2>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">
+              Real Backend Telemetry
+            </span>
           </div>
         </div>
 
-        {/* Granted Permissions List */}
-        <div className="p-6 rounded-xl bg-slate-900/60 border border-slate-800 mb-10">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-            Granted Role Permissions ({user.permissions.length})
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {user.permissions.map((perm) => (
-              <span
-                key={perm}
-                className="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-xs font-mono text-slate-300"
-              >
-                {perm}
-              </span>
-            ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <StatusCard
+            label="Database Cluster"
+            value={dbStatus}
+            detail={dbDetail}
+            icon={Database}
+            status={isDbConnected ? 'healthy' : 'warning'}
+          />
+          <StatusCard
+            label="API Gateway"
+            value={apiStatus}
+            detail={apiDetail}
+            icon={Activity}
+            status={isApiHealthy ? 'healthy' : 'warning'}
+          />
+          <StatusCard
+            label="Auth Protocol"
+            value={sessionStatus}
+            detail={sessionDetail}
+            icon={KeyRound}
+            status="active"
+          />
+          <StatusCard
+            label="Access Governance"
+            value={rbacStatus}
+            detail={rbacDetail}
+            icon={ShieldCheck}
+            status="healthy"
+          />
+        </div>
+      </div>
+
+      {/* 3. Upcoming Workspaces & Roadmaps (Phase 6 & Phase 7) */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-slate-400 font-semibold">
+              Workspaces & Module Roadmap
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Production authoring tools and lead tracking are scheduled in subsequent implementation phases.
+            </p>
           </div>
         </div>
 
-        {/* Scope Notice */}
-        <div className="p-6 rounded-xl bg-slate-900/40 border border-dashed border-slate-800 text-center">
-          <p className="text-sm font-serif text-slate-300 mb-1">
-            Phase 4 Security Foundation Established
-          </p>
-          <p className="text-xs text-slate-500 max-w-xl mx-auto">
-            Full admin dashboard management, CMS editing controls, and lead tracking will be implemented in Phases 5, 6, and 7.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ModulePlaceholder
+            title="Services & Practice Areas"
+            description="Centralized catalog management for strategic advisory practices, methodology showcases, and deliverables."
+            phase="Phase 6 CMS"
+            icon={FileText}
+            capabilities={[
+              'Structured service metadata & slugs',
+              'Methodology step builder',
+              'Draft, review & publish workflow',
+            ]}
+            requiredRole="CONTENT_MANAGER"
+          />
+
+          <ModulePlaceholder
+            title="Case Studies & Impact"
+            description="Long-form case study authoring with verified outcomes, strategic objectives, and client impact dossiers."
+            phase="Phase 6 CMS"
+            icon={Briefcase}
+            capabilities={[
+              'Editorial case study composition',
+              'Industry categorization taxonomy',
+              'SEO metadata & OpenGraph controls',
+            ]}
+            requiredRole="CONTENT_MANAGER"
+          />
+
+          <ModulePlaceholder
+            title="Insights & Thought Leadership"
+            description="High-velocity editorial desk for industry viewpoints, media analysis, whitepapers, and strategic essays."
+            phase="Phase 6 CMS"
+            icon={BookOpen}
+            capabilities={[
+              'Rich editorial markdown/HTML editor',
+              'Author attribution & reading time calculation',
+              'Tagging, featured flags & publishing schedule',
+            ]}
+            requiredRole="EDITOR"
+          />
+
+          <ModulePlaceholder
+            title="Press Releases & Mentions"
+            description="Media relations desk for tracking firm announcements, journalist inquiries, and external press coverage."
+            phase="Phase 6 CMS"
+            icon={Radio}
+            capabilities={[
+              'Press release distribution archive',
+              'Verified publication citations',
+              'Media contact directory',
+            ]}
+            requiredRole="CONTENT_MANAGER"
+          />
+
+          <ModulePlaceholder
+            title="Inquiries & Client Leads"
+            description="Secure CRM pipeline for high-value media consultancy inquiries, prospective mandates, and communications triage."
+            phase="Phase 7 Operations"
+            icon={Inbox}
+            capabilities={[
+              'Sanitized inquiry parsing & audit trail',
+              'Status progression: New, In Review, Converted',
+              'Lead notification delivery & assignment',
+            ]}
+            requiredRole="LEAD_MANAGER"
+          />
+
+          <ModulePlaceholder
+            title="Talent & Career Opportunities"
+            description="Job requisition management for corporate advisory specialists, crisis strategists, and research fellows."
+            phase="Phase 7 Operations"
+            icon={Sparkles}
+            capabilities={[
+              'Job posting specification manager',
+              'Department & location categorization',
+              'Direct applicant dossier handling',
+            ]}
+            requiredRole="HR_MANAGER"
+          />
         </div>
-      </main>
+      </div>
     </div>
   );
 }

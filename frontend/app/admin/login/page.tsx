@@ -4,10 +4,12 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getGoogleLoginUrl } from '@/lib/auth';
+import { useAdminAuth } from '@/contexts/AdminAuthContext';
 
 function LoginContent() {
   const searchParams = useSearchParams();
   const errorParam = searchParams.get('error');
+  const { user } = useAdminAuth();
 
   const errorMessages: Record<string, string> = {
     unauthorized: 'Access Denied: Your Google account is not on the approved administrator roster.',
@@ -41,6 +43,22 @@ function LoginContent() {
         <div className="mb-6 p-4 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs sm:text-sm leading-relaxed">
           <p className="font-semibold mb-1">Authentication Notice</p>
           <p>{errorMessage}</p>
+        </div>
+      )}
+
+      {/* Active Session Notice */}
+      {user && !errorMessage && (
+        <div className="mb-6 p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs sm:text-sm leading-relaxed">
+          <p className="font-semibold mb-1">Active Session Detected</p>
+          <p className="text-xs text-slate-300 mb-3">
+            You are signed in as <span className="text-white font-medium">{user.name}</span> ({user.role}).
+          </p>
+          <Link
+            href="/admin"
+            className="inline-block px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-colors"
+          >
+            Continue to Dashboard &rarr;
+          </Link>
         </div>
       )}
 
