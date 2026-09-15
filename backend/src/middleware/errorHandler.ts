@@ -37,6 +37,31 @@ export function errorHandler(
     return sendError(res, 400, 'INVALID_JSON', 'Malformed JSON payload');
   }
 
+  // Handle Database connection/network errors cleanly without leaking internals or crashing
+  const isDbError =
+    (typeof err === 'object' && err !== null && 'name' in err && (
+      (err as { name: string }).name === 'MongoServerSelectionError' ||
+      (err as { name: string }).name === 'MongoNetworkError' ||
+      (err as { name: string }).name === 'MongoTimeoutError' ||
+      (err as { name: string }).name === 'MongooseServerSelectionError'
+    )) ||
+    (err instanceof Error && (
+      err.message.includes('Could not connect to any servers') ||
+      err.message.includes('SSL alert number 80') ||
+      err.message.includes('topology was destroyed') ||
+      err.message.includes('buffering timed out')
+    ));
+
+  if (isDbError) {
+    logger.error('Database service unavailable for request:', err instanceof Error ? err.message : 'Database connection failure');
+    return sendError(
+      res,
+      503,
+      'DATABASE_UNAVAILABLE',
+      'Database service is temporarily unavailable. Please verify network access or try again shortly.'
+    );
+  }
+
   // Unknown unexpected error
   logger.error('Unhandled Exception:', err);
   const message = env.NODE_ENV === 'production' ? 'Internal server error' : (err instanceof Error ? err.message : 'Internal server error');

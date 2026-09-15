@@ -12,15 +12,21 @@ export function getHealth(_req: Request, res: Response): Response {
     3: 'disconnecting',
   };
 
+  const isDbConnected = dbState === 1;
+  const isHealthy = env.NODE_ENV === 'test' || isDbConnected;
+  const status = isHealthy ? 'healthy' : 'degraded';
+
   return sendSuccess(
     res,
     {
-      status: 'healthy',
+      status,
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
       environment: env.NODE_ENV,
       database: dbStatusMap[dbState] || 'unknown',
     },
-    'Kalka Co. API service operational'
+    isDbConnected
+      ? 'Kalka Co. API service operational'
+      : 'Kalka Co. API operational in degraded mode (database unavailable)'
   );
 }

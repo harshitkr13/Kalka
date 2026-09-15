@@ -31,7 +31,8 @@ export async function connectDatabase(): Promise<typeof mongoose> {
     logger.info(`Connecting to MongoDB (${safeTarget})...`);
 
     const conn = await mongoose.connect(env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 8000,
+      serverSelectionTimeoutMS: 15000,
+      connectTimeoutMS: 15000,
     });
 
     logger.info('MongoDB connected successfully');

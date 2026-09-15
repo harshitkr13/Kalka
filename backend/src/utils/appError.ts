@@ -25,6 +25,14 @@ export class AppError extends Error {
     return new AppError(message, 400, errorCode, true, details);
   }
 
+  static unauthorized(message = 'Authentication required', errorCode = 'UNAUTHORIZED'): AppError {
+    return new AppError(message, 401, errorCode, true);
+  }
+
+  static forbidden(message = 'Access forbidden', errorCode = 'FORBIDDEN'): AppError {
+    return new AppError(message, 403, errorCode, true);
+  }
+
   static notFound(message = 'Resource not found', errorCode = 'NOT_FOUND'): AppError {
     return new AppError(message, 404, errorCode, true);
   }

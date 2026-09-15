@@ -16,7 +16,7 @@ export const authController = {
       req.session.save((err) => {
         if (err) {
           logger.error('Failed to persist OAuth state in session:', err);
-          return next(new AppError('Failed to initialize authentication session', 500, 'SESSION_ERROR'));
+          return next(new AppError('Authentication service is temporarily unavailable. Please try again shortly.', 503, 'DATABASE_UNAVAILABLE'));
         }
         const authUrl = authService.getGoogleAuthUrl(state);
         res.redirect(authUrl);

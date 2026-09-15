@@ -7,6 +7,7 @@ import { apiLimiter } from './middleware/rateLimiter';
 import { notFoundHandler } from './middleware/notFoundHandler';
 import { errorHandler } from './middleware/errorHandler';
 import { sendSuccess } from './utils/apiResponse';
+import { logger } from './utils/logger';
 
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -26,6 +27,7 @@ import { galleryRoutes } from './modules/gallery/gallery.routes';
 import { careerRoutes } from './modules/careers/career.routes';
 import { officeRoutes } from './modules/offices/office.routes';
 import { settingsRoutes } from './modules/settings/settings.routes';
+import { adminRoutes } from './modules/admin/admin.routes';
 
 export function createApp(): Express {
   const app = express();
@@ -69,7 +71,20 @@ export function createApp(): Express {
           collectionName: 'sessions',
           ttl: 14 * 24 * 60 * 60, // 14 days
           autoRemove: 'native',
+          mongoOptions: {
+            serverSelectionTimeoutMS: 15000,
+          },
         });
+
+  if (sessionStore) {
+    sessionStore.on('error', (err: Error) => {
+      logger.warn(`Session store communication warning: ${err?.message || 'Store error'}`);
+    });
+    ((sessionStore as unknown) as { clientP?: Promise<unknown> }).clientP?.catch((err: unknown) => {
+      const msg = err instanceof Error ? err.message : 'Initialization error';
+      logger.warn(`Session store client initialization warning: ${msg}`);
+    });
+  }
 
   app.use(
     session({
@@ -120,6 +135,7 @@ export function createApp(): Express {
   app.use(`${prefix}/careers`, careerRoutes);
   app.use(`${prefix}/offices`, officeRoutes);
   app.use(`${prefix}/settings`, settingsRoutes);
+  app.use(`${prefix}/admin`, adminRoutes);
 
   // 404 handler
   app.use(notFoundHandler);

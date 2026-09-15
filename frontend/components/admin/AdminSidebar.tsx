@@ -66,36 +66,33 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       items: [
         {
           name: 'Services',
+          href: '/admin/services',
           icon: FileText,
-          phase: 'Phase 6',
-          disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Industries',
+          href: '/admin/industries',
           icon: Building2,
-          phase: 'Phase 6',
-          disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Case Studies',
+          href: '/admin/case-studies',
           icon: Briefcase,
-          phase: 'Phase 6',
-          disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Clients Roster',
           icon: Users2,
-          phase: 'Phase 6',
+          phase: 'Phase 7',
           disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Team Profiles',
           icon: UserCheck,
-          phase: 'Phase 6',
+          phase: 'Phase 7',
           disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
@@ -106,36 +103,41 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       items: [
         {
           name: 'Articles & Insights',
+          href: '/admin/insights',
           icon: BookOpen,
-          phase: 'Phase 6',
-          disabled: true,
+          requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
+        },
+        {
+          name: 'Categories',
+          href: '/admin/insights/categories',
+          icon: Newspaper,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Press & News',
           icon: Newspaper,
-          phase: 'Phase 6',
+          phase: 'Phase 8',
           disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Media Mentions',
           icon: Radio,
-          phase: 'Phase 6',
+          phase: 'Phase 8',
           disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Media Gallery',
           icon: ImageIcon,
-          phase: 'Phase 6',
+          phase: 'Phase 8',
           disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
         {
           name: 'Awards & Honors',
           icon: Trophy,
-          phase: 'Phase 6',
+          phase: 'Phase 8',
           disabled: true,
           requiredRoles: ['SUPER_ADMIN', 'CONTENT_MANAGER', 'EDITOR'],
         },
@@ -226,7 +228,11 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
               <ul className="space-y-1">
                 {visibleItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = item.href ? pathname === item.href : false;
+                  const isActive = item.href
+                    ? item.href === '/admin'
+                      ? pathname === '/admin'
+                      : pathname === item.href || pathname.startsWith(`${item.href}/`)
+                    : false;
 
                   if (item.disabled) {
                     return (
