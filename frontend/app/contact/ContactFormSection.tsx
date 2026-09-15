@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
@@ -8,16 +9,17 @@ import {
   PhoneCall, 
   Mail, 
   MapPin, 
-  Clock, 
   ShieldAlert, 
   Send, 
   CheckCircle2, 
   MessageSquare, 
-  Building2, 
   ExternalLink,
   ShieldCheck,
-  HelpCircle
+  HelpCircle,
+  X,
+  AlertTriangle
 } from 'lucide-react';
+import { submitPublicContact, PublicContactResponse } from '@/lib/api/leads';
 
 const offices = [
   {
@@ -65,12 +67,23 @@ const urgencyLevels = [
 ];
 
 export const ContactFormSection: React.FC = () => {
+  const searchParams = useSearchParams();
+
+  // Read URL search params
+  const serviceParam = searchParams.get('service');
+  const serviceNameParam = searchParams.get('serviceName');
+  const typeParam = searchParams.get('type');
+
   const [inquiryType, setInquiryType] = useState('corporate');
+  const [selectedService, setSelectedService] = useState<{ slug: string; name: string } | null>(null);
   const [urgency, setUrgency] = useState('standard');
+  const [honeypot, setHoneypot] = useState('');
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
+    whatsapp: '',
     organization: '',
     designation: '',
     message: '',
@@ -78,26 +91,78 @@ export const ContactFormSection: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submissionResult, setSubmissionResult] = useState<PublicContactResponse | null>(null);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Sync initial query params on mount
+  useEffect(() => {
+    if (serviceParam) {
+      setSelectedService({
+        slug: serviceParam,
+        name: serviceNameParam || serviceParam,
+      });
+      setInquiryType('corporate');
+    }
+    if (typeParam && ['corporate', 'crisis', 'media', 'talent'].includes(typeParam.toLowerCase())) {
+      setInquiryType(typeParam.toLowerCase());
+    }
+  }, [serviceParam, serviceNameParam, typeParam]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+    setSubmissionError(null);
+
+    try {
+      const res = await submitPublicContact({
+        fullName: formData.fullName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        whatsapp: formData.whatsapp.trim() || undefined,
+        company: formData.organization.trim(),
+        designation: formData.designation.trim() || undefined,
+        enquiryType: inquiryType,
+        service: selectedService?.name || undefined,
+        serviceSlug: selectedService?.slug || undefined,
+        urgency: urgency as 'standard' | 'priority' | 'crisis',
+        message: formData.message.trim(),
+        source: selectedService?.slug ? 'SERVICE_ENQUIRY' : 'CONTACT_FORM',
+        sourcePage: typeof window !== 'undefined' ? `${window.location.pathname}${window.location.search}` : '/contact',
+        consent: true,
+        hp_company_sec: honeypot || undefined,
+      });
+
+      if (res.success && res.data) {
+        setSubmissionResult(res.data);
+        setIsSubmitted(true);
+      } else {
+        setSubmissionError(
+          res.message || res.error || 'We encountered an error processing your brief. Please verify your details.'
+        );
+      }
+    } catch {
+      setSubmissionError(
+        'Unable to connect to the communications server. Please try again or reach out to counsel@kalka.co.in directly.'
+      );
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 900);
+    }
   };
 
   const handleReset = () => {
     setIsSubmitted(false);
+    setSubmissionResult(null);
+    setSubmissionError(null);
     setFormData({
       fullName: '',
       email: '',
       phone: '',
+      whatsapp: '',
       organization: '',
       designation: '',
       message: '',
     });
+    setHoneypot('');
   };
 
   return (
@@ -115,7 +180,7 @@ export const ContactFormSection: React.FC = () => {
                 <span className="text-xs font-bold uppercase tracking-widest text-gold">
                   Active Crisis Desk
                 </span>
-                <span className="text-[11px] text-red-200">[SAMPLE / DEMO HOTLINE]</span>
+                <span className="text-[11px] text-red-200">[HOTLINE AVAILABLE 24/7]</span>
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
                 Facing an Active Media or Regulatory Incident?
@@ -163,6 +228,29 @@ export const ContactFormSection: React.FC = () => {
               </p>
             </div>
 
+            {/* Contextual Practice Banner if arriving from a service page */}
+            {selectedService && (
+              <div className="mb-6 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-200/60 px-2 py-0.5 rounded">
+                    Practice
+                  </span>
+                  <span className="font-serif font-bold text-navy text-sm">
+                    {selectedService.name}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedService(null)}
+                  className="text-slate-400 hover:text-navy text-xs flex items-center gap-1 font-medium transition-colors"
+                  title="Remove practice context"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Clear</span>
+                </button>
+              </div>
+            )}
+
             {/* Inquiry Type Tabs */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-8 p-1.5 bg-slate-100 rounded border border-slate-200">
               {[
@@ -186,33 +274,117 @@ export const ContactFormSection: React.FC = () => {
               ))}
             </div>
 
-            {isSubmitted ? (
-              <div className="p-8 rounded bg-emerald-50/70 border border-emerald-200 text-center space-y-6">
-                <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700">
-                  <CheckCircle2 className="w-8 h-8" />
+            {isSubmitted && submissionResult ? (
+              <div className="p-8 sm:p-10 rounded-xl bg-emerald-50/70 border border-emerald-200 text-center space-y-6 animate-fadeIn">
+                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700 shadow-sm">
+                  <CheckCircle2 className="w-9 h-9" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-serif text-2xl font-bold text-navy">
+                  <span className="inline-block text-xs font-mono font-semibold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">
+                    Transmission Verified • Ref: {submissionResult.reference}
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-navy mt-2">
                     Inquiry Securely Transmitted
                   </h3>
-                  <p className="text-xs font-semibold text-emerald-800 uppercase tracking-widest">
-                    [DEMO SIMULATION: NO BACKEND TRANSMISSION OCCURRED]
-                  </p>
                   <p className="text-sm text-slate-700 max-w-md mx-auto leading-relaxed">
-                    Thank you, <strong>{formData.fullName}</strong>. Your consultation brief for <strong>{formData.organization}</strong> has been routed to our practice lead.
+                    Thank you, <strong>{formData.fullName}</strong>. Your consultation brief for <strong>{formData.organization}</strong> has been logged and routed to our practice desk.
                   </p>
                 </div>
-                <div className="p-4 rounded bg-white border border-slate-200 text-xs text-slate-600 text-left max-w-md mx-auto space-y-1">
-                  <p><strong>Practice:</strong> {inquiryType.toUpperCase()}</p>
-                  <p><strong>Response Protocol:</strong> Under 24h standard briefing</p>
-                  <p><strong>Direct Desk:</strong> counsel@kalka.co.in</p>
+
+                <div className="p-5 rounded-lg bg-white border border-slate-200 text-xs text-slate-600 text-left max-w-md mx-auto space-y-2 shadow-sm">
+                  <div className="flex justify-between border-b border-slate-100 pb-2">
+                    <span className="text-slate-500 font-medium">Reference Identifier:</span>
+                    <span className="font-mono font-bold text-navy">{submissionResult.reference}</span>
+                  </div>
+                  <div className="flex justify-between border-b border-slate-100 pb-2">
+                    <span className="text-slate-500 font-medium">Enquiry Classification:</span>
+                    <span className="font-semibold text-navy uppercase">{inquiryType}</span>
+                  </div>
+                  {selectedService && (
+                    <div className="flex justify-between border-b border-slate-100 pb-2">
+                      <span className="text-slate-500 font-medium">Practice Area:</span>
+                      <span className="font-semibold text-navy">{selectedService.name}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between border-b border-slate-100 pb-2">
+                    <span className="text-slate-500 font-medium">Response Horizon:</span>
+                    <span className="font-semibold text-emerald-800">
+                      {urgency === 'crisis'
+                        ? 'Immediate 60-Minute Activation'
+                        : urgency === 'priority'
+                        ? 'Priority review within 4 business hours'
+                        : 'Under 24 business hours standard briefing'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between pt-1">
+                    <span className="text-slate-500 font-medium">Direct Desk:</span>
+                    <span className="font-semibold text-navy">counsel@kalka.co.in</span>
+                  </div>
                 </div>
-                <Button variant="primary" size="md" onClick={handleReset}>
-                  Send Another Inquiry
-                </Button>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(
+                      `Hello Kalka Co. Team, following up regarding advisory enquiry reference: ${submissionResult.reference} for ${formData.organization}.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    WhatsApp Direct Follow-up
+                  </a>
+                  <a
+                    href={`mailto:counsel@kalka.co.in?subject=${encodeURIComponent(
+                      `Inquiry Reference ${submissionResult.reference} — ${formData.organization}`
+                    )}`}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-navy hover:bg-navy-dark text-white text-xs font-bold uppercase tracking-wider transition-colors border border-navy-border shadow-sm"
+                  >
+                    <Mail className="w-4 h-4 text-gold" />
+                    Official Email Counsel
+                  </a>
+                </div>
+
+                <div className="pt-4 border-t border-emerald-200">
+                  <Button variant="outline" size="sm" onClick={handleReset}>
+                    Submit Another Inquiry
+                  </Button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error Banner */}
+                {submissionError && (
+                  <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                    <div className="space-y-1">
+                      <strong className="block font-semibold">Submission Notice</strong>
+                      <p>{submissionError}</p>
+                      <p className="text-slate-600 mt-1">
+                        For urgent advisory matters, reach our direct desk at{' '}
+                        <a href="mailto:counsel@kalka.co.in" className="underline font-medium text-navy">
+                          counsel@kalka.co.in
+                        </a>{' '}
+                        or call <span className="font-medium text-navy">+91 11 4000 0000</span>.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Anti-spam Honeypot (Invisible to users) */}
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="hp_company_sec">Leave this field blank</label>
+                  <input
+                    id="hp_company_sec"
+                    name="hp_company_sec"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
@@ -263,17 +435,30 @@ export const ContactFormSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
-                    Direct Phone / Secure Mobile *
-                  </label>
-                  <Input
-                    required
-                    type="tel"
-                    placeholder="+91 98100 00000"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                      Direct Phone / Secure Mobile *
+                    </label>
+                    <Input
+                      required
+                      type="tel"
+                      placeholder="+91 98100 00000"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                      WhatsApp Mobile (Optional)
+                    </label>
+                    <Input
+                      type="tel"
+                      placeholder="+91 98100 00000"
+                      value={formData.whatsapp}
+                      onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                    />
+                  </div>
                 </div>
 
                 {/* Urgency Radio Selector */}
@@ -334,7 +519,7 @@ export const ContactFormSection: React.FC = () => {
                     ) : (
                       <span className="flex items-center justify-center gap-2">
                         <Send className="w-4 h-4" />
-                        Transmit Strategic Inquiry (Simulated)
+                        Transmit Strategic Consultation Request
                       </span>
                     )}
                   </Button>
@@ -414,7 +599,7 @@ export const ContactFormSection: React.FC = () => {
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-semibold uppercase tracking-widest text-gold block">
-              Presence & Bureaus [OFFICE PLACEHOLDERS]
+              Presence & Bureaus [OFFICE PLACEHOLDER]
             </span>
             <h2 className="font-serif text-3xl font-bold text-navy">
               Consultancy Hubs & Regional Desks [DEMO]

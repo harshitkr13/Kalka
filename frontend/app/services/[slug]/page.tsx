@@ -118,7 +118,10 @@ export default async function ServiceDetailPage({ params }: Props) {
                 </div>
 
                 <div className="pt-4 border-t border-slate-200">
-                  <Link href="/contact" className="block w-full">
+                  <Link
+                    href={`/contact?service=${encodeURIComponent(service.slug)}&serviceName=${encodeURIComponent(service.name)}`}
+                    className="block w-full"
+                  >
                     <Button variant="gold" size="md" className="w-full justify-center">
                       Consult with Practice Lead
                     </Button>

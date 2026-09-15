@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { ZodError } from 'zod';
 import { AppError } from '../utils/appError';
 import { sendError } from '../utils/apiResponse';
 import { logger } from '../utils/logger';
@@ -15,6 +16,14 @@ export function errorHandler(
       logger.error(`[AppError ${err.statusCode}] ${err.errorCode}: ${err.message}`);
     }
     return sendError(res, err.statusCode, err.errorCode, err.message, err.details);
+  }
+
+  if (err instanceof ZodError) {
+    const details = err.errors.map((e) => ({
+      field: e.path.join('.'),
+      message: e.message,
+    }));
+    return sendError(res, 422, 'VALIDATION_ERROR', 'Request validation failed', details);
   }
 
   // Handle Mongoose CastError (e.g. invalid ObjectId)

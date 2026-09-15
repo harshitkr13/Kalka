@@ -35,6 +35,13 @@ import {
   updateCategory,
   deleteCategory,
 } from './adminCategory.controller';
+import {
+  listLeads,
+  getLeadById,
+  updateLead,
+  addLeadNote,
+  deleteLead,
+} from './adminLead.controller';
 
 const router = Router();
 
@@ -75,5 +82,12 @@ router.get('/categories/:id', requirePermission('content:view'), getCategoryById
 router.post('/categories', requirePermission('content:edit'), createCategory);
 router.patch('/categories/:id', requirePermission('content:edit'), updateCategory);
 router.delete('/categories/:id', requirePermission('content:publish'), deleteCategory);
+
+// 6. Leads & Inquiries Management (Phase 7)
+router.get('/leads', requirePermission('leads:view'), listLeads);
+router.get('/leads/:id', requirePermission('leads:view'), getLeadById);
+router.patch('/leads/:id', requirePermission('leads:manage'), updateLead);
+router.post('/leads/:id/notes', requirePermission('leads:manage'), addLeadNote);
+router.delete('/leads/:id', requirePermission('leads:manage'), deleteLead);
 
 export const adminRoutes = router;

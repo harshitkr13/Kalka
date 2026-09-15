@@ -28,6 +28,7 @@ import { careerRoutes } from './modules/careers/career.routes';
 import { officeRoutes } from './modules/offices/office.routes';
 import { settingsRoutes } from './modules/settings/settings.routes';
 import { adminRoutes } from './modules/admin/admin.routes';
+import { leadsPublicRoutes } from './modules/leads/leads.routes';
 
 export function createApp(): Express {
   const app = express();
@@ -135,6 +136,8 @@ export function createApp(): Express {
   app.use(`${prefix}/careers`, careerRoutes);
   app.use(`${prefix}/offices`, officeRoutes);
   app.use(`${prefix}/settings`, settingsRoutes);
+  app.use(`${prefix}/contact`, leadsPublicRoutes);
+  app.use(`${prefix}/leads`, leadsPublicRoutes);
   app.use(`${prefix}/admin`, adminRoutes);
 
   // 404 handler

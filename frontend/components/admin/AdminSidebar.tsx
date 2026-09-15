@@ -148,10 +148,9 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       items: [
         {
           name: 'Inquiries & Leads',
+          href: '/admin/leads',
           icon: Inbox,
-          phase: 'Phase 7',
-          disabled: true,
-          requiredRoles: ['SUPER_ADMIN', 'LEAD_MANAGER'],
+          requiredRoles: ['SUPER_ADMIN', 'LEAD_MANAGER', 'CONTENT_MANAGER'],
         },
         {
           name: 'Careers & Hiring',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ContactFormSection } from './ContactFormSection';
@@ -25,8 +25,6 @@ export default function ContactPage() {
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-wider">
               <span>Strategic Counsel Desk</span>
-              <span className="text-slate-400">|</span>
-              <span className="text-slate-300">[SAMPLE / DEMO / PLACEHOLDER]</span>
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
@@ -41,7 +39,9 @@ export default function ContactPage() {
       </section>
 
       {/* Main Interactive Contact Hub */}
-      <ContactFormSection />
+      <Suspense fallback={<div className="py-24 text-center text-slate-500 font-mono text-xs">Loading consultation desk...</div>}>
+        <ContactFormSection />
+      </Suspense>
     </div>
   );
 }
