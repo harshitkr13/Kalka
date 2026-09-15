@@ -29,6 +29,8 @@ import { officeRoutes } from './modules/offices/office.routes';
 import { settingsRoutes } from './modules/settings/settings.routes';
 import { adminRoutes } from './modules/admin/admin.routes';
 import { leadsPublicRoutes } from './modules/leads/leads.routes';
+import { teamRoutes } from './modules/team/team.routes';
+
 
 export function createApp(): Express {
   const app = express();
@@ -133,6 +135,7 @@ export function createApp(): Express {
   app.use(`${prefix}/media-mentions`, mediaMentionRoutes);
   app.use(`${prefix}/awards`, awardRoutes);
   app.use(`${prefix}/gallery`, galleryRoutes);
+  app.use(`${prefix}/team`, teamRoutes);
   app.use(`${prefix}/careers`, careerRoutes);
   app.use(`${prefix}/offices`, officeRoutes);
   app.use(`${prefix}/settings`, settingsRoutes);

@@ -5,6 +5,7 @@ import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Button } from '@/components/ui/Button';
 import { Mail, Compass, ShieldCheck, Sparkles, Users } from 'lucide-react';
+import { getPublicCareers } from '@/lib/api/publicContent';
 
 export const metadata: Metadata = {
   title: 'Careers | Kalka Co. Media Consultancy',
@@ -34,7 +35,9 @@ const culturePillars = [
   },
 ];
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const careers = await getPublicCareers();
+
   return (
     <div className="bg-slate-50 min-h-screen text-navy-deep">
       {/* Hero */}
@@ -99,6 +102,43 @@ export default function CareersPage() {
         </div>
       </section>
 
+      {/* Active Openings if any */}
+      {careers.length > 0 && (
+        <section className="py-20 bg-slate-50/70 border-b border-slate-200">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              overline="Openings"
+              title="Active Practice Opportunities"
+              description="Explore currently open positions within our advisory and media practices."
+              className="mb-12"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {careers.map((career, idx) => (
+                <div
+                  key={idx}
+                  className="p-8 border border-slate-200 rounded-lg bg-white shadow-sm flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                      <span className="font-semibold text-gold uppercase font-mono">{career.department}</span>
+                      <span>{career.employmentType} &bull; {career.location}</span>
+                    </div>
+                    <h3 className="font-serif text-xl font-bold text-navy mb-3">{career.title}</h3>
+                    <p className="text-sm text-slate-600 line-clamp-3 mb-6 leading-relaxed">{career.description}</p>
+                  </div>
+                  <a
+                    href={`mailto:djdurgesh8@gmail.com?subject=Application for ${encodeURIComponent(career.title)}`}
+                    className="text-xs font-semibold text-navy hover:text-gold flex items-center gap-1 mt-auto"
+                  >
+                    Apply via Email &rarr;
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Opportunities Box */}
       <section className="py-20 bg-white">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
@@ -131,3 +171,4 @@ export default function CareersPage() {
     </div>
   );
 }
+

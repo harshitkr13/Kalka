@@ -10,8 +10,14 @@ import { servicesData, ServiceData } from '@/lib/content/services';
 import { industriesData, IndustryData } from '@/lib/content/industries';
 import { caseStudiesData, CaseStudyData } from '@/lib/content/caseStudies';
 import { insightsData, InsightData } from '@/lib/content/insights';
+import { associatedClients } from '@/lib/content/clients';
+import { mediaMentionsData, MediaMention } from '@/lib/content/mediaMentions';
+import { awardsData, AwardData } from '@/lib/content/awards';
+import { teamData, TeamMember } from '@/lib/content/team';
+import { careersData, CareerRole } from '@/lib/content/careers';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
 
 /**
  * Fetch published services
@@ -316,3 +322,242 @@ export async function getPublicInsightBySlug(slug: string): Promise<InsightData 
   }
   return insightsData.find((i) => i.slug === slug) || null;
 }
+
+export interface PublicClientData {
+  name: string;
+  slug?: string;
+  industry?: string;
+  shortDescription?: string;
+  approvalStatus: string;
+  logo?: string;
+  logoAsset?: string;
+}
+
+/**
+ * Fetch published clients with approval status enforcement
+ */
+export async function getPublicClients(): Promise<PublicClientData[]> {
+  try {
+    const res = await fetch(`${API_BASE}/clients`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && Array.isArray(body.data) && body.data.length > 0) {
+        return body.data.map((item: any): PublicClientData => ({
+          name: item.name,
+          slug: item.slug,
+          industry: item.industry,
+          shortDescription: item.shortDescription || '',
+          approvalStatus: item.approvalStatus || 'PENDING_APPROVAL',
+          logo: item.approvalStatus === 'APPROVED' ? item.logo : undefined,
+          logoAsset: item.approvalStatus === 'APPROVED' ? item.logoAsset : undefined,
+        }));
+      }
+    }
+  } catch {
+    // Fallback to static list
+  }
+  return associatedClients.map((c) => ({
+    name: c.name,
+    approvalStatus: 'PENDING APPROVAL',
+  }));
+}
+
+/**
+ * Fetch published media mentions
+ */
+export async function getPublicMediaMentions(): Promise<MediaMention[]> {
+  try {
+    const res = await fetch(`${API_BASE}/media-mentions`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && Array.isArray(body.data) && body.data.length > 0) {
+        return body.data.map((item: any): MediaMention => ({
+          id: item._id,
+          publication: item.publication,
+          headline: item.title,
+          date: item.date,
+          category: item.type || 'Media Coverage',
+          quoteExcerpt: item.excerpt,
+          urlPlaceholder: item.url || '',
+        }));
+      }
+    }
+  } catch {
+    // Fallback
+  }
+  return mediaMentionsData;
+}
+
+/**
+ * Fetch published awards
+ */
+export async function getPublicAwards(): Promise<AwardData[]> {
+  try {
+    const res = await fetch(`${API_BASE}/awards`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && Array.isArray(body.data) && body.data.length > 0) {
+        return body.data.map((item: any): AwardData => ({
+          id: item._id,
+          name: item.name,
+          organization: item.organization,
+          year: String(item.year),
+          category: item.category,
+          description: item.description,
+        }));
+      }
+    }
+  } catch {
+    // Fallback
+  }
+  return awardsData;
+}
+
+/**
+ * Fetch published team members
+ */
+export async function getPublicTeamMembers(): Promise<TeamMember[]> {
+  try {
+    const res = await fetch(`${API_BASE}/team`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && Array.isArray(body.data) && body.data.length > 0) {
+        return body.data.map((item: any): TeamMember => ({
+          id: item._id,
+          name: item.name,
+          designation: item.designation,
+          practiceArea: item.expertise?.[0] || 'Leadership Advisory',
+          bio: item.bio,
+          expertise: Array.isArray(item.expertise) ? item.expertise : [],
+        }));
+      }
+    }
+  } catch {
+    // Fallback
+  }
+  return teamData;
+}
+
+/**
+ * Fetch published career postings
+ */
+export async function getPublicCareers(): Promise<CareerRole[]> {
+  try {
+    const res = await fetch(`${API_BASE}/careers`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && Array.isArray(body.data) && body.data.length > 0) {
+        return body.data.map((item: any): CareerRole => ({
+          slug: item.slug,
+          title: item.title,
+          department: item.department,
+          location: item.location,
+          employmentType: item.employmentType,
+          experience: item.experience,
+          description: item.description,
+          responsibilities: Array.isArray(item.responsibilities) ? item.responsibilities : [],
+          requirements: Array.isArray(item.requirements) ? item.requirements : [],
+          niceToHave: [],
+        }));
+      }
+    }
+  } catch {
+    // Fallback
+  }
+  return careersData;
+}
+
+/**
+ * Fetch single career posting by slug
+ */
+export async function getPublicCareerBySlug(slug: string): Promise<CareerRole | null> {
+  try {
+    const res = await fetch(`${API_BASE}/careers/${slug}`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && body.data) {
+        const item = body.data;
+        return {
+          slug: item.slug,
+          title: item.title,
+          department: item.department,
+          location: item.location,
+          employmentType: item.employmentType,
+          experience: item.experience,
+          description: item.description,
+          responsibilities: Array.isArray(item.responsibilities) ? item.responsibilities : [],
+          requirements: Array.isArray(item.requirements) ? item.requirements : [],
+          niceToHave: [],
+        };
+      }
+    }
+  } catch {
+    // Fallback
+  }
+  return careersData.find((c) => c.slug === slug) || null;
+}
+
+export interface PublicGalleryItem {
+  id: string;
+  title: string;
+  caption?: string;
+  category: string;
+  imageUrl: string;
+  filename?: string;
+  altText?: string;
+}
+
+/**
+ * Fetch published gallery/media assets
+ */
+export async function getPublicGalleryItems(): Promise<PublicGalleryItem[]> {
+  try {
+    const res = await fetch(`${API_BASE}/gallery`, {
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      if (body.success && Array.isArray(body.data) && body.data.length > 0) {
+        return body.data.map((item: any): PublicGalleryItem => ({
+          id: item._id,
+          title: item.title,
+          caption: item.caption,
+          category: item.category,
+          imageUrl: item.imageUrl,
+          filename: item.filename,
+          altText: item.altText,
+        }));
+      }
+    }
+  } catch {
+    // Fallback
+  }
+  return [];
+}
+

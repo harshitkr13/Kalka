@@ -4,13 +4,16 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Award } from 'lucide-react';
 import { FinalCta } from '@/sections/home/FinalCta';
+import { getPublicAwards } from '@/lib/api/publicContent';
 
 export const metadata: Metadata = {
   title: 'Awards & Recognition | Kalka Co. Media Consultancy',
   description: 'Industry commendations and institutional recognition for Kalka Co. Media Consultancy.',
 };
 
-export default function AwardsPage() {
+export default async function AwardsPage() {
+  const awards = await getPublicAwards();
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
@@ -38,19 +41,42 @@ export default function AwardsPage() {
               description="Commendations across communications practices."
             />
 
-            <div className="p-12 sm:p-16 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
-              <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
-                <Award className="w-7 h-7 text-gold-dark" />
+            {awards.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {awards.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-6 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between"
+                  >
+                    <div>
+                      <span className="text-xs font-mono font-semibold uppercase text-gold tracking-wider mb-2 block">
+                        {item.year}
+                      </span>
+                      <h3 className="font-serif text-xl font-bold text-navy mb-2">{item.name}</h3>
+                      <p className="text-xs text-slate-500 font-semibold mb-3">
+                        {item.organization} &bull; {item.category}
+                      </p>
+                      <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <h3 className="font-serif text-2xl font-bold text-navy">
-                Awards & Recognition Information Coming Soon
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Industry commendations and institutional recognition archives are being curated.
-              </p>
-            </div>
+            ) : (
+              <div className="p-12 sm:p-16 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+                  <Award className="w-7 h-7 text-gold-dark" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-navy">
+                  Awards & Recognition Information Coming Soon
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Industry commendations and institutional recognition archives are being curated.
+                </p>
+              </div>
+            )}
           </div>
         </section>
+
 
         <FinalCta />
       </main>

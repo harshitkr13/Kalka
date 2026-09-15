@@ -10,7 +10,7 @@ export interface IMediaMention extends Document {
   type: 'quote' | 'feature' | 'interview' | 'mention';
   featured: boolean;
   displayOrder: number;
-  status: 'published' | 'draft';
+  status: 'published' | 'draft' | 'archived';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,8 +32,8 @@ const MediaMentionSchema = new Schema<IMediaMention>(
     displayOrder: { type: Number, default: 0, index: true },
     status: {
       type: String,
-      enum: ['published', 'draft'],
-      default: 'published',
+      enum: ['published', 'draft', 'archived'],
+      default: 'draft',
       index: true,
     },
   },

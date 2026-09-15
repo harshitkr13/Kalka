@@ -1,0 +1,226 @@
+'use client';
+
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { CMSPageHeader } from '@/components/admin/cms/CMSPageHeader';
+import { createAdminItem } from '@/lib/api/adminCms';
+
+export default function AdminNewClientPage() {
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [name, setName] = useState('');
+  const [slug, setSlug] = useState('');
+  const [industry, setIndustry] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [description, setDescription] = useState('');
+  const [website, setWebsite] = useState('');
+  const [logo, setLogo] = useState('');
+  const [logoAsset, setLogoAsset] = useState('');
+  const [displayOrder, setDisplayOrder] = useState(0);
+  const [approvalStatus, setApprovalStatus] = useState<'PENDING_APPROVAL' | 'APPROVED' | 'RESTRICTED'>('PENDING_APPROVAL');
+  const [status, setStatus] = useState<'draft' | 'published' | 'archived'>('draft');
+
+  const handleNameChange = (val: string) => {
+    setName(val);
+    if (!slug) {
+      setSlug(val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await createAdminItem('clients', {
+        name,
+        slug,
+        industry,
+        shortDescription: shortDescription || undefined,
+        description: description || undefined,
+        website: website || undefined,
+        logo: logo || undefined,
+        logoAsset: logoAsset || undefined,
+        displayOrder: Number(displayOrder),
+        approvalStatus,
+        status,
+      });
+
+      if (res.success) {
+        router.push('/admin/clients');
+      } else {
+        setError(res.error || 'Failed to create client');
+      }
+    } catch {
+      setError('A network error occurred');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6 max-w-4xl">
+      <CMSPageHeader
+        title="Add Client to Roster"
+        description="Register a new client entity with governance approval tracking."
+        backHref="/admin/clients"
+      />
+
+      {error && (
+        <div className="p-4 rounded-lg bg-rose-950/40 border border-rose-800/80 text-rose-300 text-sm">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="p-6 bg-slate-900/60 border border-slate-800 rounded-xl space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Client Name *
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => handleNameChange(e.target.value)}
+              required
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+              placeholder="e.g. Keventers"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              URL Slug *
+            </label>
+            <input
+              type="text"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              required
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm font-mono focus:border-amber-500 focus:outline-none"
+              placeholder="keventers"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Industry Sector *
+            </label>
+            <input
+              type="text"
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+              required
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+              placeholder="e.g. Hospitality"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Website URL
+            </label>
+            <input
+              type="text"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+              placeholder="https://brand.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Approval Status
+            </label>
+            <select
+              value={approvalStatus}
+              onChange={(e) => setApprovalStatus(e.target.value as any)}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+            >
+              <option value="PENDING_APPROVAL">PENDING_APPROVAL (Text only, badge)</option>
+              <option value="APPROVED">APPROVED (Verified for public logo display)</option>
+              <option value="RESTRICTED">RESTRICTED (Confidential, hidden)</option>
+            </select>
+            <p className="text-[11px] text-slate-500 mt-1">
+              * Note: Logos will only display publicly when status = published AND approval = APPROVED.
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Publishing State
+            </label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as any)}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+            >
+              <option value="draft">Draft (CMS only)</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Logo Asset URL / Path
+            </label>
+            <input
+              type="text"
+              value={logo}
+              onChange={(e) => setLogo(e.target.value)}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+              placeholder="/assets/keventers.png or URL"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+              Display Order
+            </label>
+            <input
+              type="number"
+              value={displayOrder}
+              onChange={(e) => setDisplayOrder(parseInt(e.target.value, 10) || 0)}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold uppercase font-mono text-slate-300 mb-1">
+            Short Description / Representation Note
+          </label>
+          <textarea
+            value={shortDescription}
+            onChange={(e) => setShortDescription(e.target.value)}
+            rows={3}
+            className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
+            placeholder="Brief advisory mandate description..."
+          />
+        </div>
+
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <Link
+            href="/admin/clients"
+            className="px-4 py-2 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 text-sm font-semibold"
+          >
+            Cancel
+          </Link>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm font-semibold rounded-lg shadow disabled:opacity-50"
+          >
+            {submitting ? 'Saving...' : 'Create Client'}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}

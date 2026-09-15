@@ -42,6 +42,49 @@ import {
   addLeadNote,
   deleteLead,
 } from './adminLead.controller';
+import {
+  listClients,
+  getClientById,
+  createClient,
+  updateClient,
+  updateClientApproval,
+  deleteClient,
+} from './adminClient.controller';
+import {
+  listMediaMentions,
+  getMediaMentionById,
+  createMediaMention,
+  updateMediaMention,
+  deleteMediaMention,
+} from './adminMediaMention.controller';
+import {
+  listAwards,
+  getAwardById,
+  createAward,
+  updateAward,
+  deleteAward,
+} from './adminAward.controller';
+import {
+  listTeamMembers,
+  getTeamMemberById,
+  createTeamMember,
+  updateTeamMember,
+  deleteTeamMember,
+} from './adminTeam.controller';
+import {
+  listCareers,
+  getCareerById,
+  createCareer,
+  updateCareer,
+  deleteCareer,
+} from './adminCareer.controller';
+import {
+  listGalleryItems,
+  getGalleryItemById,
+  createGalleryItem,
+  updateGalleryItem,
+  deleteGalleryItem,
+} from './adminGallery.controller';
 
 const router = Router();
 
@@ -90,4 +133,48 @@ router.patch('/leads/:id', requirePermission('leads:manage'), updateLead);
 router.post('/leads/:id/notes', requirePermission('leads:manage'), addLeadNote);
 router.delete('/leads/:id', requirePermission('leads:manage'), deleteLead);
 
+// 7. Clients Roster CMS (Phase 8)
+router.get('/clients', requirePermission('content:view'), listClients);
+router.get('/clients/:id', requirePermission('content:view'), getClientById);
+router.post('/clients', requirePermission('content:edit'), createClient);
+router.patch('/clients/:id', requirePermission('content:edit'), updateClient);
+router.patch('/clients/:id/approval', requirePermission('content:publish'), updateClientApproval);
+router.delete('/clients/:id', requirePermission('content:publish'), deleteClient);
+
+// 8. Media Mentions & Press CMS (Phase 8)
+router.get('/media', requirePermission('content:view'), listMediaMentions);
+router.get('/media/:id', requirePermission('content:view'), getMediaMentionById);
+router.post('/media', requirePermission('content:edit'), createMediaMention);
+router.patch('/media/:id', requirePermission('content:edit'), updateMediaMention);
+router.delete('/media/:id', requirePermission('content:publish'), deleteMediaMention);
+
+// 9. Awards & Recognition CMS (Phase 8)
+router.get('/awards', requirePermission('content:view'), listAwards);
+router.get('/awards/:id', requirePermission('content:view'), getAwardById);
+router.post('/awards', requirePermission('content:edit'), createAward);
+router.patch('/awards/:id', requirePermission('content:edit'), updateAward);
+router.delete('/awards/:id', requirePermission('content:publish'), deleteAward);
+
+// 10. Team & Leadership CMS (Phase 8)
+router.get('/team', requirePermission('content:view'), listTeamMembers);
+router.get('/team/:id', requirePermission('content:view'), getTeamMemberById);
+router.post('/team', requirePermission('content:edit'), createTeamMember);
+router.patch('/team/:id', requirePermission('content:edit'), updateTeamMember);
+router.delete('/team/:id', requirePermission('content:publish'), deleteTeamMember);
+
+// 11. Careers CMS (Phase 8)
+router.get('/careers', requirePermission('careers:view'), listCareers);
+router.get('/careers/:id', requirePermission('careers:view'), getCareerById);
+router.post('/careers', requirePermission('careers:manage'), createCareer);
+router.patch('/careers/:id', requirePermission('careers:manage'), updateCareer);
+router.delete('/careers/:id', requirePermission('careers:manage'), deleteCareer);
+
+// 12. Media Assets & Gallery CMS (Phase 8)
+router.get('/gallery', requirePermission('content:view'), listGalleryItems);
+router.get('/gallery/:id', requirePermission('content:view'), getGalleryItemById);
+router.post('/gallery', requirePermission('content:edit'), createGalleryItem);
+router.patch('/gallery/:id', requirePermission('content:edit'), updateGalleryItem);
+router.delete('/gallery/:id', requirePermission('content:publish'), deleteGalleryItem);
+
 export const adminRoutes = router;
+

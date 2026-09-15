@@ -2,15 +2,18 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
-import { associatedClients } from '@/lib/content/clients';
+import { getPublicClients } from '@/lib/api/publicContent';
 import { FinalCta } from '@/sections/home/FinalCta';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Clients & Associated Organizations | Kalka Co. Media Consultancy',
   description: 'Associated brands, organizations, and clients advised by Kalka Co. Media Consultancy.',
 };
 
-export default function ClientsPage() {
+export default async function ClientsPage() {
+  const clients = await getPublicClients();
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
@@ -39,18 +42,33 @@ export default function ClientsPage() {
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {associatedClients.map((client, idx) => (
+              {clients.map((client, idx) => (
                 <div
                   key={idx}
                   className="p-6 border border-slate-200 rounded-lg bg-slate-50/40 space-y-3 hover:border-gold transition-colors flex flex-col justify-between"
                 >
                   <div>
-                    <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-800 border border-amber-500/20 font-semibold uppercase tracking-wider inline-block mb-3">
-                      PENDING APPROVAL
+                    <span
+                      className={cn(
+                        'text-[9px] font-mono px-2 py-0.5 rounded font-semibold uppercase tracking-wider inline-block mb-3 border',
+                        client.approvalStatus === 'APPROVED'
+                          ? 'bg-emerald-500/10 text-emerald-800 border-emerald-500/20'
+                          : 'bg-amber-500/10 text-amber-800 border-amber-500/20'
+                      )}
+                    >
+                      {client.approvalStatus === 'APPROVED' ? 'APPROVED CLIENT' : 'PENDING APPROVAL'}
                     </span>
+                    {client.approvalStatus === 'APPROVED' && client.logo ? (
+                      <div className="mb-3">
+                        <img src={client.logo} alt={client.name} className="h-10 object-contain" />
+                      </div>
+                    ) : null}
                     <h3 className="font-serif text-xl font-bold text-navy">
                       {client.name}
                     </h3>
+                    {client.industry && (
+                      <p className="text-xs text-slate-500 mt-1 font-mono">{client.industry}</p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -61,6 +79,7 @@ export default function ClientsPage() {
             </div>
           </div>
         </section>
+
 
         <FinalCta />
       </main>

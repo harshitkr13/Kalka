@@ -6,13 +6,16 @@ import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Briefcase } from 'lucide-react';
 import { FinalCta } from '@/sections/home/FinalCta';
+import { getPublicCaseStudies } from '@/lib/api/publicContent';
 
 export const metadata: Metadata = {
   title: 'Case Studies & Portfolio | Kalka Co. Media Consultancy',
   description: 'Selected strategic communications and media relations engagements by Kalka Co. Media Consultancy.',
 };
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
+  const caseStudies = await getPublicCaseStudies();
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
@@ -40,26 +43,50 @@ export default function CaseStudiesPage() {
               description="Detailed examinations of strategic communications mandates."
             />
 
-            <div className="p-12 sm:p-16 rounded-xl bg-white border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
-              <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
-                <Briefcase className="w-7 h-7 text-gold-dark" />
+            {caseStudies.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {caseStudies.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={`/case-studies/${item.slug}`}
+                    className="group flex flex-col p-6 bg-white border border-slate-200 rounded-lg hover:border-gold transition-colors"
+                  >
+                    <span className="text-xs font-mono font-semibold uppercase text-gold tracking-wider mb-2">
+                      {item.clientIndustry}
+                    </span>
+                    <h3 className="font-serif text-xl font-bold text-navy group-hover:text-gold-dark transition-colors mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 line-clamp-3 mb-4">{item.summary}</p>
+                    <span className="mt-auto text-xs font-semibold text-navy flex items-center gap-1 group-hover:underline">
+                      View Engagement &rarr;
+                    </span>
+                  </Link>
+                ))}
               </div>
-              <h3 className="font-serif text-2xl font-bold text-navy">
-                Case Studies Coming Soon
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Our portfolio of advisory engagements and campaign dossiers is currently being prepared for publication. For specific practice inquiries or capability briefings, please initiate a direct conversation.
-              </p>
-              <div className="pt-2">
-                <Link href="/contact">
-                  <Button variant="gold" size="md">
-                    Initiate Consultation
-                  </Button>
-                </Link>
+            ) : (
+              <div className="p-12 sm:p-16 rounded-xl bg-white border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+                  <Briefcase className="w-7 h-7 text-gold-dark" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-navy">
+                  Case Studies Coming Soon
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Our portfolio of advisory engagements and campaign dossiers is currently being prepared for publication. For specific practice inquiries or capability briefings, please initiate a direct conversation.
+                </p>
+                <div className="pt-2">
+                  <Link href="/contact">
+                    <Button variant="gold" size="md">
+                      Initiate Consultation
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
+
 
         <FinalCta />
       </main>

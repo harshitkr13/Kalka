@@ -11,8 +11,12 @@ export interface ICareer extends Document {
   requirements: string[];
   responsibilities: string[];
   deadline?: string;
+  applicationEmail: string;
+  applicationUrl?: string;
+  displayOrder: number;
+  featured: boolean;
   active: boolean;
-  status: 'published' | 'draft' | 'closed';
+  status: 'published' | 'draft' | 'closed' | 'archived';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,11 +37,15 @@ const CareerSchema = new Schema<ICareer>(
     requirements: [{ type: String, trim: true }],
     responsibilities: [{ type: String, trim: true }],
     deadline: { type: String, trim: true },
+    applicationEmail: { type: String, default: 'djdurgesh8@gmail.com', trim: true },
+    applicationUrl: { type: String, trim: true },
+    displayOrder: { type: Number, default: 0, index: true },
+    featured: { type: Boolean, default: false, index: true },
     active: { type: Boolean, default: true, index: true },
     status: {
       type: String,
-      enum: ['published', 'draft', 'closed'],
-      default: 'published',
+      enum: ['published', 'draft', 'closed', 'archived'],
+      default: 'draft',
       index: true,
     },
   },

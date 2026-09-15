@@ -19,7 +19,9 @@ export interface ICaseStudy extends Document {
   coverImage?: string;
   gallery: string[];
   mediaCoverage: string[];
+  services?: string[];
   featured: boolean;
+  displayOrder: number;
   status: 'published' | 'draft' | 'archived';
   seoTitle?: string;
   seoDescription?: string;
@@ -47,11 +49,13 @@ const CaseStudySchema = new Schema<ICaseStudy>(
     coverImage: { type: String, trim: true },
     gallery: [{ type: String, trim: true }],
     mediaCoverage: [{ type: String, trim: true }],
+    services: [{ type: String, trim: true }],
     featured: { type: Boolean, default: false, index: true },
+    displayOrder: { type: Number, default: 0, index: true },
     status: {
       type: String,
       enum: ['published', 'draft', 'archived'],
-      default: 'published',
+      default: 'draft',
       index: true,
     },
     seoTitle: { type: String, trim: true },

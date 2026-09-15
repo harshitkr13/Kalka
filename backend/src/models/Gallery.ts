@@ -5,11 +5,17 @@ export interface IGalleryItem extends Document {
   caption?: string;
   category: string;
   imageUrl: string;
+  filename?: string;
+  altText?: string;
+  fileSize?: number;
+  mimeType?: string;
+  width?: number;
+  height?: number;
   aspectRatio: 'landscape' | 'portrait' | 'square';
   tags: string[];
   featured: boolean;
   displayOrder: number;
-  status: 'published' | 'draft';
+  status: 'published' | 'draft' | 'archived';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,6 +26,12 @@ const GallerySchema = new Schema<IGalleryItem>(
     caption: { type: String, trim: true },
     category: { type: String, required: true, trim: true, index: true },
     imageUrl: { type: String, required: true, trim: true },
+    filename: { type: String, trim: true },
+    altText: { type: String, trim: true },
+    fileSize: { type: Number },
+    mimeType: { type: String, trim: true },
+    width: { type: Number },
+    height: { type: Number },
     aspectRatio: {
       type: String,
       enum: ['landscape', 'portrait', 'square'],
@@ -30,8 +42,8 @@ const GallerySchema = new Schema<IGalleryItem>(
     displayOrder: { type: Number, default: 0, index: true },
     status: {
       type: String,
-      enum: ['published', 'draft'],
-      default: 'published',
+      enum: ['published', 'draft', 'archived'],
+      default: 'draft',
       index: true,
     },
   },

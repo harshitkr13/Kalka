@@ -4,13 +4,16 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Radio } from 'lucide-react';
 import { FinalCta } from '@/sections/home/FinalCta';
+import { getPublicMediaMentions } from '@/lib/api/publicContent';
 
 export const metadata: Metadata = {
   title: 'Media Coverage & Press | Kalka Co. Media Consultancy',
   description: 'Verified media mentions, editorial commentary, and press coverage of Kalka Co. Media Consultancy.',
 };
 
-export default function MediaCoveragePage() {
+export default async function MediaCoveragePage() {
+  const mentions = await getPublicMediaMentions();
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
@@ -38,22 +41,53 @@ export default function MediaCoveragePage() {
               description="Selected media features and commentary across business press."
             />
 
-            <div className="p-12 sm:p-16 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
-              <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
-                <Radio className="w-7 h-7 text-gold-dark" />
+            {mentions.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {mentions.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-6 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                        <span className="font-semibold text-navy uppercase font-mono">{item.publication}</span>
+                        <span>{item.date}</span>
+                      </div>
+                      <h3 className="font-serif text-lg font-bold text-navy mb-2">{item.headline}</h3>
+                      <p className="text-sm text-slate-600 line-clamp-3 mb-4">{item.quoteExcerpt}</p>
+                    </div>
+                    {item.urlPlaceholder ? (
+                      <a
+                        href={item.urlPlaceholder}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-semibold text-navy hover:text-gold flex items-center gap-1"
+                      >
+                        Read Publication &rarr;
+                      </a>
+                    ) : null}
+                  </div>
+                ))}
               </div>
-              <h3 className="font-serif text-2xl font-bold text-navy">
-                Media Coverage Information Coming Soon
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Verified media features, press mentions, and commentary archives are currently being compiled. For press inquiries, contact{' '}
-                <a href="mailto:djdurgesh8@gmail.com" className="text-navy font-semibold underline font-mono">
-                  djdurgesh8@gmail.com
-                </a>.
-              </p>
-            </div>
+            ) : (
+              <div className="p-12 sm:p-16 rounded-xl bg-slate-50 border border-slate-200 text-center max-w-2xl mx-auto space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy mx-auto">
+                  <Radio className="w-7 h-7 text-gold-dark" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-navy">
+                  Media Coverage Information Coming Soon
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Verified media features, press mentions, and commentary archives are currently being compiled. For press inquiries, contact{' '}
+                  <a href="mailto:djdurgesh8@gmail.com" className="text-navy font-semibold underline font-mono">
+                    djdurgesh8@gmail.com
+                  </a>.
+                </p>
+              </div>
+            )}
           </div>
         </section>
+
 
         <FinalCta />
       </main>

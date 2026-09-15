@@ -10,7 +10,7 @@ export interface IAward extends Document {
   externalUrl?: string;
   featured: boolean;
   displayOrder: number;
-  status: 'published' | 'draft';
+  status: 'published' | 'draft' | 'archived';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,8 +28,8 @@ const AwardSchema = new Schema<IAward>(
     displayOrder: { type: Number, default: 0, index: true },
     status: {
       type: String,
-      enum: ['published', 'draft'],
-      default: 'published',
+      enum: ['published', 'draft', 'archived'],
+      default: 'draft',
       index: true,
     },
   },
