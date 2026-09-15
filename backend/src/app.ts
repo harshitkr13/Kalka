@@ -8,8 +8,12 @@ import { notFoundHandler } from './middleware/notFoundHandler';
 import { errorHandler } from './middleware/errorHandler';
 import { sendSuccess } from './utils/apiResponse';
 
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+
 // Module routes
 import { healthRoutes } from './modules/health/health.routes';
+import { authRoutes } from './modules/auth/auth.routes';
 import { serviceRoutes } from './modules/services/service.routes';
 import { industryRoutes } from './modules/industries/industry.routes';
 import { clientRoutes } from './modules/clients/client.routes';
@@ -30,7 +34,10 @@ export function createApp(): Express {
   app.use(helmet());
 
   // CORS Configuration
-  const allowedOrigins = env.CORS_ORIGIN.split(',').map((o) => o.trim());
+  const allowedOrigins = [env.CORS_ORIGIN, env.FRONTEND_URL]
+    .flatMap((o) => o.split(','))
+    .map((o) => o.trim())
+    .filter(Boolean);
   app.use(
     cors({
       origin: (origin, callback) => {
@@ -53,6 +60,34 @@ export function createApp(): Express {
   // Logging middleware
   app.use(requestLogger);
 
+  // Secure Server-Side Sessions
+  const sessionStore =
+    env.NODE_ENV === 'test'
+      ? undefined
+      : MongoStore.create({
+          mongoUrl: env.MONGODB_URI,
+          collectionName: 'sessions',
+          ttl: 14 * 24 * 60 * 60, // 14 days
+          autoRemove: 'native',
+        });
+
+  app.use(
+    session({
+      name: 'kalka.sid',
+      secret: env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: false,
+      store: sessionStore,
+      cookie: {
+        httpOnly: true,
+        secure: env.NODE_ENV === 'production',
+        sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
+        maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
+        path: '/',
+      },
+    })
+  );
+
   // Rate limiting on API routes
   app.use(env.API_PREFIX, apiLimiter);
 
@@ -72,6 +107,7 @@ export function createApp(): Express {
   // Mount API module routes under API_PREFIX
   const prefix = env.API_PREFIX;
   app.use(`${prefix}/health`, healthRoutes);
+  app.use(`${prefix}/auth`, authRoutes);
   app.use(`${prefix}/services`, serviceRoutes);
   app.use(`${prefix}/industries`, industryRoutes);
   app.use(`${prefix}/clients`, clientRoutes);

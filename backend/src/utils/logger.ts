@@ -5,13 +5,18 @@ type LogLevel = 'info' | 'warn' | 'error' | 'debug';
 
 function sanitize(data: unknown): unknown {
   if (typeof data === 'string') {
-    return data.replace(/(password|token|secret|key)=([^&]+)/gi, '$1=*****');
+    return data
+      .replace(/(password|token|secret|key|client_secret|session_secret)=([^&\s]+)/gi, '$1=*****')
+      .replace(/(Bearer\s+)[A-Za-z0-9\-._~+/]+=*/gi, '$1*****')
+      .replace(/(mongodb(?:\+srv)?:\/\/[^:]+:)([^@]+)(@)/gi, '$1*****$3');
   }
   if (data && typeof data === 'object') {
     const copy = { ...(data as Record<string, unknown>) };
     for (const key of Object.keys(copy)) {
-      if (/password|token|secret|key|authorization/i.test(key)) {
+      if (/password|token|secret|key|authorization|bearer|cookie/i.test(key)) {
         copy[key] = '*****';
+      } else if (typeof copy[key] === 'string') {
+        copy[key] = sanitize(copy[key]);
       }
     }
     return copy;
