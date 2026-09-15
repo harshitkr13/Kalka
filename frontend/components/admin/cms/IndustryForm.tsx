@@ -197,7 +197,7 @@ export const IndustryForm: React.FC<IndustryFormProps> = ({
               type="text"
               value={formData.heroImage}
               onChange={(e) => updateField('heroImage', e.target.value)}
-              placeholder="/images/industries/tech.jpg"
+              placeholder="/assets/industries/real-estate.webp"
               className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-amber-500/50"
             />
           </FormField>

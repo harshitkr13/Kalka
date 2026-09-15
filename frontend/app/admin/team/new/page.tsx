@@ -163,7 +163,7 @@ export default function AdminNewTeamMemberPage() {
               value={photo}
               onChange={(e) => setPhoto(e.target.value)}
               className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
-              placeholder="/assets/founder.jpg"
+              placeholder="/assets/home/about.webp"
             />
           </div>
 

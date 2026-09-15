@@ -10,6 +10,7 @@ export interface CaseStudyData {
   outcome: string;
   metrics: { label: string; value: string }[];
   featured?: boolean;
+  coverImage?: string;
 }
 
 export const caseStudiesData: CaseStudyData[] = [];

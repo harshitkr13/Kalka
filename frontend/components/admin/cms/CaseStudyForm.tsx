@@ -277,7 +277,7 @@ export const CaseStudyForm: React.FC<CaseStudyFormProps> = ({
               type="text"
               value={formData.coverImage}
               onChange={(e) => updateField('coverImage', e.target.value)}
-              placeholder="/images/case-studies/digital-health.jpg"
+              placeholder="/assets/case-studies/default-cover.webp"
               className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-amber-500/50"
             />
           </FormField>

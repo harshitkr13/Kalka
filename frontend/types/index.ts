@@ -40,6 +40,7 @@ export interface IndustryCardProps {
   sectorTag: string;
   featured?: boolean;
   href?: string;
+  imageSrc?: string;
 }
 
 export interface BlogCardProps {

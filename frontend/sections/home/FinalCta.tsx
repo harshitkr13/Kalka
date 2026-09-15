@@ -1,11 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, ShieldCheck, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 export const FinalCta: React.FC = () => {
   return (
     <section className="py-20 lg:py-28 bg-navy-deep text-white text-center relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none opacity-10 mix-blend-luminosity">
+        <Image
+          src="/assets/backgrounds/abstract-editorial.webp"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#c9a84c_1px,transparent_1px)] [background-size:24px_24px]"
         aria-hidden="true"

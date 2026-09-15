@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ReactNode } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
@@ -16,6 +17,8 @@ export interface HeroProps {
   secondaryCtaAction?: () => void;
   trustText?: string;
   mediaSlot?: ReactNode;
+  imageSrc?: string;
+  imageAlt?: string;
   className?: string;
 }
 
@@ -29,6 +32,8 @@ export const Hero: React.FC<HeroProps> = ({
   secondaryCtaAction,
   trustText = 'Trusted strategic advisor to leadership across high-stakes industries',
   mediaSlot,
+  imageSrc,
+  imageAlt,
   className,
 }) => {
   return (
@@ -43,6 +48,15 @@ export const Hero: React.FC<HeroProps> = ({
         className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#c9a84c_1px,transparent_1px)] [background-size:24px_24px]"
         aria-hidden="true"
       />
+      <div className="absolute inset-0 opacity-[0.06] pointer-events-none overflow-hidden" aria-hidden="true">
+        <Image
+          src="/assets/backgrounds/abstract-editorial.webp"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
 
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-left">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -99,16 +113,34 @@ export const Hero: React.FC<HeroProps> = ({
             )}
           </div>
 
-          {/* Right Column: Visual / Graphic Placeholder Slot */}
+          {/* Right Column: Visual / Graphic Slot */}
           <div className="lg:col-span-4">
             <MotionFade delay={0.3} direction="left">
-              {mediaSlot || (
+              {mediaSlot ? (
+                mediaSlot
+              ) : imageSrc ? (
+                <div className="relative rounded-lg overflow-hidden border border-navy-border shadow-elevated group aspect-[4/3] lg:aspect-auto lg:h-[380px] w-full bg-navy-surface">
+                  <Image
+                    src={imageSrc}
+                    alt={imageAlt || 'Strategic communications and public relations'}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 380px"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-3 right-3 p-2.5 rounded bg-navy-deep/90 backdrop-blur-md border border-navy-border/60 text-xs">
+                    <span className="text-gold font-mono uppercase tracking-widest text-[10px] block font-semibold">Strategic Advisory</span>
+                    <span className="text-slate-200 font-serif">Kalka Co. Media Consultancy</span>
+                  </div>
+                </div>
+              ) : (
                 <div className="border border-navy-border rounded bg-navy-surface/60 p-6 sm:p-8 backdrop-blur-sm space-y-4">
                   <div className="flex items-center justify-between border-b border-navy-border/80 pb-3">
                     <span className="text-[11px] uppercase tracking-widest text-gold font-semibold">
                       Consultancy Scope
                     </span>
-                    <span className="text-[10px] text-slate-400">[SAMPLE PREVIEW]</span>
+                    <span className="text-[10px] text-slate-400 font-mono">Strategic Counsel</span>
                   </div>
                   <p className="text-sm text-slate-300 font-serif leading-relaxed">
                     Elevating corporate reputation, orchestrating strategic media relations, and navigating high-stakes crisis communications.

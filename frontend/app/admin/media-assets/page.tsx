@@ -311,7 +311,7 @@ export default function AdminMediaAssetsPage() {
                   onChange={(e) => setNewUrl(e.target.value)}
                   required
                   className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm font-mono focus:border-amber-500 focus:outline-none"
-                  placeholder="/assets/logo.png"
+                  placeholder="/assets/brand/kalka-co-logo.svg"
                 />
               </div>
 

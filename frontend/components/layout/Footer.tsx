@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MessageSquare, MapPin, ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -10,8 +11,14 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded bg-gold flex items-center justify-center font-serif text-navy-deep font-bold text-sm">
-                K
+              <div className="relative w-8 h-8 shrink-0 flex items-center justify-center">
+                <Image
+                  src="/assets/brand/kalka-co-logo-white.svg"
+                  alt="Kalka Co. Media Consultancy"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
               </div>
               <span className="font-serif text-xl font-bold tracking-tight text-white">
                 KALKA CO.

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
@@ -49,18 +50,29 @@ export default async function CaseStudiesPage() {
                   <Link
                     key={idx}
                     href={`/case-studies/${item.slug}`}
-                    className="group flex flex-col p-6 bg-white border border-slate-200 rounded-lg hover:border-gold transition-colors"
+                    className="group flex flex-col bg-white border border-slate-200 rounded-lg overflow-hidden hover:border-gold transition-colors"
                   >
-                    <span className="text-xs font-mono font-semibold uppercase text-gold tracking-wider mb-2">
-                      {item.clientIndustry}
-                    </span>
-                    <h3 className="font-serif text-xl font-bold text-navy group-hover:text-gold-dark transition-colors mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 line-clamp-3 mb-4">{item.summary}</p>
-                    <span className="mt-auto text-xs font-semibold text-navy flex items-center gap-1 group-hover:underline">
-                      View Engagement &rarr;
-                    </span>
+                    <div className="relative h-48 w-full bg-slate-100">
+                      <Image
+                        src={item.coverImage || '/assets/case-studies/default-cover.webp'}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <span className="text-xs font-mono font-semibold uppercase text-gold tracking-wider mb-2">
+                        {item.clientIndustry}
+                      </span>
+                      <h3 className="font-serif text-xl font-bold text-navy group-hover:text-gold-dark transition-colors mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 line-clamp-3 mb-4">{item.summary}</p>
+                      <span className="mt-auto text-xs font-semibold text-navy flex items-center gap-1 group-hover:underline">
+                        View Engagement &rarr;
+                      </span>
+                    </div>
                   </Link>
                 ))}
               </div>

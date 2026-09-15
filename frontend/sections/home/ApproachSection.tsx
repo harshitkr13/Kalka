@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
 
 export const ApproachSection: React.FC = () => {
@@ -38,6 +39,24 @@ export const ApproachSection: React.FC = () => {
           description="A disciplined, repeatable advisory engagement model ensuring absolute clarity, compliance, and lasting reputation impact."
           className="text-white [&_h2]:text-white [&_p]:text-slate-300"
         />
+
+        {/* Strategic Methodology Visual */}
+        <div className="relative h-60 sm:h-72 md:h-80 w-full rounded-lg overflow-hidden border border-navy-border shadow-elevated mb-12 bg-navy-surface">
+          <Image
+            src="/assets/home/strategic-approach.webp"
+            alt="The Kalka Four-Stage Strategic Communications Framework"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent pointer-events-none" />
+          <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Advisory Methodology</span>
+              <span className="text-base sm:text-lg font-serif text-white font-medium">Strategic Architecture & Institutional Precision</span>
+            </div>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step) => (

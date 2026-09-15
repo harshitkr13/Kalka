@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -8,6 +9,19 @@ import { Button } from '@/components/ui/Button';
 import { FinalCta } from '@/sections/home/FinalCta';
 import { industriesData } from '@/lib/content/industries';
 import { ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
+
+const industryImageMap: Record<string, string> = {
+  'real-estate': '/assets/industries/real-estate.webp',
+  'infrastructure': '/assets/industries/infrastructure.webp',
+  'corporate-organizations': '/assets/industries/corporate.webp',
+  'startups': '/assets/industries/startups.webp',
+  'hospitality': '/assets/industries/hospitality.webp',
+  'education': '/assets/industries/education.webp',
+  'retail': '/assets/industries/retail.webp',
+  'healthcare': '/assets/industries/healthcare.webp',
+  'public-affairs': '/assets/industries/public-affairs.webp',
+  'professional-services': '/assets/industries/professional-services.webp',
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -112,28 +126,48 @@ export default async function IndustryDetailPage({ params }: Props) {
               </div>
 
               {/* Sidebar: Tailored Practices */}
-              <div className="lg:col-span-5 p-8 rounded bg-slate-50 border border-slate-200 space-y-6">
-                <h3 className="font-serif text-xl font-semibold text-navy">
-                  Tailored Practice Capabilities
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Core communications practices frequently engaged for {industry.name} leadership:
-                </p>
-                <div className="space-y-2">
-                  {industry.relevantServices.map((svc) => (
-                    <div key={svc} className="flex items-center gap-2 p-3 bg-white border border-slate-200 rounded text-xs font-semibold text-navy">
-                      <CheckCircle2 className="w-4 h-4 text-gold shrink-0" />
-                      <span>{svc}</span>
+              <div className="lg:col-span-5 space-y-6">
+                {industryImageMap[slug] && (
+                  <div className="relative h-56 w-full rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-slate-100">
+                    <Image
+                      src={industryImageMap[slug]}
+                      alt={industry.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 400px"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-3 left-4 right-4 text-white">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Sector Focus</span>
+                      <span className="text-sm font-serif font-semibold">{industry.name}</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
 
-                <div className="pt-4 border-t border-slate-200">
-                  <Link href="/contact" className="block w-full">
-                    <Button variant="gold" size="md" className="w-full justify-center">
-                      Consult Sector Practice Lead
-                    </Button>
-                  </Link>
+                <div className="p-8 rounded bg-slate-50 border border-slate-200 space-y-6">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Tailored Practice Capabilities
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Core communications practices frequently engaged for {industry.name} leadership:
+                  </p>
+                  <div className="space-y-2">
+                    {industry.relevantServices.map((svc) => (
+                      <div key={svc} className="flex items-center gap-2 p-3 bg-white border border-slate-200 rounded text-xs font-semibold text-navy">
+                        <CheckCircle2 className="w-4 h-4 text-gold shrink-0" />
+                        <span>{svc}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-200">
+                    <Link href="/contact" className="block w-full">
+                      <Button variant="gold" size="md" className="w-full justify-center">
+                        Consult Sector Practice Lead
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

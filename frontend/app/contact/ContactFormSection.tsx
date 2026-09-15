@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -601,44 +602,61 @@ export const ContactFormSection: React.FC = () => {
           </div>
 
           <div className="max-w-xl mx-auto">
-            <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-card space-y-6">
-              <div className="space-y-2 border-b border-slate-100 pb-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-serif text-2xl font-bold text-navy">
-                    Faridabad
-                  </span>
-                  <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-navy/5 text-navy font-mono font-bold uppercase tracking-wider">
-                    Headquarters
-                  </span>
+            <div className="bg-white rounded-xl border border-slate-200 shadow-card overflow-hidden space-y-6">
+              <div className="relative h-48 sm:h-56 w-full bg-slate-100">
+                <Image
+                  src="/assets/office/office.webp"
+                  alt="Kalka Co. Media Consultancy Headquarters in Faridabad, Haryana"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 600px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-4 right-4 text-white">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Strategic Bureau</span>
+                  <span className="text-sm font-serif font-semibold">Faridabad, Haryana</span>
                 </div>
-                <p className="text-xs font-semibold text-gold-dark font-mono">
-                  Faridabad, Haryana 121003
-                </p>
               </div>
 
-              <div className="space-y-3 text-xs text-slate-600">
-                <div className="flex items-center gap-2 text-navy font-medium">
-                  <MapPin className="w-4 h-4 text-gold flex-shrink-0" />
-                  <span>Faridabad, Haryana 121003</span>
+              <div className="p-8 pt-0 space-y-6">
+                <div className="space-y-2 border-b border-slate-100 pb-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-serif text-2xl font-bold text-navy">
+                      Faridabad
+                    </span>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-navy/5 text-navy font-mono font-bold uppercase tracking-wider">
+                      Headquarters
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-gold-dark font-mono">
+                    Faridabad, Haryana 121003
+                  </p>
                 </div>
 
-                <div>
-                  <a
-                    href="https://maps.app.goo.gl/fo8sk45WeLVydMjv5?g_st=ic"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5 text-gold" />
-                    <span>View on Google Maps</span>
-                  </a>
-                </div>
+                <div className="space-y-3 text-xs text-slate-600">
+                  <div className="flex items-center gap-2 text-navy font-medium">
+                    <MapPin className="w-4 h-4 text-gold flex-shrink-0" />
+                    <span>Faridabad, Haryana 121003</span>
+                  </div>
 
-                <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-[11px]">
-                  <p><strong>Business Hours:</strong> 09:30 - 18:30 IST</p>
-                  <p><strong>Phones:</strong> +91 87450 01570 / +91 76830 15257</p>
-                  <p><strong>WhatsApp:</strong> 8745001570</p>
-                  <p><strong>Email:</strong> <span className="text-navy font-semibold">djdurgesh8@gmail.com</span></p>
+                  <div>
+                    <a
+                      href="https://maps.app.goo.gl/fo8sk45WeLVydMjv5?g_st=ic"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 text-gold" />
+                      <span>View on Google Maps</span>
+                    </a>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-[11px]">
+                    <p><strong>Business Hours:</strong> 09:30 - 18:30 IST</p>
+                    <p><strong>Phones:</strong> +91 87450 01570 / +91 76830 15257</p>
+                    <p><strong>WhatsApp:</strong> 8745001570</p>
+                    <p><strong>Email:</strong> <span className="text-navy font-semibold">djdurgesh8@gmail.com</span></p>
+                  </div>
                 </div>
               </div>
             </div>

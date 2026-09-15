@@ -172,7 +172,7 @@ export default function AdminNewAwardPage() {
               value={badgeImage}
               onChange={(e) => setBadgeImage(e.target.value)}
               className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-sm focus:border-amber-500 focus:outline-none"
-              placeholder="/assets/awards/prweek-badge.png"
+              placeholder="/assets/brand/kalka-co-logo-white.png"
             />
           </div>
 

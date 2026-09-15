@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FinalCta } from '@/sections/home/FinalCta';
@@ -33,22 +34,34 @@ export default function AboutPage() {
         {/* Narrative Principles */}
         <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-5">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-6 space-y-6">
                 <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block mb-2 font-mono">
                   Our Focus & Approach
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-navy leading-tight">
                   Building Visibility & Strengthening Reputation
                 </h2>
+                <div className="space-y-4 text-slate-600 leading-relaxed text-base sm:text-lg font-light">
+                  <p>
+                    Effective corporate and brand communications requires strategic discipline, nuanced media relationships, and an unwavering commitment to authenticity.
+                  </p>
+                  <p>
+                    We partner with enterprise leadership, founders, and institutions to articulate narratives that resonate with stakeholders, withstand media scrutiny, and create lasting public trust.
+                  </p>
+                </div>
               </div>
-              <div className="lg:col-span-7 space-y-5 text-slate-600 leading-relaxed text-base sm:text-lg font-light">
-                <p>
-                  Effective corporate and brand communications requires strategic discipline, nuanced media relationships, and an unwavering commitment to authenticity.
-                </p>
-                <p>
-                  We partner with enterprise leadership, founders, and institutions to articulate narratives that resonate with stakeholders, withstand media scrutiny, and create lasting public trust.
-                </p>
+
+              <div className="lg:col-span-6">
+                <div className="relative rounded-lg overflow-hidden border border-slate-200 shadow-elevated aspect-[16/10] bg-slate-100">
+                  <Image
+                    src="/assets/home/about.webp"
+                    alt="Kalka Co. Media Consultancy strategic counsel and communications"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 600px"
+                  />
+                </div>
               </div>
             </div>
 

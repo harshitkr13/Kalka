@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
@@ -62,8 +63,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo / Brand Mark */}
           <Link href="/" className="flex items-center gap-3 select-none">
-            <div className="w-8 h-8 rounded bg-gold flex items-center justify-center font-serif text-navy-deep font-bold text-lg">
-              K
+            <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
+              <Image
+                src="/assets/brand/kalka-co-logo-white.svg"
+                alt="Kalka Co. Media Consultancy"
+                width={36}
+                height={36}
+                className="object-contain"
+                priority
+              />
             </div>
             <div>
               <span className="font-serif text-xl font-bold tracking-tight text-white block leading-none">

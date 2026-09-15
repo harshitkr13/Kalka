@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -9,6 +10,18 @@ import { Badge } from '@/components/ui/Badge';
 import { FinalCta } from '@/sections/home/FinalCta';
 import { servicesData } from '@/lib/content/services';
 import { ArrowRight, CheckCircle2, Layers, Compass } from 'lucide-react';
+
+const serviceImageMap: Record<string, string> = {
+  'public-relations': '/assets/work/newsroom.webp',
+  'media-relations': '/assets/work/media-interview.webp',
+  'corporate-communications': '/assets/work/corporate-event.webp',
+  'thought-leadership': '/assets/work/thought-leadership.webp',
+  'crisis-communications': '/assets/work/crisis-communication.webp',
+  'brand-positioning': '/assets/work/brand-positioning.webp',
+  'reputation-management': '/assets/work/crisis-communication.webp',
+  'content-development': '/assets/work/newsroom.webp',
+  'digital-communications': '/assets/work/thought-leadership.webp',
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -102,30 +115,50 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
 
               {/* Right Sidebar */}
-              <div className="lg:col-span-5 p-8 rounded bg-slate-50 border border-slate-200 space-y-6">
-                <h3 className="font-serif text-xl font-semibold text-navy">
-                  Related Sector Practices
-                </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  This advisory capability is frequently deployed across our marquee sector practices:
-                </p>
-                <div className="space-y-2">
-                  {service.relatedIndustries.map((ind) => (
-                    <div key={ind} className="p-3 bg-white border border-slate-200 rounded text-xs font-semibold text-navy">
-                      {ind}
+              <div className="lg:col-span-5 space-y-6">
+                {serviceImageMap[slug] && (
+                  <div className="relative h-56 w-full rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-slate-100">
+                    <Image
+                      src={serviceImageMap[slug]}
+                      alt={`${service.name} practice at Kalka Co.`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 400px"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-3 left-4 right-4 text-white">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Advisory Practice</span>
+                      <span className="text-sm font-serif font-semibold">{service.name}</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
 
-                <div className="pt-4 border-t border-slate-200">
-                  <Link
-                    href={`/contact?service=${encodeURIComponent(service.slug)}&serviceName=${encodeURIComponent(service.name)}`}
-                    className="block w-full"
-                  >
-                    <Button variant="gold" size="md" className="w-full justify-center">
-                      Consult with Practice Lead
-                    </Button>
-                  </Link>
+                <div className="p-8 rounded bg-slate-50 border border-slate-200 space-y-6">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Related Sector Practices
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    This advisory capability is frequently deployed across our marquee sector practices:
+                  </p>
+                  <div className="space-y-2">
+                    {service.relatedIndustries.map((ind) => (
+                      <div key={ind} className="p-3 bg-white border border-slate-200 rounded text-xs font-semibold text-navy">
+                        {ind}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-200">
+                    <Link
+                      href={`/contact?service=${encodeURIComponent(service.slug)}&serviceName=${encodeURIComponent(service.name)}`}
+                      className="block w-full"
+                    >
+                      <Button variant="gold" size="md" className="w-full justify-center">
+                        Consult with Practice Lead
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

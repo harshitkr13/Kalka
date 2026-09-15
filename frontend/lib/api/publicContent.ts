@@ -188,6 +188,7 @@ export async function getPublicCaseStudies(): Promise<CaseStudyData[]> {
           outcome: item.results || '',
           metrics: Array.isArray(item.metrics) ? item.metrics : [],
           featured: Boolean(item.featured),
+          coverImage: item.coverImage || undefined,
         }));
       }
     }

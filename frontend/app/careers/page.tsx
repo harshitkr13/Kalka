@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -67,8 +68,27 @@ export default async function CareersPage() {
         </div>
       </section>
 
+      {/* Careers Visual Banner */}
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-12 relative z-20">
+        <div className="relative h-60 sm:h-72 md:h-80 w-full rounded-xl overflow-hidden border border-slate-200 shadow-elevated bg-slate-100">
+          <Image
+            src="/assets/careers/careers.webp"
+            alt="Careers at Kalka Co. Media Consultancy"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute bottom-4 left-6 right-6 text-white">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Professional Culture</span>
+            <span className="text-base sm:text-lg font-serif font-semibold">Strategic Advisory, Media Practice & Communications Counsel</span>
+          </div>
+        </div>
+      </div>
+
       {/* Ethos */}
-      <section className="py-20 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white border-b border-slate-200 pt-16">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             overline="Our Ethos"

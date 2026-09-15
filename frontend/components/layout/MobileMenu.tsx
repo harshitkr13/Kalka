@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { X, ArrowRight } from 'lucide-react';
 import { NavItem } from '@/types';
 import { Button } from '@/components/ui/Button';
@@ -33,9 +34,15 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
         <div>
           {/* Header */}
           <div className="flex items-center justify-between pb-6 border-b border-navy-border">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-gold flex items-center justify-center font-serif text-navy-deep font-bold text-sm">
-                K
+            <div className="flex items-center gap-2.5">
+              <div className="relative w-7 h-7 shrink-0 flex items-center justify-center">
+                <Image
+                  src="/assets/brand/kalka-co-logo-white.svg"
+                  alt="Kalka Co. Media Consultancy"
+                  width={28}
+                  height={28}
+                  className="object-contain"
+                />
               </div>
               <span className="font-serif text-lg font-bold">KALKA CO.</span>
             </div>

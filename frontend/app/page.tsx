@@ -43,6 +43,8 @@ export default function HomePage() {
           subheadline="Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management."
           primaryCtaLabel="Start a Conversation"
           secondaryCtaLabel="Explore Advisory Practices"
+          imageSrc="/assets/home/hero.webp"
+          imageAlt="Kalka Co. Media Consultancy strategic communications and public relations"
         />
 
         {/* 3. Trust / Client Logos */}
