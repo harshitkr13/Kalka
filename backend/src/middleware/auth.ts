@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { User, IUser, UserRole } from '../models/User';
 import { Permission, hasAllPermissions } from '../modules/auth/permissions';
 import { AppError } from '../utils/appError';
+import { logger } from '../utils/logger';
+import { env } from '../config/env';
 
 declare module 'express-session' {
   interface SessionData {
@@ -23,19 +25,32 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
   try {
     const userId = req.session?.userId;
     if (!userId) {
+      logger.warn(
+        `[AUTH MIDDLEWARE]: No userId in session. sessionID=${req.sessionID ? req.sessionID.slice(0, 8) + '...' : 'none'}, hasCookieHeader=${Boolean(req.headers.cookie)}, secure=${req.secure}, protocol=${req.protocol}`
+      );
       throw new AppError('Authentication required. Please sign in.', 401, 'UNAUTHORIZED');
     }
 
     const user = await User.findById(userId);
     if (!user) {
       req.session.destroy(() => {});
-      res.clearCookie('connect.sid');
+      res.clearCookie('kalka.sid', {
+        path: '/',
+        httpOnly: true,
+        secure: env.NODE_ENV === 'production' || Boolean(process.env.RENDER),
+        sameSite: env.NODE_ENV === 'production' || Boolean(process.env.RENDER) ? 'none' : 'lax',
+      });
       throw new AppError('User account not found. Please sign in again.', 401, 'UNAUTHORIZED');
     }
 
     if (!user.active) {
       req.session.destroy(() => {});
-      res.clearCookie('connect.sid');
+      res.clearCookie('kalka.sid', {
+        path: '/',
+        httpOnly: true,
+        secure: env.NODE_ENV === 'production' || Boolean(process.env.RENDER),
+        sameSite: env.NODE_ENV === 'production' || Boolean(process.env.RENDER) ? 'none' : 'lax',
+      });
       throw new AppError('Your account has been deactivated. Access denied.', 403, 'ACCOUNT_DISABLED');
     }
 

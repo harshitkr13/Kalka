@@ -76,6 +76,9 @@ export const authController = {
           }
 
           logger.info(`User authenticated successfully: ${user.role}`);
+          logger.info(
+            `[AUTH CALLBACK]: Session established: id=${req.sessionID ? req.sessionID.slice(0, 8) + '...' : 'none'}, userId=${req.session.userId}, secure=${req.secure}, protocol=${req.protocol}`
+          );
           res.redirect(`${env.FRONTEND_URL}/admin`);
           return;
         });
@@ -100,6 +103,9 @@ export const authController = {
   getCurrentUser(req: Request, res: Response, next: NextFunction): void {
     try {
       if (!req.user) {
+        logger.warn(
+          `[AUTH ME]: Unauthorized check - hasSession=${Boolean(req.session)}, sessionID=${req.sessionID ? req.sessionID.slice(0, 8) + '...' : 'none'}, hasCookieHeader=${Boolean(req.headers.cookie)}`
+        );
         throw new AppError('Authentication required.', 401, 'UNAUTHORIZED');
       }
 
@@ -123,23 +129,27 @@ export const authController = {
 
   logout(req: Request, res: Response, next: NextFunction): void {
     try {
+      const isProd = env.NODE_ENV === 'production' || Boolean(process.env.RENDER);
+      const cookieOptions = {
+        path: '/',
+        httpOnly: true,
+        secure: isProd,
+        sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
+        partitioned: isProd,
+      };
+
       if (req.session) {
         req.session.destroy((err) => {
           if (err) {
             logger.error('Error destroying session during logout:', err);
             return next(new AppError('Failed to sign out properly', 500, 'LOGOUT_ERROR'));
           }
-          res.clearCookie('connect.sid', {
-            path: '/',
-            httpOnly: true,
-            secure: env.NODE_ENV === 'production',
-            sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
-          });
+          res.clearCookie('kalka.sid', cookieOptions);
           sendSuccess(res, { loggedOut: true }, 'Signed out successfully');
           return;
         });
       } else {
-        res.clearCookie('connect.sid');
+        res.clearCookie('kalka.sid', cookieOptions);
         sendSuccess(res, { loggedOut: true }, 'Signed out successfully');
         return;
       }

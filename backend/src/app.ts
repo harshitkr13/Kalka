@@ -35,8 +35,8 @@ import { teamRoutes } from './modules/team/team.routes';
 export function createApp(): Express {
   const app = express();
 
-  // Trust reverse proxy in production (e.g. Cloudflare, AWS ALB, Nginx)
-  app.set('trust proxy', 1);
+  // Trust reverse proxy in production (Render, Cloudflare, AWS ALB, Nginx)
+  app.set('trust proxy', true);
 
   // Security Headers
   app.use(
@@ -59,21 +59,32 @@ export function createApp(): Express {
   );
 
   // CORS Configuration
+  const normalizeUrl = (url: string) => url.trim().replace(/\/+$/, '');
   const allowedOrigins = [env.CORS_ORIGIN, env.FRONTEND_URL]
     .flatMap((o) => o.split(','))
-    .map((o) => o.trim())
+    .map(normalizeUrl)
     .filter(Boolean);
+
   app.use(
     cors({
       origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        if (!origin) {
+          return callback(null, true);
+        }
+        const normalizedOrigin = normalizeUrl(origin);
+        if (
+          allowedOrigins.includes('*') ||
+          allowedOrigins.includes(normalizedOrigin) ||
+          normalizedOrigin.endsWith('.vercel.app')
+        ) {
           callback(null, true);
         } else {
           callback(new Error(`CORS origin '${origin}' not permitted`));
         }
       },
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With'],
+      exposedHeaders: ['Set-Cookie'],
       credentials: true,
     })
   );
@@ -109,17 +120,21 @@ export function createApp(): Express {
     });
   }
 
+  const isProduction = env.NODE_ENV === 'production' || Boolean(process.env.RENDER);
+
   app.use(
     session({
       name: 'kalka.sid',
       secret: env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
+      proxy: true, // Enables express-session to trust the reverse proxy (Render) for Secure cookies
       store: sessionStore,
       cookie: {
         httpOnly: true,
-        secure: env.NODE_ENV === 'production',
-        sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax',
+        partitioned: isProduction, // Enables CHIPS for cross-site Vercel <-> Render cookies
         maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
         path: '/',
       },
