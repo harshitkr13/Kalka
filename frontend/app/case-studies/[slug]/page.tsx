@@ -1,23 +1,18 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
 import { FinalCta } from '@/sections/home/FinalCta';
-import { getPublicCaseStudies, getPublicCaseStudyBySlug } from '@/lib/api/publicContent';
-import { ArrowRight, CheckCircle2, ShieldCheck, Quote } from 'lucide-react';
+import { getPublicCaseStudyBySlug } from '@/lib/api/publicContent';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+export const revalidate = 0;
 
 interface Props {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  const studies = await getPublicCaseStudies();
-  return studies.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -26,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!study) return { title: 'Case Study Not Found | Kalka Co.' };
 
   const canonicalUrl = `/case-studies/${slug}`;
-  const imageUrl = study.coverImage || '/assets/case-studies/default-cover.webp';
+  const imageUrl = study.coverImage?.trim() || '/assets/case-studies/default-cover.webp';
 
   return {
     title: `${study.title} — Case Study | Kalka Co.`,
@@ -63,6 +58,8 @@ export default async function CaseStudyDetailPage({ params }: Props) {
     notFound();
   }
 
+  const isExternalImage = study.coverImage?.startsWith('http://') || study.coverImage?.startsWith('https://');
+
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
@@ -81,20 +78,24 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20">
-                {study.clientIndustry}
+                {study.clientIndustry || 'Strategic Advisory'}
               </span>
-              <span className="text-xs text-slate-400 uppercase tracking-wider">
-                {study.engagementType}
-              </span>
+              {study.engagementType && (
+                <span className="text-xs text-slate-400 uppercase tracking-wider">
+                  {study.engagementType}
+                </span>
+              )}
             </div>
 
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-4xl leading-tight">
               {study.title}
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed font-light">
-              {study.summary}
-            </p>
+            {study.summary && (
+              <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed font-light">
+                {study.summary}
+              </p>
+            )}
 
             {study.coverImage && (
               <div className="relative w-full h-64 sm:h-96 rounded-xl overflow-hidden mt-8 border border-white/10 shadow-2xl">
@@ -102,6 +103,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                   src={study.coverImage}
                   alt={study.title}
                   fill
+                  unoptimized={isExternalImage}
                   className="object-cover"
                   priority
                   sizes="(max-width: 1200px) 100vw, 1200px"
@@ -132,61 +134,71 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         )}
 
         {/* Detailed Breakdown: Challenge, Strategy, Execution, Outcome */}
-        <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
-          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl space-y-16">
-            {/* The Challenge */}
-            <div className="space-y-4">
-              <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
-                01 • Strategic Friction
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
-                The Core Reputational Challenge
-              </h2>
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
-                {study.challenge}
-              </p>
-            </div>
+        {(study.challenge || study.strategy || study.execution || study.outcome) && (
+          <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
+            <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl space-y-16">
+              {/* The Challenge */}
+              {study.challenge && (
+                <div className="space-y-4">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
+                    01 • Strategic Friction
+                  </span>
+                  <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
+                    The Core Reputational Challenge
+                  </h2>
+                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
+                    {study.challenge}
+                  </p>
+                </div>
+              )}
 
-            {/* The Strategy */}
-            <div className="space-y-4 pt-8 border-t border-slate-200">
-              <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
-                02 • Advisory Architecture
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
-                Strategic Narrative Blueprint
-              </h2>
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
-                {study.strategy}
-              </p>
-            </div>
+              {/* The Strategy */}
+              {study.strategy && (
+                <div className="space-y-4 pt-8 border-t border-slate-200">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
+                    02 • Advisory Architecture
+                  </span>
+                  <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
+                    Strategic Narrative Blueprint
+                  </h2>
+                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
+                    {study.strategy}
+                  </p>
+                </div>
+              )}
 
-            {/* The Execution */}
-            <div className="space-y-4 pt-8 border-t border-slate-200">
-              <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
-                03 • Tier-1 Execution
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
-                Media & Stakeholder Deployment
-              </h2>
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
-                {study.execution}
-              </p>
-            </div>
+              {/* The Execution */}
+              {study.execution && (
+                <div className="space-y-4 pt-8 border-t border-slate-200">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
+                    03 • Tier-1 Execution
+                  </span>
+                  <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
+                    Media & Stakeholder Deployment
+                  </h2>
+                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
+                    {study.execution}
+                  </p>
+                </div>
+              )}
 
-            {/* The Outcome */}
-            <div className="space-y-4 pt-8 border-t border-slate-200 p-8 bg-slate-50 border border-slate-200 rounded">
-              <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
-                04 • Strategic Outcome
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
-                Measurable Strategic Impact
-              </h2>
-              <p className="text-base text-slate-700 leading-relaxed">
-                {study.outcome}
-              </p>
+              {/* The Outcome */}
+              {study.outcome && (
+                <div className="space-y-4 pt-8 border-t border-slate-200 p-8 bg-slate-50 border border-slate-200 rounded">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block">
+                    04 • Strategic Outcome
+                  </span>
+                  <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
+                    Measurable Strategic Impact
+                  </h2>
+                  <p className="text-base text-slate-700 leading-relaxed">
+                    {study.outcome}
+                  </p>
+                </div>
+              )}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <FinalCta />
       </main>

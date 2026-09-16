@@ -9,6 +9,9 @@ import { Briefcase } from 'lucide-react';
 import { FinalCta } from '@/sections/home/FinalCta';
 import { getPublicCaseStudies } from '@/lib/api/publicContent';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Case Studies & Portfolio | Kalka Co. Media Consultancy',
   description: 'Selected strategic communications and media relations engagements by Kalka Co. Media Consultancy.',
@@ -74,6 +77,7 @@ export default async function CaseStudiesPage() {
                         src={item.coverImage || '/assets/case-studies/default-cover.webp'}
                         alt={item.title}
                         fill
+                        unoptimized={item.coverImage?.startsWith('http://') || item.coverImage?.startsWith('https://')}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />

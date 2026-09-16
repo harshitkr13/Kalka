@@ -222,8 +222,16 @@ export async function getPublicCaseStudyBySlug(slug: string): Promise<CaseStudyD
           strategy: item.strategy || '',
           execution: item.execution || '',
           outcome: item.results || '',
-          metrics: Array.isArray(item.metrics) ? item.metrics : [],
+          metrics: Array.isArray(item.metrics)
+            ? item.metrics
+                .map((m: any) => ({
+                  label: typeof m?.label === 'string' ? m.label : '',
+                  value: typeof m?.value === 'string' ? m.value : '',
+                }))
+                .filter((m: { label: string; value: string }) => m.label || m.value)
+            : [],
           featured: Boolean(item.featured),
+          coverImage: typeof item.coverImage === 'string' && item.coverImage.trim().length > 0 ? item.coverImage.trim() : undefined,
         };
       }
     }
