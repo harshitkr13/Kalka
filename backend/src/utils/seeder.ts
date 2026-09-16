@@ -271,78 +271,8 @@ export async function seedDatabase(): Promise<void> {
   }
   logger.info(`Seeded ${industriesData.length} official industries`);
 
-  // 3. Official 8 Clients (Pending Approval)
-  const clientsData = [
-    {
-      name: 'Keventers',
-      industry: 'Retail & Hospitality',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 1,
-      status: 'published' as const,
-    },
-    {
-      name: 'SS Group',
-      industry: 'Real Estate',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 2,
-      status: 'published' as const,
-    },
-    {
-      name: 'VVIP Group',
-      industry: 'Real Estate & Infrastructure',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 3,
-      status: 'published' as const,
-    },
-    {
-      name: 'Jiaara Jewellery',
-      industry: 'Luxury & Retail',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 4,
-      status: 'published' as const,
-    },
-    {
-      name: 'Basic Alliance',
-      industry: 'Corporate Organizations',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 5,
-      status: 'published' as const,
-    },
-    {
-      name: 'Bhaarat Wealth Group',
-      industry: 'Financial Services',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 6,
-      status: 'published' as const,
-    },
-    {
-      name: 'CARESY',
-      industry: 'Healthcare',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 7,
-      status: 'published' as const,
-    },
-    {
-      name: 'The Chambers of Bharat Chugh',
-      industry: 'Legal & Professional Services',
-      description: 'Associated client — pending formal public disclosure approval.',
-      featured: true,
-      displayOrder: 8,
-      status: 'published' as const,
-    },
-  ];
-
-  for (const item of clientsData) {
-    await Client.findOneAndUpdate({ name: item.name }, item, { upsert: true, new: true });
-  }
-  logger.info(`Seeded ${clientsData.length} official clients`);
+  // 3. Official 8 Approved Clients
+  await seedClients();
 
   // 4. Official Headquarters Office
   const officesData = [
@@ -388,11 +318,126 @@ export async function seedDatabase(): Promise<void> {
   logger.info('Official database seeding completed successfully.');
 }
 
+export const officialClientsData = [
+  {
+    name: 'Keventers',
+    slug: 'keventers',
+    industry: 'Retail & Hospitality',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 1,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'SS Group',
+    slug: 'ss-group',
+    industry: 'Real Estate',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 2,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'VVIP Group',
+    slug: 'vvip-group',
+    industry: 'Real Estate & Infrastructure',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 3,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'Jiaara Jewellery',
+    slug: 'jiaara-jewellery',
+    industry: 'Luxury & Retail',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 4,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'Basic Alliance',
+    slug: 'basic-alliance',
+    industry: 'Corporate Organizations',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 5,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'Bhaarat Wealth Group',
+    slug: 'bhaarat-wealth-group',
+    industry: 'Financial Services',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 6,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'CARESY',
+    slug: 'caresy',
+    industry: 'Healthcare',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 7,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+  {
+    name: 'The Chambers of Bharat Chugh',
+    slug: 'the-chambers-of-bharat-chugh',
+    industry: 'Legal & Professional Services',
+    shortDescription: 'Associated client advised under strategic communications mandate.',
+    description: 'Associated client advised under strategic communications mandate.',
+    services: [],
+    featured: true,
+    displayOrder: 8,
+    approvalStatus: 'APPROVED' as const,
+    status: 'published' as const,
+  },
+];
+
+export async function seedClients(): Promise<void> {
+  logger.info('Seeding official Kalka Co. approved clients roster...');
+  for (const item of officialClientsData) {
+    await Client.findOneAndUpdate(
+      { slug: item.slug },
+      { $set: item },
+      { upsert: true, new: true, runValidators: true }
+    );
+  }
+  logger.info(`Seeded ${officialClientsData.length} official approved clients`);
+}
+
 if (require.main === module) {
   (async () => {
     try {
       await connectDatabase();
-      await seedDatabase();
+      if (process.argv.includes('--clients-only')) {
+        await seedClients();
+      } else {
+        await seedDatabase();
+      }
       await disconnectDatabase();
       process.exit(0);
     } catch (err) {

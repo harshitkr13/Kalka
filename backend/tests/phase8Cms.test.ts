@@ -9,6 +9,7 @@ import { Award } from '../src/models/Award';
 import { Career } from '../src/models/Career';
 import { Gallery } from '../src/models/Gallery';
 import { CaseStudy } from '../src/models/CaseStudy';
+import { officialClientsData } from '../src/utils/seeder';
 
 describe('Phase 8 Institutional Content CMS & Public Feeds', () => {
   beforeEach(() => {
@@ -100,6 +101,29 @@ describe('Phase 8 Institutional Content CMS & Public Feeds', () => {
         .patch('/api/admin/clients/507f1f77bcf86cd799439001/approval')
         .send({ approvalStatus: 'APPROVED' });
       expect(res.status).toBe(401);
+    });
+
+    it('Official client seeder dataset should contain exactly the 8 authorized Kalka Co. clients with APPROVED status', () => {
+      expect(officialClientsData).toHaveLength(8);
+      const names = officialClientsData.map(c => c.name);
+      expect(names).toEqual([
+        'Keventers',
+        'SS Group',
+        'VVIP Group',
+        'Jiaara Jewellery',
+        'Basic Alliance',
+        'Bhaarat Wealth Group',
+        'CARESY',
+        'The Chambers of Bharat Chugh',
+      ]);
+      officialClientsData.forEach(client => {
+        expect(client.slug).toBeTruthy();
+        expect(client.slug).toMatch(/^[a-z0-9-]+$/);
+        expect(client.industry).toBeTruthy();
+        expect(client.approvalStatus).toBe('APPROVED');
+        expect(client.status).toBe('published');
+        expect(client.featured).toBe(true);
+      });
     });
   });
 

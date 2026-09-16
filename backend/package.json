@@ -9,6 +9,7 @@
     "build": "rimraf dist && tsc",
     "start": "node dist/server.js",
     "seed": "tsx src/utils/seeder.ts",
+    "seed:clients": "tsx src/utils/seeder.ts --clients-only",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts",
     "test": "vitest run"

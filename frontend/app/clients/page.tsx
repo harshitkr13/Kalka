@@ -96,7 +96,7 @@ export default async function ClientsPage() {
                 </div>
 
                 <div className="p-6 bg-slate-50 border border-slate-200 rounded text-center text-xs text-slate-500">
-                  * Note: Public display marked as Pending Approval in accordance with firm advisory governance.
+                  * Note: Client representations and public disclosures are maintained in accordance with firm advisory governance.
                 </div>
               </>
             ) : (
