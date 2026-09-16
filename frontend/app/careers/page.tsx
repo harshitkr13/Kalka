@@ -9,8 +9,25 @@ import { Mail, Compass, ShieldCheck, Sparkles, Users } from 'lucide-react';
 import { getPublicCareers } from '@/lib/api/publicContent';
 
 export const metadata: Metadata = {
-  title: 'Careers | Kalka Co. Media Consultancy',
-  description: 'Career opportunities at Kalka Co. Media Consultancy.',
+  title: 'Careers & Professional Opportunities | Kalka Co. Media Consultancy',
+  description: 'Explore career opportunities and advisory roles at Kalka Co. Media Consultancy.',
+  alternates: {
+    canonical: '/careers',
+  },
+  openGraph: {
+    title: 'Careers & Professional Opportunities | Kalka Co. Media Consultancy',
+    description: 'Explore career opportunities and advisory roles at Kalka Co. Media Consultancy.',
+    url: 'https://kalka.co/careers',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Careers & Professional Opportunities | Kalka Co. Media Consultancy',
+    description: 'Explore career opportunities and advisory roles at Kalka Co. Media Consultancy.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 const culturePillars = [

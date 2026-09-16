@@ -35,8 +35,28 @@ import { teamRoutes } from './modules/team/team.routes';
 export function createApp(): Express {
   const app = express();
 
+  // Trust reverse proxy in production (e.g. Cloudflare, AWS ALB, Nginx)
+  app.set('trust proxy', 1);
+
   // Security Headers
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: false, // Express serves JSON API; frontend handles its own CSP
+      crossOriginEmbedderPolicy: false,
+      hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true,
+      },
+      referrerPolicy: {
+        policy: 'strict-origin-when-cross-origin',
+      },
+      frameguard: {
+        action: 'sameorigin',
+      },
+      noSniff: true,
+    })
+  );
 
   // CORS Configuration
   const allowedOrigins = [env.CORS_ORIGIN, env.FRONTEND_URL]

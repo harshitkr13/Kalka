@@ -5,6 +5,23 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 export const metadata: Metadata = {
   title: 'Cookie Policy | Kalka Co. Media Consultancy',
   description: 'Learn how Kalka Co. uses essential and functional cookies to deliver an optimal browsing experience.',
+  alternates: {
+    canonical: '/cookie-policy',
+  },
+  openGraph: {
+    title: 'Cookie Policy | Kalka Co. Media Consultancy',
+    description: 'Learn how Kalka Co. uses essential and functional cookies to deliver an optimal browsing experience.',
+    url: 'https://kalka.co/cookie-policy',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cookie Policy | Kalka Co. Media Consultancy',
+    description: 'Learn how Kalka Co. uses essential and functional cookies to deliver an optimal browsing experience.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default function CookiePolicyPage() {

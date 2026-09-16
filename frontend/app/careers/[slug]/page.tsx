@@ -15,6 +15,7 @@ import {
   ArrowLeft 
 } from 'lucide-react';
 import { ApplicationForm } from './ApplicationForm';
+import { JobPostingJsonLd } from '@/components/seo/JsonLd';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -32,9 +33,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!role) {
     return { title: 'Role Not Found | Kalka Co.' };
   }
+  const canonicalUrl = `/careers/${slug}`;
   return {
     title: `${role.title} | Careers | Kalka Co. Media Consultancy`,
     description: role.description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${role.title} | Careers | Kalka Co. Media Consultancy`,
+      description: role.description,
+      url: `https://kalka.co${canonicalUrl}`,
+      images: ['/assets/social/og-default.jpg'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${role.title} | Careers | Kalka Co. Media Consultancy`,
+      description: role.description,
+      images: ['/assets/social/og-default.jpg'],
+    },
   };
 }
 
@@ -48,6 +66,7 @@ export default async function CareerDetailPage({ params }: Props) {
 
   return (
     <div className="bg-slate-50 min-h-screen text-navy-deep">
+      <JobPostingJsonLd title={role.title} description={role.description} employmentType={role.employmentType} location={role.location} />
       {/* Header */}
       <section className="bg-navy py-16 text-white border-b border-navy-border">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">

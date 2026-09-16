@@ -1,4 +1,11 @@
+# Kalka Co. Media Consultancy — Production Robots Configuration
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin
+Disallow: /api/
+Disallow: /api
+Disallow: /_next/
 
-Sitemap: https://kalkaco.com/sitemap.xml
+Sitemap: https://kalka.co/sitemap.xml
+Host: https://kalka.co

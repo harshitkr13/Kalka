@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { FinalCta } from '@/sections/home/FinalCta';
 import { insightsData } from '@/lib/content/insights';
 import { Calendar, Clock, User, Quote, ArrowLeft } from 'lucide-react';
+import { ArticleJsonLd } from '@/components/seo/JsonLd';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -22,9 +23,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const insight = insightsData.find((i) => i.slug === slug);
   if (!insight) return { title: 'Article Not Found | Kalka Co.' };
 
+  const canonicalUrl = `/insights/${slug}`;
+
   return {
     title: `${insight.title} | Kalka Co. Insights`,
     description: insight.summary,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${insight.title} | Kalka Co. Insights`,
+      description: insight.summary,
+      url: `https://kalka.co${canonicalUrl}`,
+      images: ['/assets/social/og-default.jpg'],
+      type: 'article',
+      publishedTime: insight.publishedDate,
+      authors: [insight.author],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${insight.title} | Kalka Co. Insights`,
+      description: insight.summary,
+      images: ['/assets/social/og-default.jpg'],
+    },
   };
 }
 
@@ -39,8 +60,14 @@ export default async function InsightDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
+      <ArticleJsonLd
+        title={insight.title}
+        description={insight.summary}
+        url={`https://kalka.co/insights/${slug}`}
+        authorName={insight.author}
+      />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Article Header */}
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

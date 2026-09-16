@@ -12,6 +12,23 @@ import { getPublicCaseStudies } from '@/lib/api/publicContent';
 export const metadata: Metadata = {
   title: 'Case Studies & Portfolio | Kalka Co. Media Consultancy',
   description: 'Selected strategic communications and media relations engagements by Kalka Co. Media Consultancy.',
+  alternates: {
+    canonical: '/case-studies',
+  },
+  openGraph: {
+    title: 'Case Studies & Portfolio | Kalka Co. Media Consultancy',
+    description: 'Selected strategic communications and media relations engagements by Kalka Co. Media Consultancy.',
+    url: 'https://kalka.co/case-studies',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Case Studies & Portfolio | Kalka Co. Media Consultancy',
+    description: 'Selected strategic communications and media relations engagements by Kalka Co. Media Consultancy.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default async function CaseStudiesPage() {
@@ -21,7 +38,7 @@ export default async function CaseStudiesPage() {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block font-mono">

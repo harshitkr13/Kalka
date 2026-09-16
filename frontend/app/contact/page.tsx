@@ -6,6 +6,23 @@ import { ContactFormSection } from './ContactFormSection';
 export const metadata: Metadata = {
   title: 'Contact & Advisory Consultation | Kalka Co. Media Consultancy',
   description: 'Initiate a confidential strategic communications dialogue with Kalka Co. Media Consultancy.',
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: 'Contact & Advisory Consultation | Kalka Co. Media Consultancy',
+    description: 'Initiate a confidential strategic communications dialogue with Kalka Co. Media Consultancy.',
+    url: 'https://kalka.co/contact',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact & Advisory Consultation | Kalka Co. Media Consultancy',
+    description: 'Initiate a confidential strategic communications dialogue with Kalka Co. Media Consultancy.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default function ContactPage() {

@@ -5,6 +5,23 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 export const metadata: Metadata = {
   title: 'Privacy Policy | Kalka Co. Media Consultancy',
   description: 'Enterprise privacy, client confidentiality, and data protection policy of Kalka Co. Media Consultancy.',
+  alternates: {
+    canonical: '/privacy-policy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | Kalka Co. Media Consultancy',
+    description: 'Enterprise privacy, client confidentiality, and data protection policy of Kalka Co. Media Consultancy.',
+    url: 'https://kalka.co/privacy-policy',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | Kalka Co. Media Consultancy',
+    description: 'Enterprise privacy, client confidentiality, and data protection policy of Kalka Co. Media Consultancy.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default function PrivacyPolicyPage() {

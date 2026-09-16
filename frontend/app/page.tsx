@@ -25,7 +25,15 @@ export const metadata: Metadata = {
       'Strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement.',
     url: 'https://kalka.co',
     siteName: 'Kalka Co. Media Consultancy',
-    type: 'website',
+  },
+  alternates: {
+    canonical: '/',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+    description: 'Strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement.',
+    images: ['/assets/social/og-default.jpg'],
   },
 };
 
@@ -35,7 +43,7 @@ export default function HomePage() {
       {/* 1. Navigation */}
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* 2. Hero */}
         <Hero
           badge="Strategic Communication. Lasting Impact."

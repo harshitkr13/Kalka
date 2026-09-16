@@ -9,6 +9,23 @@ import { FinalCta } from '@/sections/home/FinalCta';
 export const metadata: Metadata = {
   title: 'Advisory Practices & Services | Kalka Co. Media Consultancy',
   description: 'Explore the 9 core strategic communications, media relations, and reputation management practices of Kalka Co.',
+  alternates: {
+    canonical: '/services',
+  },
+  openGraph: {
+    title: 'Advisory Practices & Services | Kalka Co. Media Consultancy',
+    description: 'Explore the 9 core strategic communications, media relations, and reputation management practices of Kalka Co.',
+    url: 'https://kalka.co/services',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Advisory Practices & Services | Kalka Co. Media Consultancy',
+    description: 'Explore the 9 core strategic communications, media relations, and reputation management practices of Kalka Co.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default function ServicesPage() {
@@ -16,7 +33,7 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block">

@@ -25,9 +25,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const study = await getPublicCaseStudyBySlug(slug);
   if (!study) return { title: 'Case Study Not Found | Kalka Co.' };
 
+  const canonicalUrl = `/case-studies/${slug}`;
+  const imageUrl = study.coverImage || '/assets/case-studies/default-cover.webp';
+
   return {
     title: `${study.title} — Case Study | Kalka Co.`,
     description: study.summary,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${study.title} — Case Study | Kalka Co.`,
+      description: study.summary,
+      url: `https://kalka.co${canonicalUrl}`,
+      images: [
+        {
+          url: imageUrl,
+          alt: study.title,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${study.title} — Case Study | Kalka Co.`,
+      description: study.summary,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -43,7 +67,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Hero */}
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

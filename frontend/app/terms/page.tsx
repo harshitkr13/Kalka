@@ -5,6 +5,23 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 export const metadata: Metadata = {
   title: 'Terms of Service | Kalka Co. Media Consultancy',
   description: 'Terms of engagement, intellectual property rights, and website usage policies of Kalka Co. Media Consultancy.',
+  alternates: {
+    canonical: '/terms',
+  },
+  openGraph: {
+    title: 'Terms of Service | Kalka Co. Media Consultancy',
+    description: 'Terms of engagement, intellectual property rights, and website usage policies of Kalka Co. Media Consultancy.',
+    url: 'https://kalka.co/terms',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms of Service | Kalka Co. Media Consultancy',
+    description: 'Terms of engagement, intellectual property rights, and website usage policies of Kalka Co. Media Consultancy.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default function TermsPage() {

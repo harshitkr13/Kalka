@@ -36,9 +36,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = servicesData.find((s) => s.slug === slug);
   if (!service) return { title: 'Service Not Found | Kalka Co.' };
 
+  const canonicalUrl = `/services/${slug}`;
+  const imageUrl = serviceImageMap[slug] || '/assets/social/og-default.jpg';
+
   return {
     title: `${service.name} — Advisory Practice | Kalka Co.`,
     description: service.shortDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${service.name} — Advisory Practice | Kalka Co.`,
+      description: service.shortDescription,
+      url: `https://kalka.co${canonicalUrl}`,
+      images: [
+        {
+          url: imageUrl,
+          alt: `${service.name} Practice at Kalka Co. Media Consultancy`,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${service.name} — Advisory Practice | Kalka Co.`,
+      description: service.shortDescription,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -54,7 +78,7 @@ export default async function ServiceDetailPage({ params }: Props) {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Service Hero */}
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

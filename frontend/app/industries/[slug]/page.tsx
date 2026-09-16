@@ -36,9 +36,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const industry = industriesData.find((i) => i.slug === slug);
   if (!industry) return { title: 'Industry Not Found | Kalka Co.' };
 
+  const canonicalUrl = `/industries/${slug}`;
+  const imageUrl = industryImageMap[slug] || '/assets/social/og-default.jpg';
+
   return {
     title: `${industry.name} — Sector Practice | Kalka Co.`,
     description: industry.heroExcerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${industry.name} — Sector Practice | Kalka Co.`,
+      description: industry.heroExcerpt,
+      url: `https://kalka.co${canonicalUrl}`,
+      images: [
+        {
+          url: imageUrl,
+          alt: `${industry.name} Sector Practice at Kalka Co. Media Consultancy`,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${industry.name} — Sector Practice | Kalka Co.`,
+      description: industry.heroExcerpt,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -54,7 +78,7 @@ export default async function IndustryDetailPage({ params }: Props) {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <Breadcrumbs

@@ -8,6 +8,23 @@ import { Compass, Target, Scale } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'About Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
   description: 'Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+    description: 'Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement.',
+    url: 'https://kalka.co/about',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Kalka Co. Media Consultancy — Strategic Communication. Lasting Impact.',
+    description: 'Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default function AboutPage() {
@@ -15,7 +32,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Page Hero */}
         <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
