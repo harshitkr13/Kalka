@@ -79,6 +79,31 @@ export const authController = {
           logger.info(
             `[AUTH CALLBACK]: Session established: id=${req.sessionID ? req.sessionID.slice(0, 8) + '...' : 'none'}, userId=${req.session.userId}, secure=${req.secure}, protocol=${req.protocol}`
           );
+
+          res.on('finish', () => {
+            const rawSetCookie = res.getHeader('set-cookie');
+            if (!rawSetCookie) {
+              logger.warn('[AUTH CALLBACK RESPONSE]: Set-Cookie header is NOT present on response');
+              return;
+            }
+            const cookies = Array.isArray(rawSetCookie) ? rawSetCookie : [String(rawSetCookie)];
+            for (const c of cookies) {
+              const parts = c.split(';').map((s) => s.trim());
+              const cookieName = (parts[0] || '').split('=')[0];
+              const hasSecure = parts.some((p) => p.toLowerCase() === 'secure');
+              const hasHttpOnly = parts.some((p) => p.toLowerCase() === 'httponly');
+              const hasPartitioned = parts.some((p) => p.toLowerCase() === 'partitioned');
+              const sameSitePart = parts.find((p) => p.toLowerCase().startsWith('samesite='));
+              const sameSiteVal = sameSitePart ? sameSitePart.split('=')[1] : 'none-specified';
+              const pathPart = parts.find((p) => p.toLowerCase().startsWith('path='));
+              const pathVal = pathPart ? pathPart.split('=')[1] : 'none-specified';
+
+              logger.info(
+                `[AUTH CALLBACK RESPONSE]: Set-Cookie header emitted -> name=${cookieName}, HttpOnly=${hasHttpOnly}, Secure=${hasSecure}, SameSite=${sameSiteVal}, Partitioned=${hasPartitioned}, Path=${pathVal}`
+              );
+            }
+          });
+
           res.redirect(`${env.FRONTEND_URL}/admin`);
           return;
         });
@@ -135,7 +160,6 @@ export const authController = {
         httpOnly: true,
         secure: isProd,
         sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
-        partitioned: isProd,
       };
 
       if (req.session) {

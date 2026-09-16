@@ -25,8 +25,11 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
   try {
     const userId = req.session?.userId;
     if (!userId) {
+      const cookieHeader = req.headers.cookie;
+      const hasCookieHeader = Boolean(cookieHeader);
+      const hasKalkaCookie = Boolean(cookieHeader?.includes('kalka.sid'));
       logger.warn(
-        `[AUTH MIDDLEWARE]: No userId in session. sessionID=${req.sessionID ? req.sessionID.slice(0, 8) + '...' : 'none'}, hasCookieHeader=${Boolean(req.headers.cookie)}, secure=${req.secure}, protocol=${req.protocol}`
+        `[AUTH MIDDLEWARE]: No userId in session. sessionID=${req.sessionID ? req.sessionID.slice(0, 8) + '...' : 'none'}, hasCookieHeader=${hasCookieHeader}, hasKalkaCookie=${hasKalkaCookie}, secure=${req.secure}, protocol=${req.protocol}`
       );
       throw new AppError('Authentication required. Please sign in.', 401, 'UNAUTHORIZED');
     }

@@ -35,8 +35,8 @@ import { teamRoutes } from './modules/team/team.routes';
 export function createApp(): Express {
   const app = express();
 
-  // Trust reverse proxy in production (Render, Cloudflare, AWS ALB, Nginx)
-  app.set('trust proxy', true);
+  // Trust reverse proxy in production (Render has 1 reverse proxy hop)
+  app.set('trust proxy', 1);
 
   // Security Headers
   app.use(
@@ -73,8 +73,8 @@ export function createApp(): Express {
         }
         const normalizedOrigin = normalizeUrl(origin);
         if (
-          allowedOrigins.includes('*') ||
           allowedOrigins.includes(normalizedOrigin) ||
+          normalizedOrigin === 'https://kalka-ten.vercel.app' ||
           normalizedOrigin.endsWith('.vercel.app')
         ) {
           callback(null, true);
@@ -84,7 +84,6 @@ export function createApp(): Express {
       },
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With'],
-      exposedHeaders: ['Set-Cookie'],
       credentials: true,
     })
   );
@@ -134,7 +133,6 @@ export function createApp(): Express {
         httpOnly: true,
         secure: isProduction,
         sameSite: isProduction ? 'none' : 'lax',
-        partitioned: isProduction, // Enables CHIPS for cross-site Vercel <-> Render cookies
         maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
         path: '/',
       },
