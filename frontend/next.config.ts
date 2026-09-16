@@ -64,6 +64,16 @@ const nextConfig: NextConfig = {
         destination: '/privacy-policy',
         permanent: true,
       },
+      {
+        source: '/our-work',
+        destination: '/case-studies',
+        permanent: true,
+      },
+      {
+        source: '/press',
+        destination: '/media-mentions',
+        permanent: true,
+      },
     ];
   },
 };

@@ -9,6 +9,23 @@ import { getPublicMediaMentions } from '@/lib/api/publicContent';
 export const metadata: Metadata = {
   title: 'Media Coverage & Press | Kalka Co. Media Consultancy',
   description: 'Verified media mentions, editorial commentary, and press coverage of Kalka Co. Media Consultancy.',
+  alternates: {
+    canonical: '/media-mentions',
+  },
+  openGraph: {
+    title: 'Media Coverage & Press | Kalka Co. Media Consultancy',
+    description: 'Verified media mentions, editorial commentary, and press coverage of Kalka Co. Media Consultancy.',
+    url: 'https://kalka.co/media-mentions',
+    siteName: 'Kalka Co. Media Consultancy',
+    type: 'website',
+    images: ['/assets/social/og-default.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Media Coverage & Press | Kalka Co. Media Consultancy',
+    description: 'Verified media mentions, editorial commentary, and press coverage of Kalka Co. Media Consultancy.',
+    images: ['/assets/social/og-default.jpg'],
+  },
 };
 
 export default async function MediaCoveragePage() {
