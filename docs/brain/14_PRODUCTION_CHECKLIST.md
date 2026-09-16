@@ -22,4 +22,7 @@
 [ ] No committed secrets [ ] Rate limits [ ] CORS [ ] Headers [ ] Upload validation [ ] Admin authorization [ ] Audit logs [ ] Backup/restore
 
 ## QA
-[ ] TypeScript [ ] Lint [ ] Unit [ ] API [ ] E2E [ ] Accessibility [ ] 404 [ ] Error states [ ] Production build\n
+[ ] TypeScript [ ] Lint [ ] Unit [ ] API [ ] E2E [ ] Accessibility [ ] 404 [ ] Error states [ ] Production build
+
+---
+*For detailed platform deployment procedures, environment variable matrix, and DNS configuration, see [docs/DEPLOYMENT.md](../DEPLOYMENT.md).*

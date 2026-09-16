@@ -6,7 +6,7 @@ const cspHeader = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data: https:;
   font-src 'self' data:;
-  connect-src 'self' http://localhost:5000 http://127.0.0.1:5000 https://kalka.co https://*.kalka.co https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com;
+  connect-src 'self' http://localhost:5000 http://127.0.0.1:5000 https://kalka.co https://*.kalka.co https://*.onrender.com https://*.railway.app https://*.up.railway.app https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com;
   frame-src 'self';
   frame-ancestors 'self';
   object-src 'none';
