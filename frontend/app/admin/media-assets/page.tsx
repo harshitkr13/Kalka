@@ -12,6 +12,7 @@ interface GalleryItem {
   _id: string;
   title: string;
   url: string;
+  imageUrl?: string;
   filename?: string;
   category?: string;
   altText?: string;
@@ -59,10 +60,59 @@ export default function AdminMediaAssetsPage() {
         category: category !== 'all' ? category : undefined,
       });
 
-      if (res.success && res.data) {
-        setItems(res.data);
+      if (res.success && Array.isArray(res.data)) {
+        // Defensive normalization at the API/data boundary:
+        // - strings remain strings
+        // - tags must be string[]
+        // - numeric metadata must be numbers or undefined
+        // - malformed objects or error objects must never enter items
+        const rawItems = (res.data as unknown[]) || [];
+        const normalized: GalleryItem[] = rawItems
+          .filter(
+            (item): item is Record<string, any> =>
+              Boolean(item && typeof item === 'object' && !('code' in (item as object) && 'message' in (item as object)))
+          )
+          .map((item) => {
+            const rawUrl =
+              typeof item.url === 'string' && item.url
+                ? item.url
+                : typeof item.imageUrl === 'string'
+                ? item.imageUrl
+                : '';
+            return {
+              _id: String(item._id || ''),
+              title: typeof item.title === 'string' ? item.title : '',
+              url: rawUrl,
+              imageUrl: rawUrl,
+              filename: typeof item.filename === 'string' ? item.filename : undefined,
+              category: typeof item.category === 'string' ? item.category : 'general',
+              altText:
+                typeof item.altText === 'string'
+                  ? item.altText
+                  : typeof item.title === 'string'
+                  ? item.title
+                  : '',
+              tags: Array.isArray(item.tags)
+                ? item.tags.filter((t: unknown): t is string => typeof t === 'string')
+                : [],
+              fileSize:
+                typeof item.fileSize === 'number' && !isNaN(item.fileSize) ? item.fileSize : undefined,
+              mimeType: typeof item.mimeType === 'string' ? item.mimeType : undefined,
+              width: typeof item.width === 'number' && !isNaN(item.width) ? item.width : undefined,
+              height: typeof item.height === 'number' && !isNaN(item.height) ? item.height : undefined,
+              status: item.status === 'published' || item.status === 'archived' ? item.status : 'draft',
+              createdAt: typeof item.createdAt === 'string' ? item.createdAt : new Date().toISOString(),
+            };
+          });
+        setItems(normalized);
       } else {
-        setError(res.error || 'Failed to load media assets');
+        const errorMsg =
+          typeof res.error === 'string' && res.error
+            ? res.error
+            : typeof res.error === 'object' && res.error !== null
+            ? (res.error as any).message || (res.error as any).code || 'Failed to load media assets'
+            : 'Failed to load media assets';
+        setError(errorMsg);
       }
     } catch {
       setError('Network error occurred while fetching media assets');
@@ -76,6 +126,7 @@ export default function AdminMediaAssetsPage() {
   }, [loadAssets]);
 
   const handleCopy = (url: string, id: string) => {
+    if (!url) return;
     navigator.clipboard.writeText(url);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -91,14 +142,17 @@ export default function AdminMediaAssetsPage() {
       .map((s) => s.trim())
       .filter(Boolean);
 
+    const cleanUrl = newUrl.trim();
+
     try {
       const res = await createAdminItem('gallery', {
-        title: newTitle,
-        url: newUrl,
+        title: newTitle.trim(),
+        url: cleanUrl,
+        imageUrl: cleanUrl,
         category: newCategory,
-        altText: newAltText || newTitle,
+        altText: (newAltText || newTitle).trim(),
         tags: tagsList,
-        status: 'published',
+        status: canPublish ? 'published' : 'draft',
       });
 
       if (res.success) {
@@ -110,7 +164,13 @@ export default function AdminMediaAssetsPage() {
         setNewTags('');
         await loadAssets();
       } else {
-        setAddError(res.error || 'Failed to register asset');
+        const errorMsg =
+          typeof res.error === 'string' && res.error
+            ? res.error
+            : typeof res.error === 'object' && res.error !== null
+            ? (res.error as any).message || (res.error as any).code || 'Failed to register asset'
+            : 'Failed to register asset';
+        setAddError(errorMsg);
       }
     } catch {
       setAddError('Network error occurred while adding asset');
@@ -128,7 +188,13 @@ export default function AdminMediaAssetsPage() {
         setDeletingItem(null);
         await loadAssets();
       } else {
-        alert(res.error || 'Failed to delete asset');
+        const errorMsg =
+          typeof res.error === 'string' && res.error
+            ? res.error
+            : typeof res.error === 'object' && res.error !== null
+            ? (res.error as any).message || (res.error as any).code || 'Failed to delete asset'
+            : 'Failed to delete asset';
+        alert(errorMsg);
       }
     } catch {
       alert('Network error occurred while deleting asset');
@@ -156,7 +222,7 @@ export default function AdminMediaAssetsPage() {
       {error && (
         <div className="p-4 rounded-lg bg-rose-950/40 border border-rose-800/80 text-rose-300 text-sm flex items-center gap-3">
           <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          <span>{error}</span>
+          <span>{typeof error === 'string' ? error : 'Failed to load media assets'}</span>
         </div>
       )}
 
@@ -283,7 +349,7 @@ export default function AdminMediaAssetsPage() {
 
             {addError && (
               <div className="p-3 bg-rose-950/40 border border-rose-800 text-rose-300 text-xs rounded-lg">
-                {addError}
+                {typeof addError === 'string' ? addError : 'Failed to register asset'}
               </div>
             )}
 

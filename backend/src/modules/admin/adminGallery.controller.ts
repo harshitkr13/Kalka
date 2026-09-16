@@ -46,7 +46,12 @@ export async function listGalleryItems(req: Request, res: Response, next: NextFu
       Gallery.countDocuments(filter),
     ]);
 
-    sendSuccess(res, items, 'Gallery items retrieved successfully', 200, {
+    const formattedItems = items.map((item) => ({
+      ...item,
+      url: item.imageUrl,
+    }));
+
+    sendSuccess(res, formattedItems, 'Gallery items retrieved successfully', 200, {
       total,
       page: query.page,
       limit: query.limit,
@@ -69,7 +74,7 @@ export async function getGalleryItemById(req: Request, res: Response, next: Next
       throw AppError.notFound(`Gallery item not found with ID '${id}'`);
     }
 
-    sendSuccess(res, item, 'Gallery item retrieved successfully');
+    sendSuccess(res, { ...item, url: item.imageUrl }, 'Gallery item retrieved successfully');
   } catch (error) {
     next(error);
   }
@@ -86,7 +91,8 @@ export async function createGalleryItem(req: Request, res: Response, next: NextF
     }
 
     const item = await Gallery.create(body);
-    sendSuccess(res, item, 'Gallery item created successfully', 201);
+    const itemObj = item.toObject();
+    sendSuccess(res, { ...itemObj, url: itemObj.imageUrl }, 'Gallery item created successfully', 201);
   } catch (error) {
     next(error);
   }
@@ -113,8 +119,9 @@ export async function updateGalleryItem(req: Request, res: Response, next: NextF
 
     Object.assign(item, body);
     await item.save();
+    const itemObj = item.toObject();
 
-    sendSuccess(res, item, 'Gallery item updated successfully');
+    sendSuccess(res, { ...itemObj, url: itemObj.imageUrl }, 'Gallery item updated successfully');
   } catch (error) {
     next(error);
   }

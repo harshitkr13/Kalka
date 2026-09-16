@@ -230,23 +230,61 @@ export const createCareerSchema = z.object({
 export const updateCareerSchema = createCareerSchema.partial();
 
 // Gallery / Media Asset Validation
-export const createGallerySchema = z.object({
-  title: z.string().min(2, 'Title must be at least 2 characters').max(150),
-  caption: z.string().optional(),
-  category: z.string().min(2, 'Category is required'),
-  imageUrl: z.string().min(1, 'Image URL or path is required'),
-  filename: z.string().optional(),
-  altText: z.string().optional(),
-  fileSize: z.number().optional(),
-  mimeType: z.string().optional(),
-  width: z.number().optional(),
-  height: z.number().optional(),
-  aspectRatio: z.enum(['landscape', 'portrait', 'square']).optional().default('landscape'),
-  tags: z.array(z.string().trim().min(1)).optional().default([]),
-  featured: z.boolean().optional().default(false),
-  displayOrder: z.number().optional().default(0),
-  status: z.enum(['published', 'draft', 'archived']).optional().default('draft'),
-});
+export const createGallerySchema = z
+  .object({
+    title: z.string().min(2, 'Title must be at least 2 characters').max(150),
+    caption: z.string().optional(),
+    category: z.string().min(2, 'Category is required'),
+    imageUrl: z.string().optional(),
+    url: z.string().optional(),
+    filename: z.string().optional(),
+    altText: z.string().optional(),
+    fileSize: z.number().optional(),
+    mimeType: z.string().optional(),
+    width: z.number().optional(),
+    height: z.number().optional(),
+    aspectRatio: z.enum(['landscape', 'portrait', 'square']).optional().default('landscape'),
+    tags: z.array(z.string().trim().min(1)).optional().default([]),
+    featured: z.boolean().optional().default(false),
+    displayOrder: z.number().optional().default(0),
+    status: z.enum(['published', 'draft', 'archived']).optional().default('draft'),
+  })
+  .transform((data) => {
+    const finalUrl = (data.imageUrl || data.url || '').trim();
+    return {
+      ...data,
+      imageUrl: finalUrl,
+    };
+  })
+  .refine((data) => Boolean(data.imageUrl && data.imageUrl.length > 0), {
+    message: 'Image URL or path is required',
+    path: ['imageUrl'],
+  });
 
-export const updateGallerySchema = createGallerySchema.partial();
+export const updateGallerySchema = z
+  .object({
+    title: z.string().min(2, 'Title must be at least 2 characters').max(150).optional(),
+    caption: z.string().optional(),
+    category: z.string().min(2, 'Category is required').optional(),
+    imageUrl: z.string().optional(),
+    url: z.string().optional(),
+    filename: z.string().optional(),
+    altText: z.string().optional(),
+    fileSize: z.number().optional(),
+    mimeType: z.string().optional(),
+    width: z.number().optional(),
+    height: z.number().optional(),
+    aspectRatio: z.enum(['landscape', 'portrait', 'square']).optional(),
+    tags: z.array(z.string().trim().min(1)).optional(),
+    featured: z.boolean().optional(),
+    displayOrder: z.number().optional(),
+    status: z.enum(['published', 'draft', 'archived']).optional(),
+  })
+  .transform((data) => {
+    const finalUrl = (data.imageUrl || data.url || '').trim();
+    return {
+      ...data,
+      ...(finalUrl ? { imageUrl: finalUrl } : {}),
+    };
+  });
 

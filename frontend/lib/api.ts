@@ -35,7 +35,44 @@ export async function apiClient<T>(
       credentials: 'include',
     });
 
-    const data = await res.json();
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data || !data.success) {
+      let errorMsg =
+        typeof data?.error === 'string'
+          ? data.error
+          : data?.error && typeof data.error === 'object' && 'message' in data.error && typeof data.error.message === 'string'
+          ? data.error.message
+          : data?.error && typeof data.error === 'object' && 'code' in data.error && typeof data.error.code === 'string'
+          ? data.error.code
+          : typeof data?.message === 'string'
+          ? data.message
+          : `Request failed with status ${res.status}`;
+
+      if (
+        data?.error &&
+        typeof data.error === 'object' &&
+        'details' in data.error &&
+        Array.isArray(data.error.details) &&
+        data.error.details.length > 0
+      ) {
+        const detailMsgs = data.error.details
+          .map((d: unknown) =>
+            d && typeof d === 'object' && 'message' in d && typeof (d as any).message === 'string'
+              ? (d as any).message
+              : null
+          )
+          .filter(Boolean);
+        if (detailMsgs.length > 0) {
+          errorMsg = `${errorMsg}: ${detailMsgs.join(', ')}`;
+        }
+      }
+
+      return {
+        success: false,
+        error: errorMsg,
+        data: undefined,
+      };
+    }
     return data;
   } catch (err) {
     return {
