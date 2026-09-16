@@ -158,7 +158,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         },
         {
           name: 'Access Policy',
-          href: '/admin/access-denied',
+          href: '/admin/access-policy',
           icon: ShieldAlert,
         },
       ],

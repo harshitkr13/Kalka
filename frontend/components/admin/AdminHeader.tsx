@@ -33,7 +33,8 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ onToggleMobileMenu }) 
   const getPageTitle = () => {
     if (pathname === '/admin') return 'Workspace Overview';
     if (pathname === '/admin/settings/profile') return 'Security & Profile Settings';
-    if (pathname === '/admin/access-denied') return 'Access Governance';
+    if (pathname === '/admin/access-policy') return 'Access Governance';
+    if (pathname === '/admin/access-denied') return 'Access Denied';
     return 'Administrative Portal';
   };
 
@@ -144,7 +145,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ onToggleMobileMenu }) 
                   </Link>
 
                   <Link
-                    href="/admin/access-denied"
+                    href="/admin/access-policy"
                     onClick={() => setDropdownOpen(false)}
                     className="flex items-center gap-2.5 w-full px-3 py-2 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors"
                   >
