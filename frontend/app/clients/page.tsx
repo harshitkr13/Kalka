@@ -5,7 +5,6 @@ import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { ShieldCheck } from 'lucide-react';
 import { getPublicClients } from '@/lib/api/publicContent';
 import { FinalCta } from '@/sections/home/FinalCta';
-import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Clients & Associated Organizations | Kalka Co. Media Consultancy',
@@ -68,17 +67,7 @@ export default async function ClientsPage() {
                       className="p-6 border border-slate-200 rounded-lg bg-slate-50/40 space-y-3 hover:border-gold transition-colors flex flex-col justify-between"
                     >
                       <div>
-                        <span
-                          className={cn(
-                            'text-[9px] font-mono px-2 py-0.5 rounded font-semibold uppercase tracking-wider inline-block mb-3 border',
-                            client.approvalStatus === 'APPROVED'
-                              ? 'bg-emerald-500/10 text-emerald-800 border-emerald-500/20'
-                              : 'bg-amber-500/10 text-amber-800 border-amber-500/20'
-                          )}
-                        >
-                          {client.approvalStatus === 'APPROVED' ? 'APPROVED CLIENT' : 'PENDING APPROVAL'}
-                        </span>
-                        {client.approvalStatus === 'APPROVED' && client.logo ? (
+                        {client.logo ? (
                           <div className="mb-3">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={client.logo} alt={client.name} className="h-10 object-contain" />
@@ -93,10 +82,6 @@ export default async function ClientsPage() {
                       </div>
                     </div>
                   ))}
-                </div>
-
-                <div className="p-6 bg-slate-50 border border-slate-200 rounded text-center text-xs text-slate-500">
-                  * Note: Client representations and public disclosures are maintained in accordance with firm advisory governance.
                 </div>
               </>
             ) : (

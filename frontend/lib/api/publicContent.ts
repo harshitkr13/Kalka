@@ -337,7 +337,7 @@ export interface PublicClientData {
   slug?: string;
   industry?: string;
   shortDescription?: string;
-  approvalStatus: string;
+  approvalStatus?: string;
   logo?: string;
   logoAsset?: string;
 }
@@ -371,7 +371,11 @@ export async function getPublicClients(): Promise<PublicClientData[]> {
   } catch {
     // Graceful fallback
   }
-  return [];
+  return associatedClients.map((c) => ({
+    name: c.name,
+    industry: c.industry,
+    approvalStatus: 'APPROVED',
+  }));
 }
 
 /**

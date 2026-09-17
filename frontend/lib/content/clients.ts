@@ -1,17 +1,17 @@
 export interface AssociatedClient {
   name: string;
-  approvalStatus: 'PENDING APPROVAL';
+  industry?: string;
 }
 
 export const associatedClients: AssociatedClient[] = [
-  { name: 'Keventers', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'SS Group', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'VVIP Group', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'Jiaara Jewellery', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'Basic Alliance', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'Bhaarat Wealth Group', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'CARESY', approvalStatus: 'PENDING APPROVAL' },
-  { name: 'The Chambers of Bharat Chugh', approvalStatus: 'PENDING APPROVAL' },
+  { name: 'Keventers', industry: 'Retail & Hospitality' },
+  { name: 'SS Group', industry: 'Real Estate' },
+  { name: 'VVIP Group', industry: 'Real Estate & Infrastructure' },
+  { name: 'Jiaara Jewellery', industry: 'Luxury & Retail' },
+  { name: 'Basic Alliance', industry: 'Corporate Organizations' },
+  { name: 'Bhaarat Wealth Group', industry: 'Financial Services' },
+  { name: 'CARESY', industry: 'Healthcare' },
+  { name: 'The Chambers of Bharat Chugh', industry: 'Legal & Professional Services' },
 ];
 
 export interface ClientCategory {
