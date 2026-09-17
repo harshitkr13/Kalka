@@ -98,7 +98,7 @@ export default async function CareersPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-6 right-6 text-white">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Professional Culture</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-gold block font-semibold">Professional Culture</span>
             <span className="text-base sm:text-lg font-serif font-semibold">Strategic Advisory, Media Practice & Communications Counsel</span>
           </div>
         </div>

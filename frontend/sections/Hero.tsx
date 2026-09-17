@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ReactNode } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
@@ -13,8 +14,10 @@ export interface HeroProps {
   subheadline: string;
   primaryCtaLabel?: string;
   primaryCtaAction?: () => void;
+  primaryCtaHref?: string;
   secondaryCtaLabel?: string;
   secondaryCtaAction?: () => void;
+  secondaryCtaHref?: string;
   trustText?: string;
   mediaSlot?: ReactNode;
   imageSrc?: string;
@@ -28,8 +31,10 @@ export const Hero: React.FC<HeroProps> = ({
   subheadline,
   primaryCtaLabel = 'Start a Conversation',
   primaryCtaAction,
-  secondaryCtaLabel = 'Explore Our Work',
+  primaryCtaHref = '/contact',
+  secondaryCtaLabel = 'Explore Advisory Practices',
   secondaryCtaAction,
+  secondaryCtaHref = '/services',
   trustText = 'Trusted strategic advisor to leadership across high-stakes industries',
   mediaSlot,
   imageSrc,
@@ -82,23 +87,51 @@ export const Hero: React.FC<HeroProps> = ({
 
             <MotionFade delay={0.35} direction="up">
               <div className="pt-2 flex flex-wrap gap-4 items-center">
-                <Button
-                  variant="gold"
-                  size="lg"
-                  onClick={primaryCtaAction}
-                  rightIcon={<ArrowRight className="w-4 h-4" />}
-                >
-                  {primaryCtaLabel}
-                </Button>
-                {secondaryCtaLabel && (
+                {primaryCtaHref ? (
+                  <Link href={primaryCtaHref}>
+                    <Button
+                      variant="gold"
+                      size="lg"
+                      onClick={primaryCtaAction}
+                      rightIcon={<ArrowRight className="w-4 h-4" />}
+                    >
+                      {primaryCtaLabel}
+                    </Button>
+                  </Link>
+                ) : (
                   <Button
-                    variant="outline"
+                    variant="gold"
                     size="lg"
-                    className="border-slate-600 text-slate-200 hover:bg-white/5 hover:text-white"
-                    onClick={secondaryCtaAction}
+                    onClick={primaryCtaAction}
+                    rightIcon={<ArrowRight className="w-4 h-4" />}
                   >
-                    {secondaryCtaLabel}
+                    {primaryCtaLabel}
                   </Button>
+                )}
+                {secondaryCtaLabel && (
+                  secondaryCtaHref ? (
+                    <Link href={secondaryCtaHref}>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="border-slate-600 text-slate-200 hover:bg-white/5 hover:text-white"
+                        onClick={secondaryCtaAction}
+                        rightIcon={<ArrowRight className="w-4 h-4" />}
+                      >
+                        {secondaryCtaLabel}
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="border-slate-600 text-slate-200 hover:bg-white/5 hover:text-white"
+                      onClick={secondaryCtaAction}
+                      rightIcon={<ArrowRight className="w-4 h-4" />}
+                    >
+                      {secondaryCtaLabel}
+                    </Button>
+                  )
                 )}
               </div>
             </MotionFade>
@@ -129,18 +162,18 @@ export const Hero: React.FC<HeroProps> = ({
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-3 left-3 right-3 p-2.5 rounded bg-navy-deep/90 backdrop-blur-md border border-navy-border/60 text-xs">
-                    <span className="text-gold font-mono uppercase tracking-widest text-[10px] block font-semibold">Strategic Advisory</span>
+                  <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded bg-navy-deep/90 backdrop-blur-md border border-navy-border/60 text-xs">
+                    <span className="text-gold font-mono uppercase tracking-wider text-xs block font-semibold">Strategic Advisory</span>
                     <span className="text-slate-200 font-serif">Kalka Co. Media Consultancy</span>
                   </div>
                 </div>
               ) : (
                 <div className="border border-navy-border rounded bg-navy-surface/60 p-6 sm:p-8 backdrop-blur-sm space-y-4">
                   <div className="flex items-center justify-between border-b border-navy-border/80 pb-3">
-                    <span className="text-[11px] uppercase tracking-widest text-gold font-semibold">
+                    <span className="text-xs uppercase tracking-wider text-gold font-semibold">
                       Consultancy Scope
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono">Strategic Counsel</span>
+                    <span className="text-xs text-slate-400 font-mono">Strategic Counsel</span>
                   </div>
                   <p className="text-sm text-slate-300 font-serif leading-relaxed">
                     Elevating corporate reputation, orchestrating strategic media relations, and navigating high-stakes crisis communications.

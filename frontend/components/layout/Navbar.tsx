@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, ChevronDown, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { NavItem } from '@/types';
@@ -40,6 +41,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  const isItemActive = (href: string) => {
+    if (!pathname) return false;
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,8 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         className={cn(
           'sticky top-0 z-40 w-full transition-all duration-200 text-left',
           isScrolled
-            ? 'bg-navy/95 backdrop-blur-md border-b border-navy-border shadow-elevated py-3'
-            : 'bg-navy border-b border-navy-border/50 py-5',
+            ? 'bg-navy/95 backdrop-blur-md border-b border-navy-border shadow-elevated py-4'
+            : 'bg-navy border-b border-navy-border/50 py-6',
           className
         )}
       >
@@ -77,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-serif text-xl font-bold tracking-tight text-white block leading-none">
                 KALKA CO.
               </span>
-              <span className="text-[9px] uppercase tracking-widest text-gold block mt-0.5">
+              <span className="text-xs font-medium tracking-wide text-gold block mt-0.5">
                 Media Consultancy
               </span>
             </div>
@@ -85,59 +93,84 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-7">
-            {navItems.map((item) => (
-              <div
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => item.children && setActiveDropdown(item.label)}
-                onMouseLeave={() => item.children && setActiveDropdown(null)}
-              >
-                {item.children ? (
-                  <button
-                    className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-slate-200 hover:text-gold transition-colors py-2"
-                    aria-expanded={activeDropdown === item.label}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-                  </button>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="text-xs font-semibold uppercase tracking-wider text-slate-200 hover:text-gold transition-colors py-2"
-                  >
-                    {item.label}
-                  </Link>
-                )}
+            {navItems.map((item) => {
+              const active = isItemActive(item.href);
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => item.children && setActiveDropdown(item.label)}
+                  onMouseLeave={() => item.children && setActiveDropdown(null)}
+                >
+                  {item.children ? (
+                    <button
+                      className={cn(
+                        'flex items-center gap-1 text-xs font-semibold uppercase tracking-wider transition-colors py-2 relative',
+                        active
+                          ? 'text-gold'
+                          : 'text-slate-200 hover:text-gold'
+                      )}
+                      aria-expanded={activeDropdown === item.label}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown className={cn('w-3.5 h-3.5 transition-colors', active ? 'text-gold' : 'text-slate-400')} />
+                      {active && (
+                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold rounded-full" />
+                      )}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'text-xs font-semibold uppercase tracking-wider transition-colors py-2 relative inline-block',
+                        active
+                          ? 'text-gold'
+                          : 'text-slate-200 hover:text-gold'
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      {active && (
+                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold rounded-full" />
+                      )}
+                    </Link>
+                  )}
 
-                {/* Dropdown Menu */}
-                {item.children && activeDropdown === item.label && (
-                  <div className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href}
-                        className="block p-2.5 rounded hover:bg-slate-50 transition-colors"
-                      >
-                        <span className="block text-xs font-semibold text-navy">
-                          {child.label}
-                        </span>
-                        {child.description && (
-                          <span className="block text-[11px] text-slate-500 mt-0.5">
-                            {child.description}
-                          </span>
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                  {/* Dropdown Menu */}
+                  {item.children && activeDropdown === item.label && (
+                    <div className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50">
+                      {item.children.map((child) => {
+                        const childActive = isItemActive(child.href);
+                        return (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            className={cn(
+                              'block p-2.5 rounded transition-colors',
+                              childActive ? 'bg-gold/10' : 'hover:bg-slate-50'
+                            )}
+                          >
+                            <span className={cn('block text-xs font-semibold', childActive ? 'text-gold-dark' : 'text-navy')}>
+                              {child.label}
+                            </span>
+                            {child.description && (
+                              <span className="block text-xs text-slate-500 mt-0.5">
+                                {child.description}
+                              </span>
+                            )}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
           {/* Action CTA & Mobile Trigger */}
           <div className="flex items-center gap-4">
             <Link href="/contact" className="hidden sm:inline-flex">
-              <Button variant="gold" size="sm">
+              <Button variant="gold" size="sm" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
                 Start a Conversation
               </Button>
             </Link>

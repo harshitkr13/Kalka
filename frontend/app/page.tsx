@@ -8,11 +8,7 @@ import { ServicesGrid } from '@/sections/home/ServicesGrid';
 import { WhyKalka } from '@/sections/home/WhyKalka';
 import { IndustriesScroll } from '@/sections/home/IndustriesScroll';
 import { ApproachSection } from '@/sections/home/ApproachSection';
-import { SelectedWork } from '@/sections/home/SelectedWork';
-import { MediaCoverage } from '@/sections/home/MediaCoverage';
-import { AwardsSection } from '@/sections/home/AwardsSection';
 import { InsightsSection } from '@/sections/home/InsightsSection';
-import { TeamSection } from '@/sections/home/TeamSection';
 import { FinalCta } from '@/sections/home/FinalCta';
 
 export const metadata: Metadata = {
@@ -50,7 +46,9 @@ export default function HomePage() {
           headline="Building Visibility, Strengthening Reputation, Creating Lasting Impact."
           subheadline="Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management."
           primaryCtaLabel="Start a Conversation"
+          primaryCtaHref="/contact"
           secondaryCtaLabel="Explore Advisory Practices"
+          secondaryCtaHref="/services"
           imageSrc="/assets/home/hero.webp"
           imageAlt="Kalka Co. Media Consultancy strategic communications and public relations"
         />
@@ -73,26 +71,14 @@ export default function HomePage() {
         {/* 8. Approach / Methodology */}
         <ApproachSection />
 
-        {/* 9. Selected Work */}
-        <SelectedWork />
-
-        {/* 10. Media Coverage */}
-        <MediaCoverage />
-
-        {/* 11. Awards / Recognition */}
-        <AwardsSection />
-
-        {/* 12. Insights */}
+        {/* 9. Insights */}
         <InsightsSection />
 
-        {/* 13. Team */}
-        <TeamSection />
-
-        {/* 14. Final CTA */}
+        {/* 10. Final CTA */}
         <FinalCta />
       </main>
 
-      {/* 15. Footer */}
+      {/* 11. Footer */}
       <Footer />
     </div>
   );

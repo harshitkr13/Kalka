@@ -59,7 +59,7 @@ export const Gallery: React.FC<GalleryProps> = ({ items, className }) => {
             {/* Info */}
             <div className="p-4">
               {item.datePlaceholder && (
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider block">
                   {item.datePlaceholder}
                 </span>
               )}

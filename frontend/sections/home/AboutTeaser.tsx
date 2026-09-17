@@ -45,7 +45,7 @@ export const AboutTeaser: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/70 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-4 right-4 text-white">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Leadership & Counsel</span>
+                <span className="text-xs font-mono uppercase tracking-wider text-gold block font-semibold">Leadership & Counsel</span>
                 <span className="text-xs text-slate-200 font-serif">Kalka Co. Strategic Communications</span>
               </div>
             </div>
@@ -75,7 +75,7 @@ export const AboutTeaser: React.FC = () => {
                 </li>
               </ul>
 
-              <div className="pt-3 border-t border-navy-border text-[11px] text-slate-400 font-mono">
+              <div className="pt-3 border-t border-navy-border text-xs text-slate-400 font-mono">
                 Faridabad, Haryana • Strategic Counsel Desk
               </div>
             </div>

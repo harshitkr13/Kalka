@@ -41,7 +41,7 @@ export const ApproachSection: React.FC = () => {
         />
 
         {/* Strategic Methodology Visual */}
-        <div className="relative h-60 sm:h-72 md:h-80 w-full rounded-lg overflow-hidden border border-navy-border shadow-elevated mb-12 bg-navy-surface">
+        <div className="relative h-32 sm:h-40 md:h-44 w-full rounded-lg overflow-hidden border border-navy-border shadow-elevated mb-12 bg-navy-surface">
           <Image
             src="/assets/home/strategic-approach.webp"
             alt="The Kalka Four-Stage Strategic Communications Framework"
@@ -52,7 +52,7 @@ export const ApproachSection: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Advisory Methodology</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-gold block font-semibold">Advisory Methodology</span>
               <span className="text-base sm:text-lg font-serif text-white font-medium">Strategic Architecture & Institutional Precision</span>
             </div>
           </div>
@@ -62,18 +62,20 @@ export const ApproachSection: React.FC = () => {
           {steps.map((step) => (
             <div
               key={step.number}
-              className="p-7 rounded border border-navy-border bg-navy-surface/50 space-y-4 relative"
+              className="p-7 rounded border border-navy-border bg-navy-surface/50 space-y-3 relative flex flex-col"
             >
-              <span className="font-serif text-3xl font-bold text-gold/80 block">
-                {step.number}
-              </span>
-              <h3 className="font-serif text-xl font-semibold text-white">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs text-gold px-2.5 py-0.5 rounded bg-gold/10 border border-gold/20 font-semibold">
+                  Stage {step.number}
+                </span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-white">
                 {step.title}
               </h3>
               <span className="text-xs uppercase tracking-wider text-slate-400 block font-semibold">
                 {step.subtitle}
               </span>
-              <p className="text-sm text-slate-300 leading-relaxed pt-2 border-t border-navy-border/60">
+              <p className="text-sm text-slate-300 leading-relaxed pt-2 border-t border-navy-border/60 flex-1">
                 {step.description}
               </p>
             </div>

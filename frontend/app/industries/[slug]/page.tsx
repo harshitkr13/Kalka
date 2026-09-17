@@ -163,7 +163,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent pointer-events-none" />
                     <div className="absolute bottom-3 left-4 right-4 text-white">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-gold block font-semibold">Sector Focus</span>
+                      <span className="text-xs font-mono uppercase tracking-wider text-gold block font-semibold">Sector Focus</span>
                       <span className="text-sm font-serif font-semibold">{industry.name}</span>
                     </div>
                   </div>

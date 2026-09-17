@@ -6,6 +6,7 @@ import { Mail, Phone, MessageSquare, MapPin, ExternalLink } from 'lucide-react';
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-navy-deep text-slate-400 border-t border-navy-border text-left">
+      <h2 className="sr-only">Footer Navigation & Information</h2>
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Info */}
@@ -37,9 +38,9 @@ export const Footer: React.FC = () => {
 
           {/* Practices */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-white font-mono">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white font-mono">
               Practices
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs">
               <li><Link href="/services/public-relations" className="hover:text-gold transition-colors">Public Relations</Link></li>
               <li><Link href="/services/media-relations" className="hover:text-gold transition-colors">Media Relations</Link></li>
@@ -55,9 +56,9 @@ export const Footer: React.FC = () => {
 
           {/* Firm */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-white font-mono">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white font-mono">
               Firm
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs">
               <li><Link href="/about" className="hover:text-gold transition-colors">About Kalka Co.</Link></li>
               <li><Link href="/industries" className="hover:text-gold transition-colors">Industries Served</Link></li>
@@ -72,18 +73,18 @@ export const Footer: React.FC = () => {
 
           {/* Contact Information */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-white font-mono">
+            <h3 className="text-xs font-semibold tracking-wider text-white font-mono">
               Contact & Location
-            </h4>
-            <div className="text-xs space-y-3 text-slate-300">
-              <div>
-                <p className="text-slate-400 text-[11px] uppercase font-mono">Location</p>
+            </h3>
+            <div className="text-xs space-y-4 text-slate-300">
+              <div className="space-y-1">
+                <p className="text-slate-400 text-xs uppercase font-mono">Location</p>
                 <p className="text-white font-medium">Faridabad, Haryana 121003</p>
                 <a
                   href="https://maps.app.goo.gl/fo8sk45WeLVydMjv5?g_st=ic"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-gold hover:underline text-[11px] mt-0.5"
+                  className="inline-flex items-center gap-1 text-gold hover:underline text-xs mt-0.5"
                 >
                   <MapPin className="w-3 h-3" />
                   <span>View on Google Maps</span>
@@ -91,15 +92,15 @@ export const Footer: React.FC = () => {
                 </a>
               </div>
 
-              <div>
-                <p className="text-slate-400 text-[11px] uppercase font-mono">Business Enquiries</p>
-                <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all">
+              <div className="space-y-1">
+                <p className="text-slate-400 text-xs uppercase font-mono">Business Enquiries</p>
+                <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all block">
                   kalkacomediaconsultancy@gmail.com
                 </a>
               </div>
 
-              <div>
-                <p className="text-slate-400 text-[11px] uppercase font-mono">Direct Telephones</p>
+              <div className="space-y-1">
+                <p className="text-slate-400 text-xs uppercase font-mono">Direct Telephones</p>
                 <div className="space-y-0.5 font-mono">
                   <a href="tel:+918745001570" className="block hover:text-gold transition-colors">
                     +91 87450 01570
@@ -110,21 +111,21 @@ export const Footer: React.FC = () => {
                 </div>
               </div>
 
-              <div>
-                <p className="text-slate-400 text-[11px] uppercase font-mono">WhatsApp Desk</p>
+              <div className="space-y-1">
+                <p className="text-slate-400 text-xs uppercase font-mono">WhatsApp Desk</p>
                 <a
                   href="https://wa.me/918745001570?text=Hello%20Kalka%20Co.%20Media%20Consultancy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-emerald-400 hover:underline font-mono"
+                  className="inline-flex items-center gap-1.5 text-gold hover:underline font-mono"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>+91 87450 01570</span>
                 </a>
               </div>
 
-              <div>
-                <p className="text-slate-400 text-[11px] uppercase font-mono">Business Hours</p>
+              <div className="space-y-1">
+                <p className="text-slate-400 text-xs uppercase font-mono">Business Hours</p>
                 <p className="text-slate-300 font-mono">09:30 - 18:30 IST</p>
               </div>
             </div>

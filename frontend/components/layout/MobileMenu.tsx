@@ -3,7 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { X, ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { NavItem } from '@/types';
 import { Button } from '@/components/ui/Button';
 
@@ -18,6 +20,14 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   onClose,
   navItems,
 }) => {
+  const pathname = usePathname();
+
+  const isItemActive = (href: string) => {
+    if (!pathname) return false;
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -57,31 +67,43 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 
           {/* Links */}
           <nav className="py-6 space-y-4">
-            {navItems.map((item) => (
-              <div key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={onClose}
-                  className="block text-sm font-semibold uppercase tracking-wider text-slate-200 hover:text-gold py-1.5 transition-colors"
-                >
-                  {item.label}
-                </Link>
-                {item.children && (
-                  <div className="pl-3 mt-1 space-y-1.5 border-l border-navy-border">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href}
-                        onClick={onClose}
-                        className="block text-xs text-slate-400 hover:text-white py-1"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {navItems.map((item) => {
+              const active = isItemActive(item.href);
+              return (
+                <div key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={onClose}
+                    className={cn(
+                      'block text-sm font-semibold uppercase tracking-wider py-1.5 transition-colors',
+                      active ? 'text-gold' : 'text-slate-200 hover:text-gold'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.children && (
+                    <div className="pl-3 mt-1 space-y-1.5 border-l border-navy-border">
+                      {item.children.map((child) => {
+                        const childActive = isItemActive(child.href);
+                        return (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            onClick={onClose}
+                            className={cn(
+                              'block text-xs py-1 transition-colors',
+                              childActive ? 'text-gold font-medium' : 'text-slate-400 hover:text-white'
+                            )}
+                          >
+                            {child.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         </div>
 
@@ -93,7 +115,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
               <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </Link>
-          <p className="text-[10px] text-slate-400 text-center mt-3">
+          <p className="text-xs text-slate-400 text-center mt-3">
             Strategic Communication. Lasting Impact.
           </p>
         </div>

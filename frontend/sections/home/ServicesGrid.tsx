@@ -35,8 +35,8 @@ export const ServicesGrid: React.FC = () => {
 
         <div className="mt-14 text-center">
           <Link href="/services">
-            <Button variant="primary" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              View All 9 Core Practices
+            <Button variant="outline" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
+              Explore All 9 Core Practices
             </Button>
           </Link>
         </div>

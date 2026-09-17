@@ -24,7 +24,7 @@ export const ServiceCard: React.FC<ServiceCardProps & { className?: string }> = 
     >
       <div>
         <div className="flex items-center justify-between gap-3 mb-4">
-          <span className="text-[11px] font-semibold tracking-widest uppercase text-gold-dark">
+          <span className="text-xs font-semibold tracking-wider uppercase text-gold-dark">
             {category}
           </span>
           {badge && <Badge variant="gold" size="sm">{badge}</Badge>}
@@ -43,7 +43,7 @@ export const ServiceCard: React.FC<ServiceCardProps & { className?: string }> = 
             {capabilities.map((cap) => (
               <span
                 key={cap}
-                className="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium"
+                className="text-xs px-2.5 py-1 rounded bg-slate-100 text-slate-600 font-medium"
               >
                 {cap}
               </span>

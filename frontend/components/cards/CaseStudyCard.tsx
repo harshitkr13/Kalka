@@ -31,7 +31,7 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps & { className?: string }
               {clientIndustry}
             </Badge>
           </div>
-          <p className="text-[11px] uppercase tracking-widest text-slate-400 font-semibold">
+          <p className="text-xs uppercase tracking-widest text-slate-400 font-semibold">
             Key Metric
           </p>
           <div className="font-serif text-4xl lg:text-5xl font-bold text-gold mt-2">
@@ -43,7 +43,7 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps & { className?: string }
         </div>
 
         <div className="mt-8 pt-4 border-t border-navy-border relative z-10">
-          <span className="text-[11px] text-slate-400 uppercase tracking-wider">
+          <span className="text-xs text-slate-400 uppercase tracking-wider">
             Client Advisory Engagement
           </span>
         </div>
@@ -52,7 +52,7 @@ export const CaseStudyCard: React.FC<CaseStudyCardProps & { className?: string }
       {/* Details Panel */}
       <div className="w-full md:w-7/12 p-8 flex flex-col justify-between">
         <div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-gold-dark block mb-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gold-dark block mb-2">
             Strategic Engagement
           </span>
           <h3 className="font-serif text-2xl font-semibold text-navy group-hover:text-gold-dark transition-colors mb-3">

@@ -17,15 +17,20 @@ export const IndustriesScroll: React.FC = () => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {industriesData.map((ind) => (
-            <IndustryCard
+          {industriesData.map((ind, idx) => (
+            <div
               key={ind.slug}
-              title={ind.name}
-              sectorTag={ind.sectorTag}
-              description={ind.heroExcerpt}
-              featured={ind.featured}
-              href={`/industries/${ind.slug}`}
-            />
+              className={idx === 9 ? 'md:col-span-2 lg:col-span-1 lg:col-start-2' : undefined}
+            >
+              <IndustryCard
+                title={ind.name}
+                sectorTag={ind.sectorTag}
+                description={ind.heroExcerpt}
+                featured={ind.featured}
+                href={`/industries/${ind.slug}`}
+                className="h-full"
+              />
+            </div>
           ))}
         </div>
 

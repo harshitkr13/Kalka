@@ -92,7 +92,7 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
   return (
     <div className="bg-white p-8 rounded border border-slate-200 shadow-premium space-y-6">
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-gold/10 text-gold-dark text-[11px] font-semibold uppercase tracking-wider">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-gold/10 text-gold-dark text-xs font-semibold uppercase tracking-wider">
           <span>Apply for this Role</span>
         </div>
         <h3 className="font-serif text-2xl font-bold text-navy">
@@ -214,7 +214,7 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
           </Button>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] text-slate-400 justify-center pt-2">
+        <div className="flex items-center gap-2 text-xs text-slate-400 justify-center pt-2">
           <ShieldCheck className="w-4 h-4 text-gold" />
           <span>Strictly confidential under Kalka Co. Advisory Discretion protocols</span>
         </div>

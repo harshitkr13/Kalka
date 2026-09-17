@@ -32,7 +32,7 @@ export const InsightsSection: React.FC = () => {
 
         <div className="mt-14 text-center">
           <Link href="/insights">
-            <Button variant="primary" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
+            <Button variant="outline" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
               Explore All Strategic Insights
             </Button>
           </Link>

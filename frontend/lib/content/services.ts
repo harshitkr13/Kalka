@@ -19,7 +19,6 @@ export const servicesData: ServiceData[] = [
     tagline: 'Precision media architecture and earned authority.',
     shortDescription: 'Strategic communications support through Public Relations.',
     fullDescription: 'We help businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication and proactive media engagement.',
-    badge: 'Core Practice',
     capabilities: [
       'Strategic Narrative Development',
       'Editorial Pitching & Newsroom Relations',

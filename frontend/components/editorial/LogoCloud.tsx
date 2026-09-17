@@ -20,7 +20,7 @@ export const LogoCloud: React.FC<LogoCloudProps> = ({
     <div className={cn('py-12 border-y border-slate-200 bg-slate-50/60', className)}>
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {title && (
-          <p className="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-8">
+          <p className="text-xs font-semibold tracking-wider text-slate-500 mb-8">
             {title}
           </p>
         )}
