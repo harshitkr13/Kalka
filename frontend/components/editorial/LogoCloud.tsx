@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { associatedClients } from '@/lib/content/clients';
+import { Tilt } from '@/components/core/tilt';
 
 export interface LogoItem {
   name: string;
@@ -26,14 +29,13 @@ export const LogoCloud: React.FC<LogoCloudProps> = ({
         )}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
           {associatedClients.map((client, idx) => (
-            <div
-              key={idx}
-              className="p-5 border border-slate-200/80 bg-white rounded-lg flex flex-col items-center justify-center min-h-[90px] shadow-sm hover:border-gold/50 transition-colors"
-            >
-              <span className="font-serif text-sm sm:text-base font-bold text-navy text-center">
-                {client.name}
-              </span>
-            </div>
+            <Tilt key={idx} rotationFactor={8} isRevese className="h-full">
+              <div className="p-5 border border-slate-200/80 bg-white rounded-lg flex flex-col items-center justify-center min-h-[90px] h-full shadow-sm hover:border-gold/50 transition-colors">
+                <span className="font-serif text-sm sm:text-base font-bold text-navy text-center">
+                  {client.name}
+                </span>
+              </div>
+            </Tilt>
           ))}
         </div>
       </div>

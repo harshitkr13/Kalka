@@ -3,6 +3,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { ShieldCheck } from 'lucide-react';
+import { Tilt } from '@/components/core/tilt';
 import { getPublicClients } from '@/lib/api/publicContent';
 import { FinalCta } from '@/sections/home/FinalCta';
 
@@ -62,25 +63,26 @@ export default async function ClientsPage() {
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {clients.map((client, idx) => (
-                    <div
-                      key={idx}
-                      className="p-6 border border-slate-200 rounded-lg bg-slate-50/40 space-y-3 hover:border-gold transition-colors flex flex-col justify-between"
-                    >
-                      <div>
-                        {client.logo ? (
-                          <div className="mb-3">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={client.logo} alt={client.name} className="h-10 object-contain" />
-                          </div>
-                        ) : null}
-                        <h3 className="font-serif text-xl font-bold text-navy">
-                          {client.name}
-                        </h3>
-                        {client.industry && (
-                          <p className="text-xs text-slate-500 mt-1 font-mono">{client.industry}</p>
-                        )}
+                    <Tilt key={idx} rotationFactor={8} isRevese className="h-full">
+                      <div
+                        className="p-6 border border-slate-200 rounded-lg bg-slate-50/40 space-y-3 hover:border-gold transition-colors flex flex-col justify-between h-full"
+                      >
+                        <div>
+                          {client.logo ? (
+                            <div className="mb-3">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img src={client.logo} alt={client.name} className="h-10 object-contain" />
+                            </div>
+                          ) : null}
+                          <h3 className="font-serif text-xl font-bold text-navy">
+                            {client.name}
+                          </h3>
+                          {client.industry && (
+                            <p className="text-xs text-slate-500 mt-1 font-mono">{client.industry}</p>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                    </Tilt>
                   ))}
                 </div>
               </>
