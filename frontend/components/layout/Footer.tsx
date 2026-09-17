@@ -1,16 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MessageSquare, MapPin, ExternalLink } from 'lucide-react';
+import { MapPin, ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-navy-deep text-slate-400 border-t border-navy-border text-left">
       <h2 className="sr-only">Footer Navigation & Information</h2>
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.7fr_1.25fr_1fr_1.85fr] gap-10 lg:gap-8 xl:gap-10">
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="relative w-8 h-8 shrink-0 flex items-center justify-center">
                 <Image
@@ -73,10 +73,11 @@ export const Footer: React.FC = () => {
 
           {/* Contact Information */}
           <div className="space-y-3">
-            <h3 className="text-xs font-semibold tracking-wider text-white font-mono">
+            <h3 className="text-xs font-semibold tracking-wider text-white font-mono uppercase">
               Contact & Location
             </h3>
-            <div className="text-xs space-y-4 text-slate-300">
+            <div className="text-xs space-y-5 text-slate-300">
+              {/* Location */}
               <div className="space-y-1">
                 <p className="text-slate-400 text-xs uppercase font-mono">Location</p>
                 <p className="text-white font-medium">Faridabad, Haryana 121003</p>
@@ -92,38 +93,74 @@ export const Footer: React.FC = () => {
                 </a>
               </div>
 
+              {/* Business Enquiries */}
               <div className="space-y-1">
                 <p className="text-slate-400 text-xs uppercase font-mono">Business Enquiries</p>
-                <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all block">
+                <a
+                  href="mailto:kalkacomediaconsultancy@gmail.com"
+                  className="text-gold hover:underline font-mono text-xs block lg:whitespace-nowrap break-words"
+                >
                   kalkacomediaconsultancy@gmail.com
                 </a>
               </div>
 
-              <div className="space-y-1">
+              {/* Direct Telephones */}
+              <div className="space-y-1.5">
                 <p className="text-slate-400 text-xs uppercase font-mono">Direct Telephones</p>
-                <div className="space-y-0.5 font-mono">
-                  <a href="tel:+918745001570" className="block hover:text-gold transition-colors">
-                    +91 87450 01570
+                <div className="space-y-1 font-mono">
+                  <a
+                    href="tel:+918745001570"
+                    className="flex items-center gap-2 hover:text-gold transition-colors text-xs"
+                  >
+                    <Image
+                      src="/icons/phone.svg"
+                      alt=""
+                      width={16}
+                      height={16}
+                      aria-hidden="true"
+                      className="w-4 h-4 shrink-0 object-contain"
+                    />
+                    <span>+91 87450 01570</span>
                   </a>
-                  <a href="tel:+917683015257" className="block hover:text-gold transition-colors">
-                    +91 76830 15257
+                  <a
+                    href="tel:+917683015257"
+                    className="flex items-center gap-2 hover:text-gold transition-colors text-xs"
+                  >
+                    <Image
+                      src="/icons/phone.svg"
+                      alt=""
+                      width={16}
+                      height={16}
+                      aria-hidden="true"
+                      className="w-4 h-4 shrink-0 object-contain"
+                    />
+                    <span>+91 76830 15257</span>
                   </a>
                 </div>
               </div>
 
-              <div className="space-y-1">
+              {/* WhatsApp Desk */}
+              <div className="space-y-1.5">
                 <p className="text-slate-400 text-xs uppercase font-mono">WhatsApp Desk</p>
                 <a
                   href="https://wa.me/918745001570?text=Hello%20Kalka%20Co.%20Media%20Consultancy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-gold hover:underline font-mono"
+                  className="inline-flex items-center gap-2 text-gold hover:underline font-mono text-xs"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <Image
+                    src="/icons/whatsapp.svg"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden="true"
+                    className="w-4 h-4 shrink-0 object-contain"
+                  />
                   <span>+91 87450 01570</span>
                 </a>
               </div>
 
+              {/* Business Hours */}
               <div className="space-y-1">
                 <p className="text-slate-400 text-xs uppercase font-mono">Business Hours</p>
                 <p className="text-slate-300 font-mono">09:30 - 18:30 IST</p>
