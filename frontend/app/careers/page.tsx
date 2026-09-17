@@ -164,7 +164,7 @@ export default async function CareersPage() {
                     <p className="text-sm text-slate-600 line-clamp-3 mb-6 leading-relaxed">{career.description}</p>
                   </div>
                   <a
-                    href={`mailto:djdurgesh8@gmail.com?subject=Application for ${encodeURIComponent(career.title)}`}
+                    href={`mailto:kalkacomediaconsultancy@gmail.com?subject=Application for ${encodeURIComponent(career.title)}`}
                     className="text-xs font-semibold text-navy hover:text-gold flex items-center gap-1 mt-auto"
                   >
                     Apply via Email &rarr;
@@ -189,10 +189,10 @@ export default async function CareersPage() {
             <p className="text-base text-slate-700 leading-relaxed font-sans">
               For career opportunities, contact:<br />
               <a
-                href="mailto:djdurgesh8@gmail.com"
-                className="text-navy font-bold font-mono text-lg hover:underline inline-block mt-2"
+                href="mailto:kalkacomediaconsultancy@gmail.com"
+                className="text-navy font-bold font-mono text-base sm:text-lg hover:underline inline-block mt-2 break-all"
               >
-                djdurgesh8@gmail.com
+                kalkacomediaconsultancy@gmail.com
               </a>
             </p>
             <div className="pt-2">

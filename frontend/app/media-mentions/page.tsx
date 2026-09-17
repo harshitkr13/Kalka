@@ -96,8 +96,8 @@ export default async function MediaCoveragePage() {
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
                   Verified media features, press mentions, and commentary archives are currently being compiled. For press inquiries, contact{' '}
-                  <a href="mailto:djdurgesh8@gmail.com" className="text-navy font-semibold underline font-mono">
-                    djdurgesh8@gmail.com
+                  <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-navy font-semibold underline font-mono break-all">
+                    kalkacomediaconsultancy@gmail.com
                   </a>.
                 </p>
               </div>

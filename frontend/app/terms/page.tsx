@@ -127,7 +127,7 @@ export default function TermsPage() {
               <div className="p-4 bg-slate-50 rounded border border-slate-200 text-xs space-y-1">
                 <p><strong>Desk:</strong> Office of the General Counsel</p>
                 <p><strong>Entity:</strong> Kalka Co. Media Consultancy</p>
-                <p><strong>Email:</strong> djdurgesh8@gmail.com</p>
+                <p><strong>Email:</strong> kalkacomediaconsultancy@gmail.com</p>
                 <p><strong>Jurisdiction:</strong> New Delhi, India</p>
               </div>
             </div>

@@ -93,8 +93,8 @@ export const Footer: React.FC = () => {
 
               <div>
                 <p className="text-slate-400 text-[11px] uppercase font-mono">Business Enquiries</p>
-                <a href="mailto:djdurgesh8@gmail.com" className="text-gold hover:underline font-mono">
-                  djdurgesh8@gmail.com
+                <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all">
+                  kalkacomediaconsultancy@gmail.com
                 </a>
               </div>
 
@@ -119,7 +119,7 @@ export const Footer: React.FC = () => {
                   className="inline-flex items-center gap-1.5 text-emerald-400 hover:underline font-mono"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
-                  <span>8745001570</span>
+                  <span>+91 87450 01570</span>
                 </a>
               </div>
 

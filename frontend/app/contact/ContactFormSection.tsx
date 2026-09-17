@@ -105,7 +105,7 @@ export const ContactFormSection: React.FC = () => {
       }
     } catch {
       setSubmissionError(
-        'Unable to connect to the communications server. Please try again or reach out to djdurgesh8@gmail.com directly.'
+        'Unable to connect to the communications server. Please try again or reach out to kalkacomediaconsultancy@gmail.com directly.'
       );
     } finally {
       setIsSubmitting(false);
@@ -159,7 +159,7 @@ export const ContactFormSection: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-red-800 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors font-mono"
             >
               <PhoneCall className="w-4 h-4" />
-              Call Hotline: 8745001570
+              Call Hotline: +91 87450 01570
             </a>
             <a
               href="https://wa.me/918745001570?text=Urgent%20Consultation%20Inquiry%20-%20Kalka%20Co"
@@ -168,7 +168,7 @@ export const ContactFormSection: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors font-mono"
             >
               <MessageSquare className="w-4 h-4" />
-              WhatsApp: 8745001570
+              WhatsApp: +91 87450 01570
             </a>
           </div>
         </div>
@@ -280,7 +280,7 @@ export const ContactFormSection: React.FC = () => {
                   </div>
                   <div className="flex justify-between pt-1">
                     <span className="text-slate-500 font-medium">Direct Desk:</span>
-                    <span className="font-semibold text-navy font-mono">djdurgesh8@gmail.com</span>
+                    <span className="font-semibold text-navy font-mono break-all">kalkacomediaconsultancy@gmail.com</span>
                   </div>
                 </div>
 
@@ -294,16 +294,16 @@ export const ContactFormSection: React.FC = () => {
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm font-mono"
                   >
                     <MessageSquare className="w-4 h-4" />
-                    WhatsApp Direct: 8745001570
+                    WhatsApp Direct: +91 87450 01570
                   </a>
                   <a
-                    href={`mailto:djdurgesh8@gmail.com?subject=${encodeURIComponent(
+                    href={`mailto:kalkacomediaconsultancy@gmail.com?subject=${encodeURIComponent(
                       `Inquiry Reference ${submissionResult.reference} — ${formData.organization}`
                     )}`}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-navy hover:bg-navy-dark text-white text-xs font-bold uppercase tracking-wider transition-colors border border-navy-border shadow-sm font-mono"
                   >
                     <Mail className="w-4 h-4 text-gold" />
-                    Email: djdurgesh8@gmail.com
+                    Email: kalkacomediaconsultancy@gmail.com
                   </a>
                 </div>
 
@@ -324,8 +324,8 @@ export const ContactFormSection: React.FC = () => {
                       <p>{submissionError}</p>
                       <p className="text-slate-600 mt-1">
                         For urgent matters, reach our direct desk at{' '}
-                        <a href="mailto:djdurgesh8@gmail.com" className="underline font-medium text-navy font-mono">
-                          djdurgesh8@gmail.com
+                        <a href="mailto:kalkacomediaconsultancy@gmail.com" className="underline font-medium text-navy font-mono break-all">
+                          kalkacomediaconsultancy@gmail.com
                         </a>{' '}
                         or call <span className="font-medium text-navy font-mono">+91 87450 01570</span> / <span className="font-medium text-navy font-mono">+91 76830 15257</span>.
                       </p>
@@ -508,8 +508,8 @@ export const ContactFormSection: React.FC = () => {
                   <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
                     <strong className="block text-white">Business Enquiries & Counsel</strong>
-                    <a href="mailto:djdurgesh8@gmail.com" className="text-gold hover:underline font-mono">
-                      djdurgesh8@gmail.com
+                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all">
+                      kalkacomediaconsultancy@gmail.com
                     </a>
                   </div>
                 </div>
@@ -518,8 +518,8 @@ export const ContactFormSection: React.FC = () => {
                   <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
                     <strong className="block text-white">Careers & Talent</strong>
-                    <a href="mailto:djdurgesh8@gmail.com" className="text-gold hover:underline font-mono">
-                      djdurgesh8@gmail.com
+                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all">
+                      kalkacomediaconsultancy@gmail.com
                     </a>
                   </div>
                 </div>
@@ -581,7 +581,7 @@ export const ContactFormSection: React.FC = () => {
               </p>
               <div className="pt-2 text-xs text-slate-500">
                 <span>Direct inquiries regarding conflicts: </span>
-                <strong className="text-navy font-mono">djdurgesh8@gmail.com</strong>
+                <strong className="text-navy font-mono break-all">kalkacomediaconsultancy@gmail.com</strong>
               </div>
             </div>
           </div>
@@ -654,8 +654,8 @@ export const ContactFormSection: React.FC = () => {
                   <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-[11px]">
                     <p><strong>Business Hours:</strong> 09:30 - 18:30 IST</p>
                     <p><strong>Phones:</strong> +91 87450 01570 / +91 76830 15257</p>
-                    <p><strong>WhatsApp:</strong> 8745001570</p>
-                    <p><strong>Email:</strong> <span className="text-navy font-semibold">djdurgesh8@gmail.com</span></p>
+                    <p><strong>WhatsApp:</strong> +91 87450 01570</p>
+                    <p><strong>Email:</strong> <span className="text-navy font-semibold break-all">kalkacomediaconsultancy@gmail.com</span></p>
                   </div>
                 </div>
               </div>

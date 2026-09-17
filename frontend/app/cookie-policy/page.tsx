@@ -115,7 +115,7 @@ export default function CookiePolicyPage() {
                 4. Inquiries Regarding Cookies
               </h2>
               <p className="text-xs text-slate-600">
-                For questions regarding cookie deployment, contact: <strong>djdurgesh8@gmail.com</strong>.
+                For questions regarding cookie deployment, contact: <strong>kalkacomediaconsultancy@gmail.com</strong>.
               </p>
             </div>
 

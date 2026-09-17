@@ -15,7 +15,7 @@ export function OrganizationJsonLd() {
     image: 'https://kalka.co/assets/social/og-default.jpg',
     description:
       'Strategic communications and public relations consultancy helping businesses, brands, organizations, and industry leaders build visibility, strengthen reputation, and create lasting impact.',
-    email: 'djdurgesh8@gmail.com',
+    email: 'kalkacomediaconsultancy@gmail.com',
     telephone: ['+91-87450-01570', '+91-76830-15257'],
     address: {
       '@type': 'PostalAddress',
