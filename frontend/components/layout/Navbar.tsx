@@ -9,8 +9,10 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { NavItem } from '@/types';
 import { MobileMenu } from './MobileMenu';
+import { AnimatedBackground } from '@/components/core/animated-background';
 
 export const defaultNavItems: NavItem[] = [
+  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   {
     label: 'Services',
@@ -48,6 +50,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     if (href === '/') return pathname === '/';
     return pathname === href || pathname.startsWith(href + '/');
   };
+
+  const activeItem = navItems.find((item) => isItemActive(item.href));
+  const currentTab = activeItem ? activeItem.label : null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,80 +96,102 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {navItems.map((item) => {
-              const active = isItemActive(item.href);
-              return (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={() => item.children && setActiveDropdown(item.label)}
-                  onMouseLeave={() => item.children && setActiveDropdown(null)}
-                >
-                  {item.children ? (
-                    <button
-                      className={cn(
-                        'flex items-center gap-1 text-xs font-semibold uppercase tracking-wider transition-colors py-2 relative',
-                        active
-                          ? 'text-gold'
-                          : 'text-slate-200 hover:text-gold'
-                      )}
-                      aria-expanded={activeDropdown === item.label}
-                    >
-                      <span>{item.label}</span>
-                      <ChevronDown className={cn('w-3.5 h-3.5 transition-colors', active ? 'text-gold' : 'text-slate-400')} />
-                      {active && (
-                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold rounded-full" />
-                      )}
-                    </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        'text-xs font-semibold uppercase tracking-wider transition-colors py-2 relative inline-block',
-                        active
-                          ? 'text-gold'
-                          : 'text-slate-200 hover:text-gold'
-                      )}
-                    >
-                      <span>{item.label}</span>
-                      {active && (
-                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold rounded-full" />
-                      )}
-                    </Link>
-                  )}
+          {/* Desktop Navigation with Animated Sliding Tab Group */}
+          <nav
+            className="hidden lg:flex items-center gap-1 relative"
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <AnimatedBackground
+              defaultValue={currentTab}
+              enableHover
+              transition={{
+                type: 'spring',
+                bounce: 0.2,
+                duration: 0.3,
+              }}
+              className="rounded-lg bg-white/[0.08] border border-white/10 shadow-sm"
+            >
+              {navItems.map((item) => {
+                const active = isItemActive(item.href);
 
-                  {/* Dropdown Menu */}
-                  {item.children && activeDropdown === item.label && (
-                    <div className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50">
-                      {item.children.map((child) => {
-                        const childActive = isItemActive(child.href);
-                        return (
-                          <Link
-                            key={child.label}
-                            href={child.href}
-                            className={cn(
-                              'block p-2.5 rounded transition-colors',
-                              childActive ? 'bg-gold/10' : 'hover:bg-slate-50'
-                            )}
-                          >
-                            <span className={cn('block text-xs font-semibold', childActive ? 'text-gold-dark' : 'text-navy')}>
-                              {child.label}
-                            </span>
-                            {child.description && (
-                              <span className="block text-xs text-slate-500 mt-0.5">
-                                {child.description}
-                              </span>
-                            )}
-                          </Link>
-                        );
-                      })}
+                if (item.children) {
+                  return (
+                    <div
+                      key={item.label}
+                      data-id={item.label}
+                      className="relative inline-flex items-center"
+                      onMouseEnter={() => setActiveDropdown(item.label)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          'px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
+                          active
+                            ? 'text-gold'
+                            : 'text-slate-200 hover:text-white'
+                        )}
+                        aria-expanded={activeDropdown === item.label}
+                        aria-haspopup="true"
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            'w-3.5 h-3.5 transition-transform duration-200',
+                            activeDropdown === item.label ? 'rotate-180 text-gold' : active ? 'text-gold' : 'text-slate-400'
+                          )}
+                        />
+                      </Link>
+
+                      {/* Dropdown Menu */}
+                      {activeDropdown === item.label && (
+                        <div className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50 mt-1">
+                          {item.children.map((child) => {
+                            const childActive = isItemActive(child.href);
+                            return (
+                              <Link
+                                key={child.label}
+                                href={child.href}
+                                onClick={() => setActiveDropdown(null)}
+                                className={cn(
+                                  'block p-2.5 rounded transition-colors',
+                                  childActive ? 'bg-gold/10' : 'hover:bg-slate-50'
+                                )}
+                              >
+                                <span className={cn('block text-xs font-semibold', childActive ? 'text-gold-dark' : 'text-navy')}>
+                                  {child.label}
+                                </span>
+                                {child.description && (
+                                  <span className="block text-xs text-slate-500 mt-0.5">
+                                    {child.description}
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    data-id={item.label}
+                    className={cn(
+                      'px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
+                      active
+                        ? 'text-gold'
+                        : 'text-slate-200 hover:text-white'
+                    )}
+                  >
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </AnimatedBackground>
           </nav>
 
           {/* Action CTA & Mobile Trigger */}
