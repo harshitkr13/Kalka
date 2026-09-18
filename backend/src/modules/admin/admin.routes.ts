@@ -88,6 +88,12 @@ import {
 
 const router = Router();
 
+// Enforce non-cacheable responses for all administrative CMS endpoints
+router.use((_req, res, next) => {
+  res.setHeader('Cache-Control', 'private, no-store');
+  next();
+});
+
 // All admin CMS routes require active session authentication
 router.use(authenticate);
 

@@ -5,8 +5,7 @@
  * 1. Public contact & service enquiry submissions
  * 2. Admin lead management, status updates, and note logging
  */
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+import { getApiBaseUrl } from '../api';
 
 export interface PublicContactPayload {
   fullName: string;
@@ -99,7 +98,8 @@ export async function submitPublicContact(
   payload: PublicContactPayload
 ): Promise<ApiResponse<PublicContactResponse>> {
   try {
-    const res = await fetch(`${API_BASE}/contact`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -159,16 +159,20 @@ export async function fetchAdminLeads(params?: {
   order?: 'asc' | 'desc';
 }): Promise<ApiResponse<LeadItem[]>> {
   try {
-    const url = new URL(`${API_BASE}/admin/leads`);
+    const base = getApiBaseUrl();
+    const searchParams = new URLSearchParams();
     if (params) {
       Object.entries(params).forEach(([key, val]) => {
         if (val !== undefined && val !== null && val !== '') {
-          url.searchParams.append(key, String(val));
+          searchParams.append(key, String(val));
         }
       });
     }
 
-    const res = await fetch(url.toString(), {
+    const queryString = searchParams.toString();
+    const targetUrl = queryString ? `${base}/admin/leads?${queryString}` : `${base}/admin/leads`;
+
+    const res = await fetch(targetUrl, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -202,7 +206,8 @@ export async function fetchAdminLeads(params?: {
  */
 export async function fetchAdminLeadById(id: string): Promise<ApiResponse<LeadItem>> {
   try {
-    const res = await fetch(`${API_BASE}/admin/leads/${id}`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/admin/leads/${id}`, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -242,7 +247,8 @@ export async function updateAdminLead(
   }
 ): Promise<ApiResponse<LeadItem>> {
   try {
-    const res = await fetch(`${API_BASE}/admin/leads/${id}`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/admin/leads/${id}`, {
       method: 'PATCH',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -300,7 +306,8 @@ export async function addAdminLeadNote(
   content: string
 ): Promise<ApiResponse<LeadItem>> {
   try {
-    const res = await fetch(`${API_BASE}/admin/leads/${id}/notes`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/admin/leads/${id}/notes`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -335,7 +342,8 @@ export async function addAdminLeadNote(
  */
 export async function deleteAdminLead(id: string): Promise<ApiResponse<{ id: string }>> {
   try {
-    const res = await fetch(`${API_BASE}/admin/leads/${id}`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/admin/leads/${id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

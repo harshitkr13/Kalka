@@ -15,8 +15,9 @@ import { mediaMentionsData, MediaMention } from '@/lib/content/mediaMentions';
 import { awardsData, AwardData } from '@/lib/content/awards';
 import { teamData, TeamMember } from '@/lib/content/team';
 import { careersData, CareerRole } from '@/lib/content/careers';
+import { getApiBaseUrl } from '../api';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const getApiBase = () => getApiBaseUrl();
 
 
 /**
@@ -24,7 +25,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
  */
 export async function getPublicServices(): Promise<ServiceData[]> {
   try {
-    const res = await fetch(`${API_BASE}/services`, {
+    const res = await fetch(`${getApiBase()}/services`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -63,7 +64,7 @@ export async function getPublicServices(): Promise<ServiceData[]> {
  */
 export async function getPublicServiceBySlug(slug: string): Promise<ServiceData | null> {
   try {
-    const res = await fetch(`${API_BASE}/services/${slug}`, {
+    const res = await fetch(`${getApiBase()}/services/${slug}`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -103,7 +104,7 @@ export async function getPublicServiceBySlug(slug: string): Promise<ServiceData 
  */
 export async function getPublicIndustries(): Promise<IndustryData[]> {
   try {
-    const res = await fetch(`${API_BASE}/industries`, {
+    const res = await fetch(`${getApiBase()}/industries`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -135,7 +136,7 @@ export async function getPublicIndustries(): Promise<IndustryData[]> {
  */
 export async function getPublicIndustryBySlug(slug: string): Promise<IndustryData | null> {
   try {
-    const res = await fetch(`${API_BASE}/industries/${slug}`, {
+    const res = await fetch(`${getApiBase()}/industries/${slug}`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -168,7 +169,7 @@ export async function getPublicIndustryBySlug(slug: string): Promise<IndustryDat
  */
 export async function getPublicCaseStudies(): Promise<CaseStudyData[]> {
   try {
-    const res = await fetch(`${API_BASE}/case-studies`, {
+    const res = await fetch(`${getApiBase()}/case-studies`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -203,7 +204,7 @@ export async function getPublicCaseStudies(): Promise<CaseStudyData[]> {
  */
 export async function getPublicCaseStudyBySlug(slug: string): Promise<CaseStudyData | null> {
   try {
-    const res = await fetch(`${API_BASE}/case-studies/${slug}`, {
+    const res = await fetch(`${getApiBase()}/case-studies/${slug}`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -246,7 +247,7 @@ export async function getPublicCaseStudyBySlug(slug: string): Promise<CaseStudyD
  */
 export async function getPublicInsights(): Promise<InsightData[]> {
   try {
-    const res = await fetch(`${API_BASE}/blogs`, {
+    const res = await fetch(`${getApiBase()}/blogs`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -291,7 +292,7 @@ export async function getPublicInsights(): Promise<InsightData[]> {
  */
 export async function getPublicInsightBySlug(slug: string): Promise<InsightData | null> {
   try {
-    const res = await fetch(`${API_BASE}/blogs/${slug}`, {
+    const res = await fetch(`${getApiBase()}/blogs/${slug}`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -347,7 +348,7 @@ export interface PublicClientData {
  */
 export async function getPublicClients(): Promise<PublicClientData[]> {
   try {
-    const res = await fetch(`${API_BASE}/clients`, {
+    const res = await fetch(`${getApiBase()}/clients`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -383,7 +384,7 @@ export async function getPublicClients(): Promise<PublicClientData[]> {
  */
 export async function getPublicMediaMentions(): Promise<MediaMention[]> {
   try {
-    const res = await fetch(`${API_BASE}/media-mentions`, {
+    const res = await fetch(`${getApiBase()}/media-mentions`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -413,7 +414,7 @@ export async function getPublicMediaMentions(): Promise<MediaMention[]> {
  */
 export async function getPublicAwards(): Promise<AwardData[]> {
   try {
-    const res = await fetch(`${API_BASE}/awards`, {
+    const res = await fetch(`${getApiBase()}/awards`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -442,7 +443,7 @@ export async function getPublicAwards(): Promise<AwardData[]> {
  */
 export async function getPublicTeamMembers(): Promise<TeamMember[]> {
   try {
-    const res = await fetch(`${API_BASE}/team`, {
+    const res = await fetch(`${getApiBase()}/team`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -471,7 +472,7 @@ export async function getPublicTeamMembers(): Promise<TeamMember[]> {
  */
 export async function getPublicCareers(): Promise<CareerRole[]> {
   try {
-    const res = await fetch(`${API_BASE}/careers`, {
+    const res = await fetch(`${getApiBase()}/careers`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -504,7 +505,7 @@ export async function getPublicCareers(): Promise<CareerRole[]> {
  */
 export async function getPublicCareerBySlug(slug: string): Promise<CareerRole | null> {
   try {
-    const res = await fetch(`${API_BASE}/careers/${slug}`, {
+    const res = await fetch(`${getApiBase()}/careers/${slug}`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -548,7 +549,7 @@ export interface PublicGalleryItem {
  */
 export async function getPublicGalleryItems(): Promise<PublicGalleryItem[]> {
   try {
-    const res = await fetch(`${API_BASE}/gallery`, {
+    const res = await fetch(`${getApiBase()}/gallery`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
     });

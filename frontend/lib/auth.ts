@@ -8,15 +8,17 @@ export interface AuthUser {
   lastLoginAt?: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+import { getApiBaseUrl } from './api';
 
 export function getGoogleLoginUrl(): string {
-  return `${API_BASE_URL}/auth/google`;
+  const base = getApiBaseUrl();
+  return `${base}/auth/google`;
 }
 
 export async function fetchCurrentUser(): Promise<AuthUser | null> {
   try {
-    const res = await fetch(`${API_BASE_URL}/auth/me`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/auth/me`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include', // Sends HttpOnly session cookie
@@ -40,7 +42,8 @@ export async function fetchCurrentUser(): Promise<AuthUser | null> {
 
 export async function logoutUser(): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE_URL}/auth/logout`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/auth/logout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',

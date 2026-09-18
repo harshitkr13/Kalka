@@ -13,7 +13,30 @@ export interface ApiResponse<T = unknown> {
   error?: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+/**
+ * Resolves the API base URL:
+ * - In production browser environments, uses relative same-origin `/api` to route
+ *   all requests through the Vercel reverse proxy, preventing third-party cookie blocking.
+ * - In local development browser environments, points directly to http://localhost:5000/api.
+ * - In server-side / build-time Node.js execution, requires an absolute URL.
+ */
+export function getApiBaseUrl(): string {
+  if (typeof window !== 'undefined') {
+    const isLocalDev =
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1';
+
+    if (isLocalDev && process.env.NEXT_PUBLIC_API_URL?.includes('localhost')) {
+      return process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, '');
+    }
+
+    // In production browser environments, always use relative '/api'
+    return '/api';
+  }
+
+  // Server-side / static build execution requires an absolute URL
+  return (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api').replace(/\/+$/, '');
+}
 
 /**
  * Safe fetch wrapper for administrative requests ensuring HttpOnly cookies
@@ -23,7 +46,9 @@ export async function apiClient<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
-  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+  const base = getApiBaseUrl();
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = endpoint.startsWith('http') ? endpoint : `${base}${cleanEndpoint}`;
 
   try {
     const res = await fetch(url, {
@@ -88,7 +113,8 @@ export async function apiClient<T>(
  */
 export async function fetchSystemHealth(): Promise<SystemHealth | null> {
   try {
-    const res = await fetch(`${API_BASE_URL}/health`, {
+    const base = getApiBaseUrl();
+    const res = await fetch(`${base}/health`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',

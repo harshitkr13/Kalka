@@ -4,6 +4,12 @@ import { authenticate } from '../../middleware/auth';
 
 const router = Router();
 
+// Enforce non-cacheable responses for all authentication endpoints
+router.use((_req, res, next) => {
+  res.setHeader('Cache-Control', 'private, no-store');
+  next();
+});
+
 // OAuth initiation & callback
 router.get('/google', authController.initiateGoogleAuth);
 router.get('/google/callback', authController.handleGoogleCallback);
