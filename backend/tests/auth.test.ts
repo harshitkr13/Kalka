@@ -4,7 +4,9 @@ import request from 'supertest';
 import { app } from '../src/app';
 import { User } from '../src/models/User';
 import { authService } from '../src/modules/auth/auth.service';
+import { generateOAuthState } from '../src/modules/auth/oauthState';
 import { hasPermission, getRolePermissions } from '../src/modules/auth/permissions';
+import { env } from '../src/config/env';
 
 describe('Google OAuth & Authentication Module', () => {
   beforeEach(() => {
@@ -20,6 +22,14 @@ describe('Google OAuth & Authentication Module', () => {
       expect(res.headers.location).toContain('redirect_uri=');
       expect(res.headers.location).toContain('state=');
       expect(res.headers.location).toContain('scope=openid+email+profile');
+
+      // Verify kalka.oauth_nonce cookie is set with SameSite=Lax and Path=/api/auth
+      const cookies = res.headers['set-cookie'] || [];
+      const nonceCookie = cookies.find((c: string) => c.includes('kalka.oauth_nonce='));
+      expect(nonceCookie).toBeDefined();
+      expect(nonceCookie).toContain('Path=/api/auth');
+      expect(nonceCookie).toContain('HttpOnly');
+      expect(nonceCookie).toContain('SameSite=Lax');
     });
   });
 
@@ -36,6 +46,41 @@ describe('Google OAuth & Authentication Module', () => {
         .set('Cookie', ['kalka.sid=some_session']);
       expect(res.status).toBe(302);
       expect(res.headers.location).toContain('/admin/login?error=invalid_state');
+    });
+
+    it('should reject valid HMAC state if kalka.oauth_nonce cookie is missing (Login CSRF defense)', async () => {
+      const { state } = generateOAuthState(env.SESSION_SECRET);
+      // Valid HMAC state provided, but NO browser nonce cookie sent
+      const res = await request(app)
+        .get(`/api/auth/google/callback?code=mock_code&state=${state}`);
+      expect(res.status).toBe(302);
+      expect(res.headers.location).toContain('/admin/login?error=invalid_state');
+    });
+
+    it('should reject valid HMAC state if kalka.oauth_nonce cookie belongs to a different session (Mismatched transaction)', async () => {
+      const { state } = generateOAuthState(env.SESSION_SECRET);
+      const wrongNonce = '1111111111111111111111111111111111111111111111111111111111111111';
+      const res = await request(app)
+        .get(`/api/auth/google/callback?code=mock_code&state=${state}`)
+        .set('Cookie', [`kalka.oauth_nonce=${wrongNonce}`]);
+      expect(res.status).toBe(302);
+      expect(res.headers.location).toContain('/admin/login?error=invalid_state');
+    });
+
+    it('should accept matching nonce and proceed past state validation, then clear nonce cookie', async () => {
+      const { state, nonce } = generateOAuthState(env.SESSION_SECRET);
+      // Code is mock so Google exchange fails with auth_failed, but state verification passes!
+      const res = await request(app)
+        .get(`/api/auth/google/callback?code=mock_code&state=${state}`)
+        .set('Cookie', [`kalka.oauth_nonce=${nonce}`]);
+      expect(res.status).toBe(302);
+      // Fails at auth exchange (mock_code), NOT invalid_state
+      expect(res.headers.location).toContain('/admin/login?error=auth_failed');
+
+      // Verify kalka.oauth_nonce cookie is cleared
+      const cookies = res.headers['set-cookie'] || [];
+      const clearedNonce = cookies.find((c: string) => c.includes('kalka.oauth_nonce='));
+      expect(clearedNonce).toBeDefined();
     });
 
     it('should reject unapproved email not in ADMIN_ALLOWED_EMAILS', async () => {

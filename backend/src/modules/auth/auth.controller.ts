@@ -1,22 +1,47 @@
 import { Request, Response, NextFunction } from 'express';
-import crypto from 'crypto';
 import { env } from '../../config/env';
 import { authService } from './auth.service';
 import { getRolePermissions } from './permissions';
+import { generateOAuthState, verifyOAuthState, verifyBrowserNonceBinding } from './oauthState';
 import { sendSuccess } from '../../utils/apiResponse';
 import { AppError } from '../../utils/appError';
 import { logger } from '../../utils/logger';
 
+function getCookieValue(req: Request, name: string): string | undefined {
+  const cookieHeader = req.headers.cookie;
+  if (!cookieHeader) return undefined;
+  const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : undefined;
+}
+
 export const authController = {
   initiateGoogleAuth(req: Request, res: Response, next: NextFunction): void {
     try {
-      const state = crypto.randomBytes(32).toString('hex');
+      const { state, nonce } = generateOAuthState(env.SESSION_SECRET);
       req.session.oauthState = state;
+      req.session.oauthNonce = nonce;
+
+      const isProduction = env.NODE_ENV === 'production' || Boolean(process.env.RENDER);
+
+      // Dedicated short-lived browser-bound nonce cookie with SameSite=Lax
+      res.cookie('kalka.oauth_nonce', nonce, {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: 'lax',
+        maxAge: 10 * 60 * 1000, // 10 minutes
+        path: '/api/auth',
+      });
 
       req.session.save((err) => {
         if (err) {
           logger.error('Failed to persist OAuth state in session:', err);
-          return next(new AppError('Authentication service is temporarily unavailable. Please try again shortly.', 503, 'DATABASE_UNAVAILABLE'));
+          return next(
+            new AppError(
+              'Authentication service is temporarily unavailable. Please try again shortly.',
+              503,
+              'DATABASE_UNAVAILABLE'
+            )
+          );
         }
         const authUrl = authService.getGoogleAuthUrl(state);
         res.redirect(authUrl);
@@ -42,15 +67,44 @@ export const authController = {
       return res.redirect(`${env.FRONTEND_URL}/admin/login?error=missing_credentials`);
     }
 
-    // CSRF State validation
-    const savedState = req.session?.oauthState;
-    if (!savedState || savedState !== state) {
-      logger.warn('OAuth state mismatch detected (possible CSRF attempt)');
-      return res.redirect(`${env.FRONTEND_URL}/admin/login?error=invalid_state`);
+    const isProduction = env.NODE_ENV === 'production' || Boolean(process.env.RENDER);
+
+    // 1. Retrieve browser-bound transaction nonce from cookie (primary) or session (secondary)
+    const cookieNonce = getCookieValue(req, 'kalka.oauth_nonce');
+    const sessionNonce = req.session?.oauthNonce;
+    const browserNonce = cookieNonce || sessionNonce;
+
+    // 2. Validate cryptographic state integrity and freshness (10-minute window)
+    const stateResult = verifyOAuthState(state, env.SESSION_SECRET);
+
+    // 3. Validate browser-bound transaction binding (CRITICAL: Prevents Login CSRF)
+    const isBindingValid = Boolean(
+      browserNonce &&
+      stateResult.valid &&
+      stateResult.nonce &&
+      verifyBrowserNonceBinding(stateResult.nonce, browserNonce)
+    );
+
+    // 4. Single-Use Replay Protection: Immediately clear the transaction nonce cookie and session fields
+    res.clearCookie('kalka.oauth_nonce', {
+      path: '/api/auth',
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'lax',
+    });
+
+    if (req.session) {
+      delete req.session.oauthState;
+      delete req.session.oauthNonce;
     }
 
-    // Clear state after validation
-    delete req.session.oauthState;
+    // 5. Reject if state verification or browser binding failed
+    if (!isBindingValid) {
+      logger.warn(
+        `OAuth state verification failed: hasBrowserNonce=${Boolean(browserNonce)}, stateValid=${stateResult.valid}, error=${stateResult.error || 'NONCE_MISMATCH'}`
+      );
+      return res.redirect(`${env.FRONTEND_URL}/admin/login?error=invalid_state`);
+    }
 
     try {
       // Exchange authorization code for Google profile
