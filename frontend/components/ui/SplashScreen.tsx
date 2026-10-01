@@ -5,10 +5,15 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
+// Module-level in-memory flag: tracks if splash was already presented in this SPA runtime.
+// Resets to false on any full document load / browser refresh.
+// Remains true across internal client-side SPA route navigations (Home -> About -> Home).
+let clientHasShownSplash = false;
+
 export const SplashScreen: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  // Initialize state: skip immediately if user prefers reduced motion or has seen it this session
+  // Initialize state: skip immediately if user prefers reduced motion or already seen in SPA session
   const [isVisible, setIsVisible] = useState(() => {
     if (typeof window !== 'undefined') {
       // 1. Accessibility check: ALWAYS respect reduced motion first
@@ -18,7 +23,7 @@ export const SplashScreen: React.FC = () => {
       // 2. Check for explicit force replay query parameter
       const urlParams = new URLSearchParams(window.location.search);
       const forceSplash = urlParams.get('splash') === '1' || urlParams.get('splash') === 'true';
-      if (!forceSplash && sessionStorage.getItem('kalka_splash_seen')) {
+      if (!forceSplash && clientHasShownSplash) {
         return false;
       }
     }
@@ -36,25 +41,24 @@ export const SplashScreen: React.FC = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const forceSplash = urlParams.get('splash') === '1' || urlParams.get('splash') === 'true';
-    const hasSeen = sessionStorage.getItem('kalka_splash_seen');
 
-    if (!forceSplash && hasSeen) {
+    if (!forceSplash && clientHasShownSplash) {
       setIsVisible(false);
       return;
     }
 
-    // Immediately record session flag so client-side navigation never triggers replay
-    sessionStorage.setItem('kalka_splash_seen', 'true');
+    // Immediately mark that splash has been triggered in this SPA session
+    clientHasShownSplash = true;
 
     // Lock document scroll during splash presentation
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    // Fallback safety timeout (1.35s) in case animation events do not fire
+    // Fallback safety timeout (2.45s) in case animation events do not fire
     const safetyTimer = setTimeout(() => {
       document.body.style.overflow = originalOverflow;
       setIsVisible(false);
-    }, 1350);
+    }, 2450);
 
     return () => {
       clearTimeout(safetyTimer);
@@ -63,9 +67,7 @@ export const SplashScreen: React.FC = () => {
   }, [shouldReduceMotion]);
 
   const handleAnimationComplete = () => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('kalka_splash_seen', 'true');
-    }
+    clientHasShownSplash = true;
     document.body.style.overflow = '';
     setIsVisible(false);
   };
@@ -97,11 +99,11 @@ export const SplashScreen: React.FC = () => {
             aria-label="Kalka Co. Media Consultancy loading screen"
             initial={{ opacity: 1 }}
             animate={{
-              opacity: [1, 1, 0],
+              opacity: [1, 1, 1, 0],
             }}
             transition={{
-              duration: 1.25,
-              times: [0, 0.64, 1],
+              duration: 2.35,
+              times: [0, 0.213, 0.66, 1],
               ease: [0.16, 1, 0.3, 1],
             }}
             onAnimationComplete={handleAnimationComplete}
@@ -113,19 +115,20 @@ export const SplashScreen: React.FC = () => {
             {/* Central Brand Lockup: Animated via opacity, subtle scale and blur */}
             <motion.div
               initial={{
-                opacity: 0.85,
+                opacity: 0.8,
                 scale: 0.98,
                 filter: 'blur(2.5px)',
+                y: 0,
               }}
               animate={{
-                opacity: [0.85, 1, 1, 0],
+                opacity: [0.8, 1, 1, 0],
                 scale: [0.98, 1, 1, 0.985],
                 filter: ['blur(2.5px)', 'blur(0px)', 'blur(0px)', 'blur(2px)'],
                 y: [0, 0, 0, -4],
               }}
               transition={{
-                duration: 1.25,
-                times: [0, 0.288, 0.64, 1],
+                duration: 2.35,
+                times: [0, 0.213, 0.66, 1],
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="relative z-10 flex flex-col items-center text-center px-6 pointer-events-none"
