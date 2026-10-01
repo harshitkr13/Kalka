@@ -129,70 +129,70 @@ export const ContactFormSection: React.FC = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20">
-      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section className="py-10 sm:py-14 lg:py-16">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
         
-        {/* Urgent Crisis Notification Banner */}
-        <div className="p-6 sm:p-8 rounded bg-red-950/90 border border-red-800 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-6 shadow-premium">
+        {/* Priority Response Desk Console */}
+        <div className="p-5 sm:p-6 lg:p-7 rounded-xl bg-white border border-slate-200/90 shadow-subtle flex flex-col lg:flex-row lg:items-center justify-between gap-6 transition-all hover:border-slate-300">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded bg-red-800/60 border border-red-600 flex items-center justify-center flex-shrink-0 text-gold">
-              <ShieldAlert className="w-6 h-6 text-gold" />
+            <div className="w-10 h-10 rounded-lg bg-navy/5 border border-navy/10 flex items-center justify-center flex-shrink-0 text-navy mt-0.5">
+              <ShieldAlert className="w-5 h-5 text-navy" />
             </div>
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-widest text-gold font-mono">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-gold font-mono block">
                   Priority Response Desk
                 </span>
               </div>
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
+              <h2 className="font-serif text-lg sm:text-xl font-bold text-navy">
                 Facing an Active Media or Regulatory Incident?
               </h2>
-              <p className="text-sm text-red-200 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
                 Our crisis command protocols activate immediately. Reach our priority hotline or direct WhatsApp channel.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100 w-full lg:w-auto">
             <a
               href="tel:+918745001570"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-red-800 hover:bg-red-700 text-white text-xs font-semibold tracking-normal transition-colors font-mono"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-navy hover:bg-navy-surface text-white text-xs font-medium tracking-normal transition-colors font-mono shadow-subtle border border-navy"
             >
-              <PhoneCall className="w-4 h-4" />
-              Call Hotline: +91 87450 01570
+              <PhoneCall className="w-3.5 h-3.5 text-gold" />
+              <span>Call Hotline: +91 87450 01570</span>
             </a>
             <a
               href="https://wa.me/918745001570?text=Urgent%20Consultation%20Inquiry%20-%20Kalka%20Co"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-semibold tracking-normal transition-colors font-mono"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-navy text-xs font-medium tracking-normal transition-colors font-mono border border-slate-300 shadow-subtle"
             >
-              <MessageSquare className="w-4 h-4" />
-              WhatsApp: +91 87450 01570
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
+              <span>WhatsApp: +91 87450 01570</span>
             </a>
           </div>
         </div>
 
         {/* Main Form & Direct Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* Form Side */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded border border-slate-200 shadow-premium">
-            <div className="mb-8 space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-gold block font-mono">
+          <div className="lg:col-span-7 bg-white p-5 sm:p-8 lg:p-9 rounded-xl border border-slate-200/90 shadow-subtle">
+            <div className="mb-7 space-y-1.5">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gold block font-mono">
                 Initiate Consultation
               </span>
-              <h2 className="font-serif text-3xl font-bold text-navy">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy">
                 Advisory Consultation Request
               </h2>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Please specify your institutional context and preferred engagement horizon. All inquiries are protected by our advisory confidentiality protocols.
               </p>
             </div>
 
             {/* Contextual Practice Banner if arriving from a service page */}
             {selectedService && (
-              <div className="mb-6 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4 text-xs">
+              <div className="mb-6 p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4 text-xs">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-200/60 px-2 py-0.5 rounded">
                     Practice
@@ -214,7 +214,7 @@ export const ContactFormSection: React.FC = () => {
             )}
 
             {/* Inquiry Type Tabs */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-8 p-1.5 bg-slate-100 rounded border border-slate-200">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-7 p-1 bg-slate-100/90 rounded-lg border border-slate-200/80">
               {[
                 { id: 'corporate', label: 'Corporate' },
                 { id: 'crisis', label: 'Crisis Advisory' },
@@ -225,10 +225,10 @@ export const ContactFormSection: React.FC = () => {
                   key={tab.id}
                   type="button"
                   onClick={() => setInquiryType(tab.id)}
-                  className={`py-2 px-3 text-xs font-bold rounded uppercase tracking-wider transition-all ${
+                  className={`py-2 px-3 text-xs font-semibold rounded-md transition-all ${
                     inquiryType === tab.id
-                      ? 'bg-navy text-gold shadow-sm'
-                      : 'text-slate-600 hover:text-navy hover:bg-slate-200/60'
+                      ? 'bg-navy text-white shadow-subtle'
+                      : 'text-slate-600 hover:text-navy hover:bg-white/60'
                   }`}
                 >
                   {tab.label}
@@ -291,7 +291,7 @@ export const ContactFormSection: React.FC = () => {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm font-mono"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-medium tracking-normal transition-colors shadow-subtle font-mono"
                   >
                     <MessageSquare className="w-4 h-4" />
                     WhatsApp Direct: +91 87450 01570
@@ -300,7 +300,7 @@ export const ContactFormSection: React.FC = () => {
                     href={`mailto:kalkacomediaconsultancy@gmail.com?subject=${encodeURIComponent(
                       `Inquiry Reference ${submissionResult.reference} — ${formData.organization}`
                     )}`}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-navy hover:bg-navy-dark text-white text-xs font-bold uppercase tracking-wider transition-colors border border-navy-border shadow-sm font-mono"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-navy hover:bg-navy-surface text-white text-xs font-medium tracking-normal transition-colors border border-navy-border shadow-subtle font-mono"
                   >
                     <Mail className="w-4 h-4 text-gold" />
                     Email: kalkacomediaconsultancy@gmail.com
@@ -347,9 +347,9 @@ export const ContactFormSection: React.FC = () => {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Full Name *
                     </label>
                     <Input
@@ -360,7 +360,7 @@ export const ContactFormSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Corporate Email *
                     </label>
                     <Input
@@ -373,9 +373,9 @@ export const ContactFormSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Organization / Enterprise *
                     </label>
                     <Input
@@ -386,7 +386,7 @@ export const ContactFormSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Designation / Role
                     </label>
                     <Input
@@ -397,9 +397,9 @@ export const ContactFormSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Direct Phone *
                     </label>
                     <Input
@@ -411,7 +411,7 @@ export const ContactFormSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       WhatsApp Mobile (Optional)
                     </label>
                     <Input
@@ -425,17 +425,17 @@ export const ContactFormSection: React.FC = () => {
 
                 {/* Urgency Radio Selector */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                  <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-2">
                     Engagement Urgency & Protocol
                   </label>
                   <div className="space-y-2">
                     {urgencyLevels.map((lvl) => (
                       <label
                         key={lvl.value}
-                        className={`flex items-center gap-3 p-3 rounded border text-xs cursor-pointer transition-all ${
+                        className={`flex items-start sm:items-center gap-3 p-3 rounded-lg border text-xs cursor-pointer transition-all ${
                           urgency === lvl.value
-                            ? 'bg-navy/5 border-gold text-navy font-semibold'
-                            : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                            ? 'bg-navy/[0.03] border-navy text-navy font-semibold ring-1 ring-navy/10'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50/80 hover:border-slate-300'
                         }`}
                       >
                         <input
@@ -444,7 +444,7 @@ export const ContactFormSection: React.FC = () => {
                           value={lvl.value}
                           checked={urgency === lvl.value}
                           onChange={(e) => setUrgency(e.target.value)}
-                          className="text-gold focus:ring-gold"
+                          className="text-navy focus:ring-navy mt-0.5 sm:mt-0"
                         />
                         <span>{lvl.label}</span>
                       </label>
@@ -453,12 +453,12 @@ export const ContactFormSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+                  <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                     Brief / Communication Objectives *
                   </label>
                   <Textarea
                     required
-                    rows={5}
+                    rows={4}
                     placeholder="Outline your immediate communications objectives, corporate milestones, or challenges you wish to address under strict confidentiality."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -470,7 +470,7 @@ export const ContactFormSection: React.FC = () => {
                     type="submit"
                     variant="gold"
                     size="lg"
-                    className="w-full"
+                    className="w-full shadow-subtle hover:shadow-elevated transition-all font-semibold"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -487,122 +487,145 @@ export const ContactFormSection: React.FC = () => {
                   </Button>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-xs text-slate-600">
-                  <ShieldCheck className="w-4 h-4 text-gold" />
+                <div className="flex items-center justify-center gap-2 text-xs text-slate-500 pt-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-gold flex-shrink-0" />
                   <span>Submissions are protected by strict professional confidentiality</span>
                 </div>
               </form>
             )}
           </div>
 
-          {/* Right: Direct Desks & Confidentiality FAQs */}
-          <div className="lg:col-span-5 space-y-8">
-            {/* Direct Desks Card */}
-            <div className="bg-navy p-8 rounded text-white border border-navy-border space-y-6 shadow-premium">
-              <h3 className="font-serif text-2xl font-bold text-white">
-                Direct Contact Desks
-              </h3>
+          {/* Right: Direct Contact Desks */}
+          <div className="lg:col-span-5">
+            <div className="bg-navy p-5 sm:p-8 lg:p-9 rounded-xl text-white border border-navy-border/80 shadow-subtle space-y-6">
+              <div className="space-y-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-gold block font-mono">
+                  Direct Channels
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-white">
+                  Direct Contact Desks
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Direct advisory channels for enterprise counsel and operational communications.
+                </p>
+              </div>
               
-              <div className="space-y-4 text-xs">
-                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+              <div className="space-y-3 text-xs">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
                   <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">Business Enquiries & Counsel</strong>
-                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all">
+                    <span className="block text-slate-300 font-medium text-[11px]">Business Enquiries & Counsel</span>
+                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-white hover:text-gold font-mono break-all font-semibold transition-colors">
                       kalkacomediaconsultancy@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
                   <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">Careers & Talent</strong>
-                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-gold hover:underline font-mono break-all">
+                    <span className="block text-slate-300 font-medium text-[11px]">Careers & Talent</span>
+                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-white hover:text-gold font-mono break-all font-semibold transition-colors">
                       kalkacomediaconsultancy@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
                   <PhoneCall className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">Direct Telephones</strong>
-                    <div className="space-y-1 mt-1 font-mono">
-                      <a href="tel:+918745001570" className="block text-slate-300 hover:text-white">
+                    <span className="block text-slate-300 font-medium text-[11px]">Direct Telephones</span>
+                    <div className="space-y-1 mt-1 font-mono text-white font-medium">
+                      <a href="tel:+918745001570" className="block hover:text-gold transition-colors">
                         +91 87450 01570
                       </a>
-                      <a href="tel:+917683015257" className="block text-slate-300 hover:text-white">
+                      <a href="tel:+917683015257" className="block hover:text-gold transition-colors">
                         +91 76830 15257
                       </a>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
                   <MessageSquare className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">WhatsApp Desk</strong>
+                    <span className="block text-slate-300 font-medium text-[11px]">WhatsApp Desk</span>
                     <a
                       href="https://wa.me/918745001570?text=Hello%20Kalka%20Co.%20Media%20Consultancy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-300 hover:text-white hover:underline font-mono"
+                      className="text-white hover:text-gold font-mono font-medium transition-colors"
                     >
                       +91 87450 01570
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
                   <Clock className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white">Business Hours</strong>
-                    <span className="text-slate-300 font-mono">09:30 - 18:30 IST</span>
+                    <span className="block text-slate-300 font-medium text-[11px]">Business Hours</span>
+                    <span className="text-white font-mono font-medium">09:30 - 18:30 IST</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-navy-border/60">
+              <div className="pt-4 border-t border-navy-border/70">
                 <p className="text-xs text-slate-300 leading-relaxed">
                   Notice: Kalka Co. Media Consultancy does not accept unsolicited press releases for broad dissemination without prior advisory representation.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Engagement FAQ Callout */}
-            <div className="bg-white p-8 rounded border border-slate-200 shadow-sm space-y-4">
-              <h4 className="font-serif text-lg font-bold text-navy flex items-center gap-2">
+        {/* Confidentiality & Non-Disclosure */}
+        <div className="bg-white rounded-xl border border-slate-200/90 p-5 sm:p-8 lg:p-9 shadow-subtle">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10">
+            <div className="flex items-start gap-4 max-w-3xl">
+              <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/25 flex items-center justify-center flex-shrink-0 text-gold mt-0.5">
                 <HelpCircle className="w-5 h-5 text-gold" />
-                Confidentiality & Non-Disclosure
-              </h4>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Prior to detailed narrative briefings, our compliance team executes unilateral or mutual Non-Disclosure Agreements (NDAs). We enforce rigid sector conflict firewalls to protect client competitive advantages.
-              </p>
-              <div className="pt-2 text-xs text-slate-500">
-                <span>Direct inquiries regarding conflicts: </span>
-                <strong className="text-navy font-mono break-all">kalkacomediaconsultancy@gmail.com</strong>
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-navy">
+                  Confidentiality & Non-Disclosure
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Prior to detailed narrative briefings, our compliance team executes unilateral or mutual Non-Disclosure Agreements (NDAs). We enforce rigid sector conflict firewalls to protect client competitive advantages.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex-shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1 text-xs">
+                <span className="text-slate-500 font-medium block">Direct inquiries regarding conflicts:</span>
+                <a
+                  href="mailto:kalkacomediaconsultancy@gmail.com?subject=Confidentiality%20and%20Conflict%20Inquiry"
+                  className="text-navy hover:text-gold font-semibold font-mono break-all underline decoration-slate-300 underline-offset-2 hover:decoration-gold transition-colors block"
+                >
+                  kalkacomediaconsultancy@gmail.com
+                </a>
               </div>
             </div>
           </div>
         </div>
 
         {/* Location & Presence */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-widest text-gold block font-mono">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gold block font-mono">
               Firm Location
             </span>
-            <h2 className="font-serif text-3xl font-bold text-navy">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy">
               Headquarters & Communications Bureau
             </h2>
-            <p className="text-sm text-slate-600">
+            <p className="text-xs sm:text-sm text-slate-600">
               National operations based in Haryana.
             </p>
           </div>
 
           <div className="max-w-xl mx-auto">
-            <div className="bg-white rounded-xl border border-slate-200 shadow-card overflow-hidden space-y-6">
+            <div className="bg-white rounded-xl border border-slate-200/90 shadow-subtle overflow-hidden space-y-6">
               <div className="relative h-48 sm:h-56 w-full bg-slate-100">
                 <Image
                   src="/assets/office/office.webp"
@@ -618,10 +641,10 @@ export const ContactFormSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-8 pt-0 space-y-6">
-                <div className="space-y-2 border-b border-slate-100 pb-4">
+              <div className="p-6 sm:p-7 pt-0 space-y-5">
+                <div className="space-y-1.5 border-b border-slate-100 pb-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-serif text-2xl font-bold text-navy">
+                    <span className="font-serif text-xl sm:text-2xl font-bold text-navy">
                       Faridabad
                     </span>
                     <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-navy/5 text-navy font-mono font-bold uppercase tracking-wider">
@@ -644,7 +667,7 @@ export const ContactFormSection: React.FC = () => {
                       href="https://maps.app.goo.gl/fo8sk45WeLVydMjv5?g_st=ic"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
                     >
                       <ExternalLink className="w-3.5 h-3.5 text-gold" />
                       <span>View on Google Maps</span>
