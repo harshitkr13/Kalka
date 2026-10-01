@@ -144,9 +144,9 @@ export const ContactFormSection: React.FC = () => {
                   Priority Response Desk
                 </span>
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
                 Facing an Active Media or Regulatory Incident?
-              </h3>
+              </h2>
               <p className="text-sm text-red-200 max-w-2xl leading-relaxed">
                 Our crisis command protocols activate immediately. Reach our priority hotline or direct WhatsApp channel.
               </p>
@@ -156,7 +156,7 @@ export const ContactFormSection: React.FC = () => {
           <div className="flex flex-wrap items-center gap-4 flex-shrink-0">
             <a
               href="tel:+918745001570"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-red-800 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors font-mono"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-red-800 hover:bg-red-700 text-white text-xs font-semibold tracking-normal transition-colors font-mono"
             >
               <PhoneCall className="w-4 h-4" />
               Call Hotline: +91 87450 01570
@@ -165,7 +165,7 @@ export const ContactFormSection: React.FC = () => {
               href="https://wa.me/918745001570?text=Urgent%20Consultation%20Inquiry%20-%20Kalka%20Co"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition-colors font-mono"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-semibold tracking-normal transition-colors font-mono"
             >
               <MessageSquare className="w-4 h-4" />
               WhatsApp: +91 87450 01570
@@ -248,7 +248,7 @@ export const ContactFormSection: React.FC = () => {
                   <h3 className="font-serif text-2xl sm:text-3xl font-bold text-navy mt-2">
                     Inquiry Securely Transmitted
                   </h3>
-                  <p className="text-sm text-slate-700 max-w-md mx-auto leading-relaxed">
+                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                     Thank you, <strong>{formData.fullName}</strong>. Your consultation brief for <strong>{formData.organization}</strong> has been logged and routed to our team.
                   </p>
                 </div>
@@ -349,7 +349,7 @@ export const ContactFormSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                       Full Name *
                     </label>
                     <Input
@@ -360,7 +360,7 @@ export const ContactFormSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                       Corporate Email *
                     </label>
                     <Input
@@ -375,7 +375,7 @@ export const ContactFormSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                       Organization / Enterprise *
                     </label>
                     <Input
@@ -386,7 +386,7 @@ export const ContactFormSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                       Designation / Role
                     </label>
                     <Input
@@ -399,7 +399,7 @@ export const ContactFormSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                       Direct Phone *
                     </label>
                     <Input
@@ -411,7 +411,7 @@ export const ContactFormSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                       WhatsApp Mobile (Optional)
                     </label>
                     <Input
@@ -425,7 +425,7 @@ export const ContactFormSection: React.FC = () => {
 
                 {/* Urgency Radio Selector */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                     Engagement Urgency & Protocol
                   </label>
                   <div className="space-y-2">
@@ -453,7 +453,7 @@ export const ContactFormSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
                     Brief / Communication Objectives *
                   </label>
                   <Textarea
@@ -487,7 +487,7 @@ export const ContactFormSection: React.FC = () => {
                   </Button>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400">
+                <div className="flex items-center justify-center gap-2 text-xs text-slate-600">
                   <ShieldCheck className="w-4 h-4 text-gold" />
                   <span>Submissions are protected by strict professional confidentiality</span>
                 </div>
@@ -540,14 +540,14 @@ export const ContactFormSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-3 p-3 rounded bg-navy-deep/60 border border-navy-border">
-                  <MessageSquare className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <MessageSquare className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                   <div>
                     <strong className="block text-white">WhatsApp Desk</strong>
                     <a
                       href="https://wa.me/918745001570?text=Hello%20Kalka%20Co.%20Media%20Consultancy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-emerald-400 hover:underline font-mono"
+                      className="text-slate-300 hover:text-white hover:underline font-mono"
                     >
                       +91 87450 01570
                     </a>
@@ -564,7 +564,7 @@ export const ContactFormSection: React.FC = () => {
               </div>
 
               <div className="pt-4 border-t border-navy-border/60">
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed">
                   Notice: Kalka Co. Media Consultancy does not accept unsolicited press releases for broad dissemination without prior advisory representation.
                 </p>
               </div>
@@ -628,7 +628,7 @@ export const ContactFormSection: React.FC = () => {
                       Headquarters
                     </span>
                   </div>
-                  <p className="text-xs font-semibold text-gold-dark font-mono">
+                  <p className="text-xs font-semibold text-gold font-mono">
                     Faridabad, Haryana 121003
                   </p>
                 </div>
@@ -651,8 +651,11 @@ export const ContactFormSection: React.FC = () => {
                     </a>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-[11px]">
-                    <p><strong>Business Hours:</strong> 09:30 - 18:30 IST</p>
+                  <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-xs text-slate-600">
+                    <p>
+                      <strong>Business Hours:</strong> 9:30 am – 6:30 pm{' '}
+                      <abbr title="Indian Standard Time" className="no-underline">IST</abbr>
+                    </p>
                     <p><strong>Phones:</strong> +91 87450 01570 / +91 76830 15257</p>
                     <p><strong>WhatsApp:</strong> +91 87450 01570</p>
                     <p><strong>Email:</strong> <span className="text-navy font-semibold break-all">kalkacomediaconsultancy@gmail.com</span></p>
