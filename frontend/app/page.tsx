@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SplashScreen } from '@/components/ui/SplashScreen';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/sections/Hero';
@@ -36,6 +37,9 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+      {/* Animated Splash / Intro Screen */}
+      <SplashScreen />
+
       {/* 1. Navigation */}
       <Navbar />
 
