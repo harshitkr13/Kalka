@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ContactFormSection } from './ContactFormSection';
 
@@ -27,8 +29,11 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Page Header */}
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between">
+      <Navbar />
+
+      <main id="main-content" className="flex-1">
+        {/* Page Header */}
       <section className="bg-navy pt-8 pb-12 sm:pt-10 sm:pb-14 lg:pt-12 lg:pb-16 text-white border-b border-navy-border relative overflow-hidden">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Breadcrumbs
@@ -59,6 +64,9 @@ export default function ContactPage() {
       <Suspense fallback={<div className="py-24 text-center text-slate-500 font-mono text-xs">Loading consultation desk...</div>}>
         <ContactFormSection />
       </Suspense>
-    </div>
-  );
+    </main>
+
+    <Footer />
+  </div>
+);
 }

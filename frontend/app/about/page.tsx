@@ -34,22 +34,22 @@ export default function AboutPage() {
 
       <main id="main-content" className="flex-1">
         {/* Page Hero */}
-        <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
-          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20 inline-block font-mono">
+        <section className="bg-navy-deep text-white pt-10 pb-12 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16 border-b border-navy-border text-left relative overflow-hidden">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <span className="text-xs font-semibold tracking-wider uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/25 inline-block font-mono">
               About the Firm
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-4xl leading-[1.15]">
               Strategic Communication. Lasting Impact.
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl leading-relaxed font-light">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl leading-relaxed font-light">
               Kalka Co. Media Consultancy is a strategic communications and public relations consultancy focused on helping businesses, brands, organizations and industry leaders build visibility, strengthen reputation and create meaningful engagement through strategic communication, media relations and reputation management.
             </p>
           </div>
         </section>
 
         {/* Narrative Principles */}
-        <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
+        <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200 text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-6 space-y-6">

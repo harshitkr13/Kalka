@@ -19,17 +19,17 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <div
       className={cn(
-        'max-w-3xl mb-12 md:mb-16',
+        'max-w-3xl mb-8 md:mb-12',
         align === 'center' ? 'mx-auto text-center' : 'text-left',
         className
       )}
     >
       {overline && (
-        <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block mb-3">
+        <span className="text-xs font-semibold uppercase tracking-wider text-gold-dark block mb-2.5 font-mono">
           {overline}
         </span>
       )}
-      <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-navy tracking-tight leading-tight mb-4">
+      <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-navy tracking-tight leading-tight mb-3">
         {title}
       </h2>
       {description && (

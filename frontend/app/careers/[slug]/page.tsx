@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Badge } from '@/components/ui/Badge';
 import { careersData } from '@/lib/content/careers';
@@ -65,10 +67,13 @@ export default async function CareerDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen text-navy-deep">
-      <JobPostingJsonLd title={role.title} description={role.description} employmentType={role.employmentType} location={role.location} />
-      {/* Header */}
-      <section className="bg-navy py-16 text-white border-b border-navy-border">
+    <div className="min-h-screen bg-slate-50 text-navy-deep flex flex-col justify-between">
+      <Navbar />
+
+      <main id="main-content" className="flex-1">
+        <JobPostingJsonLd title={role.title} description={role.description} employmentType={role.employmentType} location={role.location} />
+        {/* Header */}
+      <section className="bg-navy pt-8 pb-12 sm:pt-10 sm:pb-14 lg:pt-12 lg:pb-16 text-white border-b border-navy-border relative overflow-hidden">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[
@@ -76,10 +81,10 @@ export default async function CareerDetailPage({ params }: Props) {
               { label: 'Careers', href: '/careers' },
               { label: role.title },
             ]}
-            className="mb-8 text-slate-400"
+            className="mb-6 text-slate-400"
           />
 
-          <div className="max-w-4xl space-y-6">
+          <div className="max-w-4xl space-y-4">
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="gold">{role.department}</Badge>
               <Badge variant="neutral" className="border-slate-500 text-slate-200">
@@ -95,11 +100,11 @@ export default async function CareerDetailPage({ params }: Props) {
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15]">
               {role.title}
             </h1>
 
-            <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+            <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl">
               {role.description}
             </p>
           </div>
@@ -107,7 +112,7 @@ export default async function CareerDetailPage({ params }: Props) {
       </section>
 
       {/* Content + Application Form */}
-      <section className="py-16">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Left: Job Spec */}
@@ -177,6 +182,9 @@ export default async function CareerDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </main>
+
+    <Footer />
+  </div>
+);
 }

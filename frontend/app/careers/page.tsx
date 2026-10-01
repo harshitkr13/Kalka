@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Button } from '@/components/ui/Button';
@@ -57,28 +59,31 @@ export default async function CareersPage() {
   const careers = await getPublicCareers();
 
   return (
-    <div className="bg-slate-50 min-h-screen text-navy-deep">
-      {/* Hero */}
-      <section className="bg-navy py-16 lg:py-24 text-white border-b border-navy-border relative overflow-hidden">
+    <div className="min-h-screen bg-slate-50 text-navy-deep flex flex-col justify-between">
+      <Navbar />
+
+      <main id="main-content" className="flex-1">
+        {/* Hero */}
+      <section className="bg-navy pt-8 pb-12 sm:pt-10 sm:pb-14 lg:pt-12 lg:pb-16 text-white border-b border-navy-border relative overflow-hidden">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Breadcrumbs
             items={[
               { label: 'Home', href: '/' },
               { label: 'Careers' },
             ]}
-            className="mb-8 text-slate-400"
+            className="mb-6 text-slate-400"
           />
 
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-4xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-wider font-mono">
               <span>Careers at Kalka Co.</span>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15]">
               Career Opportunities
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed max-w-3xl">
               We look for dedicated strategic communications and public relations professionals who value intellectual rigor and editorial precision.
             </p>
           </div>
@@ -205,7 +210,10 @@ export default async function CareersPage() {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </main>
+
+    <Footer />
+  </div>
+);
 }
 

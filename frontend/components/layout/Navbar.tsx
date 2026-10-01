@@ -25,7 +25,14 @@ export const defaultNavItems: NavItem[] = [
     ],
   },
   { label: 'Industries', href: '/industries' },
-  { label: 'Our Work', href: '/case-studies' },
+  {
+    label: 'Our Work',
+    href: '/case-studies',
+    children: [
+      { label: 'Case Studies', href: '/case-studies', description: 'Engagement dossiers & strategic outcomes' },
+      { label: 'Client Portfolio', href: '/clients', description: 'Associated brands & organizations' },
+    ],
+  },
   { label: 'Insights', href: '/insights' },
   { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' },
@@ -45,13 +52,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const isItemActive = (href: string) => {
+  const isItemActive = (href: string, children?: { href: string }[]) => {
     if (!pathname) return false;
     if (href === '/') return pathname === '/';
-    return pathname === href || pathname.startsWith(href + '/');
+    if (pathname === href || pathname.startsWith(href + '/')) return true;
+    if (href === '/case-studies' && (pathname === '/work' || pathname.startsWith('/work/'))) return true;
+    if (children && children.some((child) => pathname === child.href || pathname.startsWith(child.href + '/'))) {
+      return true;
+    }
+    return false;
   };
 
-  const activeItem = navItems.find((item) => isItemActive(item.href));
+  const activeItem = navItems.find((item) => isItemActive(item.href, item.children));
   const currentTab = activeItem ? activeItem.label : null;
 
   useEffect(() => {
@@ -112,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="rounded-lg bg-white/[0.08] border border-white/10 shadow-sm"
             >
               {navItems.map((item) => {
-                const active = isItemActive(item.href);
+                const active = isItemActive(item.href, item.children);
 
                 if (item.children) {
                   return (
@@ -122,6 +134,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="relative inline-flex items-center"
                       onMouseEnter={() => setActiveDropdown(item.label)}
                       onMouseLeave={() => setActiveDropdown(null)}
+                      onFocus={() => setActiveDropdown(item.label)}
+                      onBlur={(e) => {
+                        const currentTarget = e.currentTarget;
+                        const related = e.relatedTarget as Node | null;
+                        if (!currentTarget || !currentTarget.contains(related)) {
+                          setActiveDropdown(null);
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Escape') {
+                          setActiveDropdown(null);
+                        }
+                      }}
                     >
                       <Link
                         href={item.href}
@@ -145,16 +170,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                       {/* Dropdown Menu */}
                       {activeDropdown === item.label && (
-                        <div className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50 mt-1">
+                        <div
+                          role="menu"
+                          aria-label={`${item.label} Submenu`}
+                          className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50 mt-1"
+                        >
                           {item.children.map((child) => {
                             const childActive = isItemActive(child.href);
                             return (
                               <Link
                                 key={child.label}
                                 href={child.href}
+                                role="menuitem"
                                 onClick={() => setActiveDropdown(null)}
                                 className={cn(
-                                  'block p-2.5 rounded transition-colors',
+                                  'block p-2.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold',
                                   childActive ? 'bg-gold/10' : 'hover:bg-slate-50'
                                 )}
                               >

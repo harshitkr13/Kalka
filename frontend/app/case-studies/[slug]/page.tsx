@@ -66,28 +66,28 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
       <main id="main-content" className="flex-1">
         {/* Hero */}
-        <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
-          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <section className="bg-navy-deep text-white pt-10 pb-12 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16 border-b border-navy-border text-left relative overflow-hidden">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             <Breadcrumbs
               items={[
                 { label: 'Our Work', href: '/case-studies' },
                 { label: study.title },
               ]}
-              className="[&_a]:text-slate-400 [&_span]:text-gold"
+              className="mb-5 [&_a]:text-slate-400 [&_span]:text-gold"
             />
 
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-xs font-semibold tracking-widest uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/20">
+              <span className="text-xs font-semibold tracking-wider uppercase text-gold py-1 px-3 rounded-full bg-gold/10 border border-gold/25 font-mono">
                 {study.clientIndustry || 'Strategic Advisory'}
               </span>
               {study.engagementType && (
-                <span className="text-xs text-slate-400 uppercase tracking-wider">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-mono">
                   {study.engagementType}
                 </span>
               )}
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-4xl leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-4xl leading-[1.15]">
               {study.title}
             </h1>
 

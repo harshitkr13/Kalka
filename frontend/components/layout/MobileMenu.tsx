@@ -22,10 +22,15 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 }) => {
   const pathname = usePathname();
 
-  const isItemActive = (href: string) => {
+  const isItemActive = (href: string, children?: { href: string }[]) => {
     if (!pathname) return false;
     if (href === '/') return pathname === '/';
-    return pathname === href || pathname.startsWith(href + '/');
+    if (pathname === href || pathname.startsWith(href + '/')) return true;
+    if (href === '/case-studies' && (pathname === '/work' || pathname.startsWith('/work/'))) return true;
+    if (children && children.some((child) => pathname === child.href || pathname.startsWith(child.href + '/'))) {
+      return true;
+    }
+    return false;
   };
 
   if (!isOpen) return null;
@@ -68,7 +73,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           {/* Links */}
           <nav className="py-6 space-y-4">
             {navItems.map((item) => {
-              const active = isItemActive(item.href);
+              const active = isItemActive(item.href, item.children);
               return (
                 <div key={item.label}>
                   <Link

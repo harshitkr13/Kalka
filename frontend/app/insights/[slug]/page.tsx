@@ -69,23 +69,25 @@ export default async function InsightDetailPage({ params }: Props) {
 
       <main id="main-content" className="flex-1">
         {/* Article Header */}
-        <section className="bg-navy-deep text-white py-20 lg:py-28 border-b border-navy-border text-left">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <section className="bg-navy-deep text-white pt-10 pb-12 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16 border-b border-navy-border text-left relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             <Breadcrumbs
               items={[
                 { label: 'Insights', href: '/insights' },
                 { label: insight.category },
               ]}
-              className="[&_a]:text-slate-400 [&_span]:text-gold"
+              className="mb-5 [&_a]:text-slate-400 [&_span]:text-gold"
             />
 
-            <Badge variant="gold">{insight.category}</Badge>
+            <div>
+              <Badge variant="gold">{insight.category}</Badge>
+            </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15]">
               {insight.title}
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-300 leading-relaxed font-light">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed font-light">
               {insight.subtitle}
             </p>
 
@@ -108,7 +110,7 @@ export default async function InsightDetailPage({ params }: Props) {
         </section>
 
         {/* Article Body */}
-        <article className="py-20 bg-white border-b border-slate-200 text-left">
+        <article className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200 text-left">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             {/* Pull Quote */}
             {insight.pullQuote && (

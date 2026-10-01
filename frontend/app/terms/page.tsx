@@ -28,21 +28,21 @@ export default function TermsPage() {
   return (
     <div className="bg-slate-50 min-h-screen text-navy-deep">
       {/* Header */}
-      <section className="bg-navy py-16 text-white border-b border-navy-border">
+      <section className="bg-navy pt-8 pb-12 sm:pt-10 sm:pb-14 lg:pt-12 lg:pb-16 text-white border-b border-navy-border relative overflow-hidden">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[
               { label: 'Home', href: '/' },
               { label: 'Terms of Service' },
             ]}
-            className="mb-8 text-slate-400"
+            className="mb-6 text-slate-400"
           />
 
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-semibold uppercase tracking-widest text-gold block">
+          <div className="max-w-4xl space-y-4">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gold block font-mono">
               Legal Terms
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-white">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15]">
               Terms of Engagement & Digital Usage
             </h1>
             <p className="text-slate-300 text-sm sm:text-base">
