@@ -66,6 +66,35 @@ export const Navbar: React.FC<NavbarProps> = ({
     return false;
   };
 
+  const handleDropdownKeyDown = (e: React.KeyboardEvent, itemLabel: string) => {
+    const menu = dropdownMenuRefs.current[itemLabel];
+    if (!menu) return;
+    const links = Array.from(menu.querySelectorAll<HTMLAnchorElement>('a[href]'));
+    if (links.length === 0) return;
+
+    const currentIndex = links.indexOf(document.activeElement as HTMLAnchorElement);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIndex = currentIndex < links.length - 1 ? currentIndex + 1 : 0;
+      links[nextIndex]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prevIndex = currentIndex > 0 ? currentIndex - 1 : links.length - 1;
+      links[prevIndex]?.focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      links[0]?.focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      links[links.length - 1]?.focus();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setActiveDropdown(null);
+      dropdownTriggerRefs.current[itemLabel]?.focus();
+    }
+  };
+
   const activeItem = navItems.find((item) => isItemActive(item.href, item.children));
   const currentTab = activeItem ? activeItem.label : null;
 
@@ -174,10 +203,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                             setActiveDropdown(item.label);
                             setTimeout(() => {
                               const menu = dropdownMenuRefs.current[item.label];
-                              const firstLink = menu?.querySelector<HTMLElement>('a[role="menuitem"]');
-                              firstLink?.focus();
+                              const links = menu?.querySelectorAll<HTMLAnchorElement>('a[href]');
+                              links?.[0]?.focus();
+                            }, 50);
+                          } else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            setActiveDropdown(item.label);
+                            setTimeout(() => {
+                              const menu = dropdownMenuRefs.current[item.label];
+                              const links = menu?.querySelectorAll<HTMLAnchorElement>('a[href]');
+                              links?.[links.length - 1]?.focus();
                             }, 50);
                           } else if (e.key === 'Escape') {
+                            e.preventDefault();
                             setActiveDropdown(null);
                           }
                         }}
@@ -204,19 +242,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                             dropdownMenuRefs.current[item.label] = el;
                           }}
                           id={dropdownId}
-                          role="menu"
-                          aria-labelledby={`${dropdownId}-trigger`}
+                          aria-label={`${item.label} Submenu`}
                           className={cn(
                             'absolute top-full w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50 mt-1',
                             isAlignRight ? 'right-0' : 'left-0'
                           )}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Escape') {
-                              e.preventDefault();
-                              setActiveDropdown(null);
-                              dropdownTriggerRefs.current[item.label]?.focus();
-                            }
-                          }}
+                          onKeyDown={(e) => handleDropdownKeyDown(e, item.label)}
                         >
                           {item.children.map((child) => {
                             const childActive = isItemActive(child.href);
@@ -224,7 +255,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                               <Link
                                 key={child.label}
                                 href={child.href}
-                                role="menuitem"
                                 onClick={() => setActiveDropdown(null)}
                                 className={cn(
                                   'block p-2.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold',

@@ -64,7 +64,7 @@ export default function AboutPage() {
         </section>
 
         {/* Narrative Principles */}
-        <section className="py-14 sm:py-18 lg:py-24 bg-white border-b border-slate-200 text-left">
+        <section className="py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200 text-left">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               <div className="lg:col-span-6 space-y-6">

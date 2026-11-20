@@ -29,6 +29,26 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
+  // Stabilise onClose callback in a ref to prevent unnecessary focus restorations on parent re-renders
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  const triggerRefStable = useRef(triggerRef);
+  useEffect(() => {
+    triggerRefStable.current = triggerRef;
+  });
+
+  // Automatically close drawer when navigating to another route
+  const prevPathnameRef = useRef(pathname);
+  useEffect(() => {
+    if (isOpen && pathname !== prevPathnameRef.current) {
+      onCloseRef.current();
+    }
+    prevPathnameRef.current = pathname;
+  }, [pathname, isOpen]);
+
   const isItemActive = (href: string, children?: { href: string }[]) => {
     if (!pathname) return false;
     if (href === '/') return pathname === '/';
@@ -52,41 +72,67 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
     };
   }, [isOpen]);
 
-  // Focus management and Escape-key listener
+  // Focus trapping, outside focus redirect, Escape key, and focus restoration
   useEffect(() => {
     if (!isOpen) return;
 
-    const triggerElement = triggerRef?.current;
+    const triggerElement = triggerRefStable.current?.current;
 
-    // Focus the close button when opened
+    // Helper to query all visible, enabled focusable elements inside drawer
+    const getFocusableElements = (): HTMLElement[] => {
+      if (!drawerRef.current) return [];
+      const nodes = drawerRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      return Array.from(nodes).filter((el) => {
+        return (
+          el.tabIndex >= 0 &&
+          !el.hasAttribute('disabled') &&
+          el.getAttribute('aria-hidden') !== 'true' &&
+          (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0)
+        );
+      });
+    };
+
+    // Focus close button initially when opened
     const timer = setTimeout(() => {
-      closeButtonRef.current?.focus();
+      if (closeButtonRef.current) {
+        closeButtonRef.current.focus();
+      } else {
+        const focusables = getFocusableElements();
+        focusables[0]?.focus();
+      }
     }, 50);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' || e.keyCode === 27) {
         e.preventDefault();
-        onClose();
+        onCloseRef.current();
         return;
       }
 
-      // Trap focus within drawer
-      if ((e.key === 'Tab' || e.keyCode === 9) && drawerRef.current) {
-        const focusableElements = drawerRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusableElements.length === 0) return;
+      // Trap focus within drawer on Tab / Shift+Tab
+      if (e.key === 'Tab' || e.keyCode === 9) {
+        if (!drawerRef.current) return;
+        const focusables = getFocusableElements();
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
 
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
+        const firstElement = focusables[0];
+        const lastElement = focusables[focusables.length - 1];
+        const activeElement = document.activeElement as HTMLElement | null;
 
         if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
+          // Shift + Tab: backwards
+          if (!activeElement || !drawerRef.current.contains(activeElement) || activeElement === firstElement) {
             e.preventDefault();
             lastElement.focus();
           }
         } else {
-          if (document.activeElement === lastElement) {
+          // Tab: forwards
+          if (!activeElement || !drawerRef.current.contains(activeElement) || activeElement === lastElement) {
             e.preventDefault();
             firstElement.focus();
           }
@@ -94,15 +140,30 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
       }
     };
 
+    // Detect if active element moves outside the drawer and return focus inside
+    const handleFocusIn = (e: FocusEvent) => {
+      if (!drawerRef.current) return;
+      if (e.target && !drawerRef.current.contains(e.target as Node)) {
+        const focusables = getFocusableElements();
+        if (focusables.length > 0) {
+          focusables[0].focus();
+        } else if (closeButtonRef.current) {
+          closeButtonRef.current.focus();
+        }
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('focusin', handleFocusIn);
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('focusin', handleFocusIn);
       // Restore focus to trigger button upon close
       triggerElement?.focus();
     };
-  }, [isOpen, onClose, triggerRef]);
+  }, [isOpen]);
 
   return (
     <AnimatePresence>

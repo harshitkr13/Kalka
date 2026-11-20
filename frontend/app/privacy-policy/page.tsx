@@ -136,13 +136,11 @@ export default function PrivacyPolicyPage() {
                   7. Contact Our Privacy Officer
                 </h2>
                 <p>
-                  For questions regarding this policy or to exercise data rights, contact our Data Governance Officer:
+                  For questions regarding this policy or to exercise data rights, contact us at:
                 </p>
                 <div className="p-4 bg-slate-50 rounded border border-slate-200 text-xs space-y-1">
-                  <p><strong>Office:</strong> Data Protection & Compliance Cell</p>
                   <p><strong>Entity:</strong> Kalka Co. Media Consultancy</p>
                   <p><strong>Email:</strong> kalkacomediaconsultancy@gmail.com</p>
-                  <p><strong>Corporate Notice:</strong> Formal corporate registered address and statutory disclosures provided upon bilateral client engagement.</p>
                 </div>
               </div>
 
