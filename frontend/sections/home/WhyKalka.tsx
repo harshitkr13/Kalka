@@ -39,7 +39,7 @@ export const WhyKalka: React.FC = () => {
           {pillars.map((pillar, idx) => (
             <div
               key={idx}
-              className="p-7 border border-slate-200 rounded bg-slate-50/40 hover:border-gold/60 transition-all duration-200 space-y-4"
+              className="p-7 border border-slate-200 rounded-lg bg-slate-50/40 hover:border-gold/60 transition-all duration-200 space-y-4 flex flex-col justify-start h-full"
             >
               <div className="w-12 h-12 rounded bg-navy text-gold flex items-center justify-center">
                 {pillar.icon}

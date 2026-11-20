@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -51,6 +51,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const mobileTriggerRef = useRef<HTMLButtonElement>(null);
+  const dropdownTriggerRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
+  const dropdownMenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const isItemActive = (href: string, children?: { href: string }[]) => {
     if (!pathname) return false;
@@ -87,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       >
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo / Brand Mark */}
-          <Link href="/" className="flex items-center gap-3 select-none">
+          <Link href="/" className="flex items-center gap-3 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
             <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
               <Image
                 src="/assets/brand/kalka-co-logo-white.svg"
@@ -102,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-serif text-xl font-bold tracking-tight text-white block leading-none">
                 KALKA CO.
               </span>
-              <span className="text-xs font-medium tracking-wide text-gold block mt-0.5">
+              <span className="text-xs font-medium tracking-wide text-gold block mt-0.5 font-mono">
                 Media Consultancy
               </span>
             </div>
@@ -110,6 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation with Animated Sliding Tab Group */}
           <nav
+            aria-label="Primary Navigation"
             className="hidden lg:flex items-center gap-1 relative"
             onMouseLeave={() => setActiveDropdown(null)}
           >
@@ -125,8 +129,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               {navItems.map((item) => {
                 const active = isItemActive(item.href, item.children);
+                const dropdownId = `${item.label.toLowerCase().replace(/\s+/g, '-')}-dropdown`;
 
                 if (item.children) {
+                  const isDropdownOpen = activeDropdown === item.label;
+                  const isAlignRight = item.label === 'Our Work';
+
                   return (
                     <div
                       key={item.label}
@@ -142,38 +150,73 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActiveDropdown(null);
                         }
                       }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Escape') {
-                          setActiveDropdown(null);
-                        }
-                      }}
                     >
                       <Link
+                        ref={(el) => {
+                          dropdownTriggerRefs.current[item.label] = el;
+                        }}
                         href={item.href}
+                        id={`${dropdownId}-trigger`}
+                        aria-expanded={isDropdownOpen}
+                        aria-haspopup="true"
+                        aria-controls={dropdownId}
+                        onMouseEnter={() => setActiveDropdown(item.label)}
+                        onFocus={() => setActiveDropdown(item.label)}
+                        onClick={(e) => {
+                          if (!isDropdownOpen) {
+                            e.preventDefault();
+                            setActiveDropdown(item.label);
+                          }
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            setActiveDropdown(item.label);
+                            setTimeout(() => {
+                              const menu = dropdownMenuRefs.current[item.label];
+                              const firstLink = menu?.querySelector<HTMLElement>('a[role="menuitem"]');
+                              firstLink?.focus();
+                            }, 50);
+                          } else if (e.key === 'Escape') {
+                            setActiveDropdown(null);
+                          }
+                        }}
                         className={cn(
                           'px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
                           active
                             ? 'text-gold'
                             : 'text-slate-200 hover:text-white'
                         )}
-                        aria-expanded={activeDropdown === item.label}
-                        aria-haspopup="true"
                       >
                         <span>{item.label}</span>
                         <ChevronDown
                           className={cn(
                             'w-3.5 h-3.5 transition-transform duration-200',
-                            activeDropdown === item.label ? 'rotate-180 text-gold' : active ? 'text-gold' : 'text-slate-400'
+                            isDropdownOpen ? 'rotate-180 text-gold' : active ? 'text-gold' : 'text-slate-400'
                           )}
                         />
                       </Link>
 
                       {/* Dropdown Menu */}
-                      {activeDropdown === item.label && (
+                      {isDropdownOpen && (
                         <div
+                          ref={(el) => {
+                            dropdownMenuRefs.current[item.label] = el;
+                          }}
+                          id={dropdownId}
                           role="menu"
-                          aria-label={`${item.label} Submenu`}
-                          className="absolute top-full left-0 w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50 mt-1"
+                          aria-labelledby={`${dropdownId}-trigger`}
+                          className={cn(
+                            'absolute top-full w-64 p-2 bg-white rounded shadow-premium border border-slate-200 animate-fade-in z-50 mt-1',
+                            isAlignRight ? 'right-0' : 'left-0'
+                          )}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') {
+                              e.preventDefault();
+                              setActiveDropdown(null);
+                              dropdownTriggerRefs.current[item.label]?.focus();
+                            }
+                          }}
                         >
                           {item.children.map((child) => {
                             const childActive = isItemActive(child.href);
@@ -233,9 +276,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             </Link>
 
             <button
+              ref={mobileTriggerRef}
               onClick={() => setIsMobileOpen(true)}
               aria-label="Open mobile navigation"
-              className="p-2 text-slate-200 hover:text-gold lg:hidden rounded transition-colors"
+              aria-expanded={isMobileOpen}
+              aria-controls="mobile-navigation-drawer"
+              className="p-2 text-slate-200 hover:text-gold lg:hidden rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -248,6 +294,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         isOpen={isMobileOpen}
         onClose={() => setIsMobileOpen(false)}
         navItems={navItems}
+        triggerRef={mobileTriggerRef}
       />
     </>
   );

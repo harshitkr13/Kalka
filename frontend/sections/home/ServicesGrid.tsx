@@ -29,6 +29,7 @@ export const ServicesGrid: React.FC = () => {
               capabilities={service.capabilities.slice(0, 3)}
               badge={service.badge}
               href={`/services/${service.slug}`}
+              className="h-full"
             />
           ))}
         </div>
