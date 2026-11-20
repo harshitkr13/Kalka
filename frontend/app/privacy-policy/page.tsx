@@ -142,7 +142,7 @@ export default function PrivacyPolicyPage() {
                   <p><strong>Office:</strong> Data Protection & Compliance Cell</p>
                   <p><strong>Entity:</strong> Kalka Co. Media Consultancy</p>
                   <p><strong>Email:</strong> kalkacomediaconsultancy@gmail.com</p>
-                  <p><strong>Address:</strong> Registered Office Details available upon formal engagement (New Delhi, India)</p>
+                  <p><strong>Corporate Notice:</strong> Formal corporate registered address and statutory disclosures provided upon bilateral client engagement.</p>
                 </div>
               </div>
 
