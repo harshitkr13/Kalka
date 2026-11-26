@@ -61,7 +61,7 @@ export default function PrivacyPolicyPage() {
         <section className="py-12 sm:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white p-6 sm:p-10 lg:p-12 rounded-lg border border-slate-200 shadow-sm space-y-10 text-slate-700 leading-relaxed text-sm sm:text-base">
-              
+
               <div className="p-4 rounded bg-gold/5 border border-gold/30 text-xs text-slate-600">
                 <strong className="text-navy font-semibold block mb-1">Confidentiality Commitment:</strong>
                 Kalka Co. Media Consultancy operates under the highest institutional confidentiality protocols. We never monetize, broker, or disclose client communication metadata, consultation inquiries, or proprietary narrative materials.

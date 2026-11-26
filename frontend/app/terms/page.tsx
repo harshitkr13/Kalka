@@ -61,7 +61,7 @@ export default function TermsPage() {
         <section className="py-12 sm:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white p-6 sm:p-10 lg:p-12 rounded-lg border border-slate-200 shadow-sm space-y-10 text-slate-700 leading-relaxed text-sm sm:text-base">
-              
+
               <div className="space-y-4">
                 <h2 className="font-serif text-2xl font-bold text-navy">
                   1. Acceptance of Terms
