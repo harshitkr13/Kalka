@@ -1,6 +1,7 @@
 import React from 'react';
 import { Radio } from 'lucide-react';
 import { SectionHeader } from '@/components/editorial/SectionHeader';
+import { companyConfig } from '@/lib/config/company';
 
 export const MediaCoverage: React.FC = () => {
   return (
@@ -21,8 +22,8 @@ export const MediaCoverage: React.FC = () => {
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
             Verified media features, press mentions, and commentary archives are currently being compiled. For press inquiries, contact{' '}
-            <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-navy font-semibold underline break-all">
-              kalkacomediaconsultancy@gmail.com
+            <a href={companyConfig.emailHref} className="text-navy font-semibold underline break-all">
+              {companyConfig.email}
             </a>.
           </p>
         </div>

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 
 export const FinalCta: React.FC = () => {
   return (
-    <section className="py-20 lg:py-28 bg-navy-deep text-white text-center relative overflow-hidden">
+    <section className="py-14 sm:py-20 lg:py-24 bg-navy-deep text-white text-center relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none opacity-10 mix-blend-luminosity">
         <Image
           src="/assets/backgrounds/abstract-editorial.webp"

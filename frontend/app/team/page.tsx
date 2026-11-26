@@ -50,7 +50,7 @@ export default async function TeamPage() {
                   >
                     <div>
                       <h3 className="font-serif text-xl font-bold text-navy mb-1">{member.name}</h3>
-                      <p className="text-xs font-semibold text-gold tracking-wide uppercase font-mono mb-3">
+                      <p className="text-xs font-semibold text-gold-ink tracking-wide uppercase font-mono mb-3">
                         {member.designation}
                       </p>
                       <p className="text-sm text-slate-600 leading-relaxed mb-4">{member.bio}</p>

@@ -4,6 +4,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { FinalCta } from '@/sections/home/FinalCta';
+import { MissionVisionSection } from '@/sections/about/MissionVisionSection';
+import { companyConfig } from '@/lib/config/company';
 import { Compass, Target, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -68,7 +70,7 @@ export default function AboutPage() {
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               <div className="lg:col-span-6 space-y-6">
-                <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block font-mono">
+                <span className="text-xs font-semibold uppercase tracking-widest text-gold-ink block font-mono">
                   Our Focus & Approach
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-navy leading-tight">
@@ -106,16 +108,26 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Core Values Section */}
-            <div className="pt-10 border-t border-slate-200 space-y-8">
+        {/* Mission & Vision (hidden automatically until client-approved content is configured) */}
+        <MissionVisionSection
+          mission={companyConfig.mission}
+          vision={companyConfig.vision}
+        />
+
+        {/* Core Values Section */}
+        <section className="py-14 sm:py-20 lg:py-24 bg-slate-50/50 border-b border-slate-200 text-left">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-8">
               <div className="space-y-2 max-w-2xl">
-                <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark block font-mono">
+                <span className="text-xs font-semibold uppercase tracking-widest text-gold-ink block font-mono">
                   Core Principles
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
+                <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-navy">
                   The Values That Guide Our Counsel
-                </h3>
+                </h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
@@ -124,7 +136,7 @@ export default function AboutPage() {
                     <div className="w-10 h-10 rounded-lg bg-navy text-gold flex items-center justify-center">
                       <Compass className="w-5 h-5" />
                     </div>
-                    <h4 className="font-serif text-xl font-semibold text-navy">Strategic Precision</h4>
+                    <h3 className="font-serif text-xl font-semibold text-navy">Strategic Precision</h3>
                     <p className="text-sm text-slate-600 leading-relaxed font-light">
                       Every advisory memo, briefing, and statement is anchored in thorough research, clear positioning, and verifiable facts.
                     </p>
@@ -136,7 +148,7 @@ export default function AboutPage() {
                     <div className="w-10 h-10 rounded-lg bg-navy text-gold flex items-center justify-center">
                       <Target className="w-5 h-5" />
                     </div>
-                    <h4 className="font-serif text-xl font-semibold text-navy">Professional Discretion</h4>
+                    <h3 className="font-serif text-xl font-semibold text-navy">Professional Discretion</h3>
                     <p className="text-sm text-slate-600 leading-relaxed font-light">
                       We operate with confidentiality, protecting proprietary organizational data and strategic plans under strict non-disclosure.
                     </p>
@@ -148,7 +160,7 @@ export default function AboutPage() {
                     <div className="w-10 h-10 rounded-lg bg-navy text-gold flex items-center justify-center">
                       <Scale className="w-5 h-5" />
                     </div>
-                    <h4 className="font-serif text-xl font-semibold text-navy">Reputational Defense</h4>
+                    <h3 className="font-serif text-xl font-semibold text-navy">Reputational Defense</h3>
                     <p className="text-sm text-slate-600 leading-relaxed font-light">
                       Insulating enterprise brand equity through proactive stakeholder alignment, media readiness, and crisis containment.
                     </p>

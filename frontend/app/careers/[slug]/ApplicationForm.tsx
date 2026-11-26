@@ -112,10 +112,11 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="career-fullName" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
             Full Name *
           </label>
           <Input
+            id="career-fullName"
             name="fullName"
             placeholder="e.g. Adv. Vikramaditya Sen"
             value={formData.fullName}
@@ -126,10 +127,11 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+            <label htmlFor="career-email" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
               Email Address *
             </label>
             <Input
+              id="career-email"
               type="email"
               name="email"
               placeholder="v.sen@enterprise.in"
@@ -139,10 +141,11 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+            <label htmlFor="career-phone" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
               Direct Phone *
             </label>
             <Input
+              id="career-phone"
               type="tel"
               name="phone"
               placeholder="+91 98110 00000"
@@ -154,10 +157,11 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
         </div>
 
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="career-linkedinUrl" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
             LinkedIn Profile URL
           </label>
           <Input
+            id="career-linkedinUrl"
             type="url"
             name="linkedinUrl"
             placeholder="https://linkedin.com/in/yourprofile"
@@ -167,10 +171,11 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
         </div>
 
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="career-portfolioUrl" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
             Portfolio / Published Work URL
           </label>
           <Input
+            id="career-portfolioUrl"
             type="url"
             name="portfolioUrl"
             placeholder="https://yourportfolio.com or article link"
@@ -180,10 +185,11 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
         </div>
 
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="career-coverNote" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
             Executive Summary / Cover Note
           </label>
           <Textarea
+            id="career-coverNote"
             name="coverNote"
             rows={4}
             placeholder="Outline your strategic communications background, notable media placements, and why this position resonates with your advisory career."
@@ -214,8 +220,8 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ roleTitle }) =
           </Button>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400 justify-center pt-2">
-          <ShieldCheck className="w-4 h-4 text-gold" />
+        <div className="flex items-center gap-2 text-xs text-slate-500 justify-center pt-2">
+          <ShieldCheck className="w-4 h-4 text-gold-ink" />
           <span>Strictly confidential under Kalka Co. Advisory Discretion protocols</span>
         </div>
       </form>

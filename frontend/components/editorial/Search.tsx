@@ -27,6 +27,7 @@ export const Search: React.FC<SearchProps> = ({
         value={value}
         onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
         placeholder={placeholder}
+        aria-label={placeholder}
         className={cn(
           'w-full pl-10 pr-10 py-2.5 bg-white text-slate-900 border border-slate-300 rounded text-sm placeholder:text-slate-400',
           'focus:border-gold focus:ring-1 focus:ring-gold focus:outline-none transition-colors'

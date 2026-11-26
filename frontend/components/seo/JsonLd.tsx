@@ -1,4 +1,5 @@
 import React from 'react';
+import { companyConfig } from '@/lib/config/company';
 
 /**
  * Verified Organization and ProfessionalService Structured Data
@@ -8,27 +9,21 @@ export function OrganizationJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': 'https://kalka.co/#organization',
-    name: 'Kalka Co. Media Consultancy',
-    legalName: 'Kalka Co. Media Consultancy',
+    name: companyConfig.name,
+    legalName: companyConfig.name,
     url: 'https://kalka.co',
     logo: 'https://kalka.co/assets/brand/kalka-co-logo.svg',
     image: 'https://kalka.co/assets/social/og-default.jpg',
     description:
       'Strategic communications and public relations consultancy helping businesses, brands, organizations, and industry leaders build visibility, strengthen reputation, and create lasting impact.',
-    email: 'kalkacomediaconsultancy@gmail.com',
-    telephone: ['+91-87450-01570', '+91-76830-15257'],
+    email: companyConfig.email,
+    telephone: companyConfig.phones.map((p) => `+91-${p.raw.slice(0, 5)}-${p.raw.slice(5)}`),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '147, Ground Floor, Greenfield Colony, Sector 43',
-      addressLocality: 'Faridabad',
-      addressRegion: 'Haryana',
-      postalCode: '121003',
-      addressCountry: 'IN',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 28.4359,
-      longitude: 77.3093,
+      addressLocality: companyConfig.location.city,
+      addressRegion: companyConfig.location.region,
+      postalCode: companyConfig.location.postalCode,
+      addressCountry: companyConfig.location.country,
     },
     areaServed: [
       {
@@ -51,8 +46,8 @@ export function OrganizationJsonLd() {
           'Thursday',
           'Friday',
         ],
-        opens: '09:00',
-        closes: '18:00',
+        opens: companyConfig.schemaHours.opens,
+        closes: companyConfig.schemaHours.closes,
       },
     ],
   };
@@ -62,8 +57,8 @@ export function OrganizationJsonLd() {
     '@type': 'WebSite',
     '@id': 'https://kalka.co/#website',
     url: 'https://kalka.co',
-    name: 'Kalka Co. Media Consultancy',
-    description: 'Strategic Communication. Lasting Impact.',
+    name: companyConfig.name,
+    description: companyConfig.tagline,
     publisher: {
       '@id': 'https://kalka.co/#organization',
     },

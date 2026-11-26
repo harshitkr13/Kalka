@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 
 export const InsightsSection: React.FC = () => {
   return (
-    <section className="py-20 lg:py-28 bg-slate-50/50 border-b border-slate-200">
+    <section className="py-14 sm:py-20 lg:py-24 bg-slate-50/50 border-b border-slate-200">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           overline="Intelligence & Perspectives"

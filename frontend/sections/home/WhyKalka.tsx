@@ -27,7 +27,7 @@ export const WhyKalka: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-white border-b border-slate-200 text-left">
+    <section className="py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200 text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           overline="The Kalka Advantage"

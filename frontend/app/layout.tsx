@@ -4,6 +4,7 @@ import './globals.css';
 import { ToastProvider } from '@/components/ui/Toast';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { OrganizationJsonLd } from '@/components/seo/JsonLd';
+import { FloatingWhatsAppButton } from '@/components/ui/FloatingWhatsAppButton';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -91,6 +92,7 @@ export default function RootLayout({
         </a>
         <ToastProvider>
           {children}
+          <FloatingWhatsAppButton />
         </ToastProvider>
         <GoogleAnalytics />
       </body>

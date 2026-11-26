@@ -201,11 +201,11 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           >
             <div className="p-6">
               {/* Header */}
-              <div className="flex items-center justify-between pb-6 border-b border-navy-border">
+              <div className="flex items-center justify-between pb-5 border-b border-navy-border">
                 <Link
                   href="/"
                   onClick={onClose}
-                  className="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
+                  className="flex items-center gap-2.5 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
                 >
                   <div className="relative w-7 h-7 shrink-0 flex items-center justify-center">
                     <Image
@@ -229,14 +229,14 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                   ref={closeButtonRef}
                   onClick={onClose}
                   aria-label="Close navigation"
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                  className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Navigation Links */}
-              <nav className="py-6 space-y-4" aria-label="Mobile Navigation Links">
+              <nav className="py-4 space-y-1" aria-label="Mobile Navigation Links">
                 {navItems.map((item) => {
                   const active = isItemActive(item.href, item.children);
                   return (
@@ -245,14 +245,14 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                         href={item.href}
                         onClick={onClose}
                         className={cn(
-                          'block text-sm font-semibold uppercase tracking-wider py-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded px-1',
+                          'flex items-center min-h-[44px] text-sm font-semibold uppercase tracking-wider py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded px-2',
                           active ? 'text-gold' : 'text-slate-200 hover:text-gold'
                         )}
                       >
                         {item.label}
                       </Link>
                       {item.children && (
-                        <div className="pl-3 mt-1.5 space-y-1.5 border-l border-navy-border/80">
+                        <div className="pl-3 mt-0.5 mb-1 space-y-0.5 border-l border-navy-border/80">
                           {item.children.map((child) => {
                             const childActive = isItemActive(child.href);
                             return (
@@ -261,7 +261,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                                 href={child.href}
                                 onClick={onClose}
                                 className={cn(
-                                  'block text-xs py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded px-1',
+                                  'flex items-center min-h-[44px] text-xs py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded px-2',
                                   childActive ? 'text-gold font-medium' : 'text-slate-400 hover:text-white'
                                 )}
                               >
@@ -280,9 +280,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
             {/* Bottom CTA */}
             <div className="p-6 border-t border-navy-border bg-navy-surface/40 mt-auto">
               <Link href="/contact" onClick={onClose} className="block w-full">
-                <Button variant="gold" size="md" className="w-full justify-center">
-                  <span>Start a Conversation</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                <Button
+                  variant="gold"
+                  size="md"
+                  className="w-full min-h-[44px] justify-center whitespace-nowrap"
+                  rightIcon={<ArrowRight className="w-4 h-4" />}
+                >
+                  Start a Conversation
                 </Button>
               </Link>
               <p className="text-[11px] text-slate-400 text-center mt-3 font-serif">

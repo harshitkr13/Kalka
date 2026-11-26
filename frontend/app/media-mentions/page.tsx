@@ -5,6 +5,7 @@ import { SectionHeader } from '@/components/editorial/SectionHeader';
 import { Radio } from 'lucide-react';
 import { FinalCta } from '@/sections/home/FinalCta';
 import { getPublicMediaMentions } from '@/lib/api/publicContent';
+import { companyConfig } from '@/lib/config/company';
 
 export const metadata: Metadata = {
   title: 'Media Coverage & Press | Kalka Co. Media Consultancy',
@@ -96,8 +97,8 @@ export default async function MediaCoveragePage() {
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
                   Verified media features, press mentions, and commentary archives are currently being compiled. For press inquiries, contact{' '}
-                  <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-navy font-semibold underline font-mono break-all">
-                    kalkacomediaconsultancy@gmail.com
+                  <a href={companyConfig.emailHref} className="text-navy font-semibold underline font-mono break-all">
+                    {companyConfig.email}
                   </a>.
                 </p>
               </div>

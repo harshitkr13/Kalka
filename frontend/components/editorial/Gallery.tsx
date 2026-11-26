@@ -29,10 +29,12 @@ export const Gallery: React.FC<GalleryProps> = ({ items, className }) => {
     <div className={cn('w-full', className)}>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (
-          <div
+          <button
+            type="button"
             key={item.id}
             onClick={() => setSelectedItem(item)}
-            className="group cursor-pointer bg-white border border-slate-200 rounded overflow-hidden hover:border-gold hover:shadow-elevated transition-all duration-200 text-left"
+            aria-label={`View media item: ${item.title}`}
+            className="group cursor-pointer bg-white border border-slate-200 rounded overflow-hidden hover:border-gold hover:shadow-elevated transition-all duration-200 text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             {/* Visual Frame */}
             <div className="relative h-48 bg-navy-deep overflow-hidden flex items-center justify-center text-center text-slate-400 group-hover:bg-navy transition-colors">
@@ -70,7 +72,7 @@ export const Gallery: React.FC<GalleryProps> = ({ items, className }) => {
                 <p className="text-xs text-slate-600 mt-1 line-clamp-2">{item.caption}</p>
               )}
             </div>
-          </div>
+          </button>
         ))}
       </div>
 

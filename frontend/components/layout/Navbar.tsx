@@ -119,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       >
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo / Brand Mark */}
-          <Link href="/" className="flex items-center gap-3 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
             <div className="relative w-9 h-9 shrink-0 flex items-center justify-center">
               <Image
                 src="/assets/brand/kalka-co-logo-white.svg"
@@ -130,11 +130,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 priority
               />
             </div>
-            <div>
-              <span className="font-serif text-xl font-bold tracking-tight text-white block leading-none">
+            <div className="shrink-0">
+              <span className="font-serif text-lg xl:text-xl font-bold tracking-tight text-white block leading-none whitespace-nowrap">
                 KALKA CO.
               </span>
-              <span className="text-xs font-medium tracking-wide text-gold block mt-0.5 font-mono">
+              <span className="text-[11px] xl:text-xs font-medium tracking-wide text-gold block mt-0.5 font-mono whitespace-nowrap">
                 Media Consultancy
               </span>
             </div>
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Navigation with Animated Sliding Tab Group */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden lg:flex items-center gap-1 relative"
+            className="hidden lg:flex items-center gap-0.5 xl:gap-1 relative"
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <AnimatedBackground
@@ -220,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           }
                         }}
                         className={cn(
-                          'px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
+                          'px-2 xl:px-3.5 py-2 text-[11px] xl:text-xs font-semibold uppercase tracking-wider transition-colors duration-200 flex items-center gap-1 xl:gap-1.5 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
                           active
                             ? 'text-gold'
                             : 'text-slate-200 hover:text-white'
@@ -284,7 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     href={item.href}
                     data-id={item.label}
                     className={cn(
-                      'px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
+                      'px-2 xl:px-3.5 py-2 text-[11px] xl:text-xs font-semibold uppercase tracking-wider transition-colors duration-200 inline-flex items-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg select-none',
                       active
                         ? 'text-gold'
                         : 'text-slate-200 hover:text-white'
@@ -298,9 +298,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Action CTA & Mobile Trigger */}
-          <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden sm:inline-flex">
-              <Button variant="gold" size="sm" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+            <Link href="/contact" className="hidden sm:inline-flex shrink-0">
+              <Button variant="gold" size="sm" className="whitespace-nowrap" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
                 Start a Conversation
               </Button>
             </Link>
@@ -311,7 +311,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="Open mobile navigation"
               aria-expanded={isMobileOpen}
               aria-controls="mobile-navigation-drawer"
-              className="p-2 text-slate-200 hover:text-gold lg:hidden rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2.5 text-slate-200 hover:text-gold lg:hidden rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               <Menu className="w-6 h-6" />
             </button>
