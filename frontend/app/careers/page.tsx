@@ -9,6 +9,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Button } from '@/components/ui/Button';
 import { Mail, Compass, ShieldCheck, Sparkles, Users } from 'lucide-react';
 import { getPublicCareers } from '@/lib/api/publicContent';
+import { companyConfig } from '@/lib/config/company';
 
 export const metadata: Metadata = {
   title: 'Careers & Professional Opportunities | Kalka Co. Media Consultancy',
@@ -169,8 +170,8 @@ export default async function CareersPage() {
                     <p className="text-sm text-slate-600 line-clamp-3 mb-6 leading-relaxed">{career.description}</p>
                   </div>
                   <a
-                    href={`mailto:kalkacomediaconsultancy@gmail.com?subject=Application for ${encodeURIComponent(career.title)}`}
-                    className="text-xs font-semibold text-navy hover:text-gold flex items-center gap-1 mt-auto"
+                    href={`${companyConfig.emailHref}?subject=Application for ${encodeURIComponent(career.title)}`}
+                    className="text-xs font-semibold text-navy hover:text-gold-ink flex items-center gap-1 mt-auto"
                   >
                     Apply via Email &rarr;
                   </a>
@@ -194,10 +195,10 @@ export default async function CareersPage() {
             <p className="text-base text-slate-700 leading-relaxed font-sans">
               For career opportunities, contact:<br />
               <a
-                href="mailto:kalkacomediaconsultancy@gmail.com"
+                href={companyConfig.emailHref}
                 className="text-navy font-bold font-mono text-base sm:text-lg hover:underline inline-block mt-2 break-all"
               >
-                kalkacomediaconsultancy@gmail.com
+                {companyConfig.email}
               </a>
             </p>
             <div className="pt-2">

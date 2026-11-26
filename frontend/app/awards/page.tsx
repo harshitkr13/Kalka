@@ -49,7 +49,7 @@ export default async function AwardsPage() {
                     className="p-6 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between"
                   >
                     <div>
-                      <span className="text-xs font-mono font-semibold uppercase text-gold tracking-wider mb-2 block">
+                      <span className="text-xs font-mono font-semibold uppercase text-gold-ink tracking-wider mb-2 block">
                         {item.year}
                       </span>
                       <h3 className="font-serif text-xl font-bold text-navy mb-2">{item.name}</h3>

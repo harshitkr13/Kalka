@@ -59,6 +59,28 @@
   .editorial-section {
     @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-container mx-auto;
   }
+
+  .kalka-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: kalka-marquee 34s linear infinite;
+    will-change: transform;
+  }
+
+  .kalka-marquee-viewport:hover .kalka-marquee-track,
+  .kalka-marquee-viewport:focus-within .kalka-marquee-track,
+  .kalka-marquee-track[data-paused='true'] {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes kalka-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 /* Reduced motion */

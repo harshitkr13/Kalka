@@ -22,6 +22,13 @@ import {
   Clock
 } from 'lucide-react';
 import { submitPublicContact, PublicContactResponse } from '@/lib/api/leads';
+import { companyConfig, getVerifiedSocialLinks } from '@/lib/config/company';
+import {
+  trackWhatsAppClick,
+  trackEmailClick,
+  trackContactFormStart,
+  trackContactFormSubmit,
+} from '@/lib/analytics';
 
 const urgencyLevels = [
   { value: 'standard', label: 'Standard Strategic Consultation (Response within 24 business hours)' },
@@ -54,8 +61,17 @@ export const ContactFormSection: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
   const [submissionResult, setSubmissionResult] = useState<PublicContactResponse | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const verifiedSocialLinks = getVerifiedSocialLinks();
+
+  const markFormStarted = () => {
+    if (!hasTrackedStart) {
+      setHasTrackedStart(true);
+      trackContactFormStart();
+    }
+  };
 
   // Sync initial query params on mount
   useEffect(() => {
@@ -96,16 +112,19 @@ export const ContactFormSection: React.FC = () => {
       });
 
       if (res.success && res.data) {
+        trackContactFormSubmit(true);
         setSubmissionResult(res.data);
         setIsSubmitted(true);
       } else {
+        trackContactFormSubmit(false);
         setSubmissionError(
           res.message || res.error || 'We encountered an error processing your brief. Please verify your details.'
         );
       }
     } catch {
+      trackContactFormSubmit(false);
       setSubmissionError(
-        'Unable to connect to the communications server. Please try again or reach out to kalkacomediaconsultancy@gmail.com directly.'
+        `Unable to connect to the communications server. Please try again or reach out to ${companyConfig.email} directly.`
       );
     } finally {
       setIsSubmitting(false);
@@ -140,7 +159,7 @@ export const ContactFormSection: React.FC = () => {
             </div>
             <div className="space-y-1">
               <div>
-                <span className="text-xs font-semibold uppercase tracking-wider text-gold font-mono block">
+                <span className="text-xs font-semibold uppercase tracking-wider text-gold-ink font-mono block">
                   Priority Response Desk
                 </span>
               </div>
@@ -155,20 +174,21 @@ export const ContactFormSection: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100 w-full lg:w-auto">
             <a
-              href="tel:+918745001570"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-navy hover:bg-navy-surface text-white text-xs font-medium tracking-normal transition-colors font-mono shadow-subtle border border-navy"
+              href={companyConfig.phones[0].href}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg bg-navy hover:bg-navy-surface text-white text-xs font-medium tracking-normal transition-colors font-mono shadow-subtle border border-navy"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-gold" />
-              <span>Call Hotline: +91 87450 01570</span>
+              <PhoneCall className="w-3.5 h-3.5 text-gold" aria-hidden="true" />
+              <span>Call Hotline: {companyConfig.phones[0].display}</span>
             </a>
             <a
-              href="https://wa.me/918745001570?text=Urgent%20Consultation%20Inquiry%20-%20Kalka%20Co"
+              href={companyConfig.whatsapp.urgentUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-navy text-xs font-medium tracking-normal transition-colors font-mono border border-slate-300 shadow-subtle"
+              onClick={() => trackWhatsAppClick('contact_priority_desk')}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg bg-white hover:bg-slate-50 text-navy text-xs font-medium tracking-normal transition-colors font-mono border border-slate-300 shadow-subtle"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
-              <span>WhatsApp: +91 87450 01570</span>
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
+              <span>WhatsApp: {companyConfig.whatsapp.display}</span>
             </a>
           </div>
         </div>
@@ -179,7 +199,7 @@ export const ContactFormSection: React.FC = () => {
           {/* Form Side */}
           <div className="lg:col-span-7 bg-white p-5 sm:p-8 lg:p-9 rounded-xl border border-slate-200/90 shadow-subtle">
             <div className="mb-7 space-y-1.5">
-              <span className="text-xs font-semibold uppercase tracking-wider text-gold block font-mono">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gold-ink block font-mono">
                 Initiate Consultation
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy">
@@ -204,7 +224,7 @@ export const ContactFormSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedService(null)}
-                  className="text-slate-400 hover:text-navy text-xs flex items-center gap-1 font-medium transition-colors"
+                  className="text-slate-500 hover:text-navy text-xs inline-flex items-center gap-1 font-medium transition-colors min-h-[44px] px-2 rounded"
                   title="Remove practice context"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -225,7 +245,7 @@ export const ContactFormSection: React.FC = () => {
                   key={tab.id}
                   type="button"
                   onClick={() => setInquiryType(tab.id)}
-                  className={`py-2 px-3 text-xs font-semibold rounded-md transition-all ${
+                  className={`py-2 px-3 min-h-[44px] text-xs font-semibold rounded-md transition-all ${
                     inquiryType === tab.id
                       ? 'bg-navy text-white shadow-subtle'
                       : 'text-slate-600 hover:text-navy hover:bg-white/60'
@@ -280,30 +300,32 @@ export const ContactFormSection: React.FC = () => {
                   </div>
                   <div className="flex justify-between pt-1">
                     <span className="text-slate-500 font-medium">Direct Desk:</span>
-                    <span className="font-semibold text-navy font-mono break-all">kalkacomediaconsultancy@gmail.com</span>
+                    <span className="font-semibold text-navy font-mono break-all">{companyConfig.email}</span>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
                   <a
-                    href={`https://wa.me/918745001570?text=${encodeURIComponent(
+                    href={`https://wa.me/${companyConfig.whatsapp.number}?text=${encodeURIComponent(
                       `Hello Kalka Co. Team, following up regarding advisory enquiry reference: ${submissionResult.reference} for ${formData.organization}.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick('contact_confirmation')}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-medium tracking-normal transition-colors shadow-subtle font-mono"
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    WhatsApp Direct: +91 87450 01570
+                    <MessageSquare className="w-4 h-4" aria-hidden="true" />
+                    WhatsApp Direct: {companyConfig.whatsapp.display}
                   </a>
                   <a
-                    href={`mailto:kalkacomediaconsultancy@gmail.com?subject=${encodeURIComponent(
+                    href={`${companyConfig.emailHref}?subject=${encodeURIComponent(
                       `Inquiry Reference ${submissionResult.reference} — ${formData.organization}`
                     )}`}
+                    onClick={() => trackEmailClick('contact_confirmation')}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-navy hover:bg-navy-surface text-white text-xs font-medium tracking-normal transition-colors border border-navy-border shadow-subtle font-mono"
                   >
-                    <Mail className="w-4 h-4 text-gold" />
-                    Email: kalkacomediaconsultancy@gmail.com
+                    <Mail className="w-4 h-4 text-gold" aria-hidden="true" />
+                    Email: {companyConfig.email}
                   </a>
                 </div>
 
@@ -318,16 +340,20 @@ export const ContactFormSection: React.FC = () => {
                 {/* Error Banner */}
                 {submissionError && (
                   <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                    <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" aria-hidden="true" />
                     <div className="space-y-1">
                       <strong className="block font-semibold">Submission Notice</strong>
                       <p>{submissionError}</p>
                       <p className="text-slate-600 mt-1">
                         For urgent matters, reach our direct desk at{' '}
-                        <a href="mailto:kalkacomediaconsultancy@gmail.com" className="underline font-medium text-navy font-mono break-all">
-                          kalkacomediaconsultancy@gmail.com
+                        <a
+                          href={companyConfig.emailHref}
+                          onClick={() => trackEmailClick('contact_error_banner')}
+                          className="underline font-medium text-navy font-mono break-all"
+                        >
+                          {companyConfig.email}
                         </a>{' '}
-                        or call <span className="font-medium text-navy font-mono">+91 87450 01570</span> / <span className="font-medium text-navy font-mono">+91 76830 15257</span>.
+                        or call <span className="font-medium text-navy font-mono">{companyConfig.phones[0].display}</span> / <span className="font-medium text-navy font-mono">{companyConfig.phones[1].display}</span>.
                       </p>
                     </div>
                   </div>
@@ -349,25 +375,29 @@ export const ContactFormSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                    <label htmlFor="contact-fullName" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Full Name *
                     </label>
                     <Input
+                      id="contact-fullName"
                       required
                       placeholder="e.g. Alok Sharma"
                       value={formData.fullName}
+                      onFocus={markFormStarted}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                    <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Corporate Email *
                     </label>
                     <Input
+                      id="contact-email"
                       required
                       type="email"
                       placeholder="name@company.com"
                       value={formData.email}
+                      onFocus={markFormStarted}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
                   </div>
@@ -375,23 +405,27 @@ export const ContactFormSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                    <label htmlFor="contact-organization" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Organization / Enterprise *
                     </label>
                     <Input
+                      id="contact-organization"
                       required
                       placeholder="e.g. Enterprise Ltd."
                       value={formData.organization}
+                      onFocus={markFormStarted}
                       onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                    <label htmlFor="contact-designation" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Designation / Role
                     </label>
                     <Input
+                      id="contact-designation"
                       placeholder="e.g. Managing Director / Communications Head"
                       value={formData.designation}
+                      onFocus={markFormStarted}
                       onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
                     />
                   </div>
@@ -399,46 +433,52 @@ export const ContactFormSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                    <label htmlFor="contact-phone" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       Direct Phone *
                     </label>
                     <Input
+                      id="contact-phone"
                       required
                       type="tel"
                       placeholder="+91 87450 01570"
                       value={formData.phone}
+                      onFocus={markFormStarted}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                    <label htmlFor="contact-whatsapp" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                       WhatsApp Mobile (Optional)
                     </label>
                     <Input
+                      id="contact-whatsapp"
                       type="tel"
                       placeholder="+91 87450 01570"
                       value={formData.whatsapp}
+                      onFocus={markFormStarted}
                       onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                     />
                   </div>
                 </div>
 
                 {/* Urgency Radio Selector */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-2">
-                    Engagement Urgency & Protocol
-                  </label>
+                <fieldset>
+                  <legend className="block text-xs font-semibold text-slate-700 tracking-normal mb-2">
+                    Engagement Urgency &amp; Protocol
+                  </legend>
                   <div className="space-y-2">
                     {urgencyLevels.map((lvl) => (
                       <label
                         key={lvl.value}
-                        className={`flex items-start sm:items-center gap-3 p-3 rounded-lg border text-xs cursor-pointer transition-all ${
+                        htmlFor={`contact-urgency-${lvl.value}`}
+                        className={`flex items-start sm:items-center gap-3 p-3 min-h-[44px] rounded-lg border text-xs cursor-pointer transition-all ${
                           urgency === lvl.value
                             ? 'bg-navy/[0.03] border-navy text-navy font-semibold ring-1 ring-navy/10'
                             : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50/80 hover:border-slate-300'
                         }`}
                       >
                         <input
+                          id={`contact-urgency-${lvl.value}`}
                           type="radio"
                           name="urgency"
                           value={lvl.value}
@@ -450,17 +490,19 @@ export const ContactFormSection: React.FC = () => {
                       </label>
                     ))}
                   </div>
-                </div>
+                </fieldset>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
+                  <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-700 tracking-normal mb-1.5">
                     Brief / Communication Objectives *
                   </label>
                   <Textarea
+                    id="contact-message"
                     required
                     rows={4}
                     placeholder="Outline your immediate communications objectives, corporate milestones, or challenges you wish to address under strict confidentiality."
                     value={formData.message}
+                    onFocus={markFormStarted}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
                 </div>
@@ -512,62 +554,90 @@ export const ContactFormSection: React.FC = () => {
               
               <div className="space-y-3 text-xs">
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
-                  <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                  <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <span className="block text-slate-300 font-medium text-[11px]">Business Enquiries & Counsel</span>
-                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-white hover:text-gold font-mono break-all font-semibold transition-colors">
-                      kalkacomediaconsultancy@gmail.com
+                    <span className="block text-slate-300 font-medium text-[11px]">Business Enquiries &amp; Counsel</span>
+                    <a
+                      href={companyConfig.emailHref}
+                      onClick={() => trackEmailClick('contact_sidebar_business')}
+                      className="text-white hover:text-gold font-mono break-all font-semibold transition-colors"
+                    >
+                      {companyConfig.email}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
-                  <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                  <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <span className="block text-slate-300 font-medium text-[11px]">Careers & Talent</span>
-                    <a href="mailto:kalkacomediaconsultancy@gmail.com" className="text-white hover:text-gold font-mono break-all font-semibold transition-colors">
-                      kalkacomediaconsultancy@gmail.com
+                    <span className="block text-slate-300 font-medium text-[11px]">Careers &amp; Talent</span>
+                    <a
+                      href={companyConfig.emailHref}
+                      onClick={() => trackEmailClick('contact_sidebar_careers')}
+                      className="text-white hover:text-gold font-mono break-all font-semibold transition-colors"
+                    >
+                      {companyConfig.email}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
-                  <PhoneCall className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                  <PhoneCall className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="block text-slate-300 font-medium text-[11px]">Direct Telephones</span>
                     <div className="space-y-1 mt-1 font-mono text-white font-medium">
-                      <a href="tel:+918745001570" className="block hover:text-gold transition-colors">
-                        +91 87450 01570
-                      </a>
-                      <a href="tel:+917683015257" className="block hover:text-gold transition-colors">
-                        +91 76830 15257
-                      </a>
+                      {companyConfig.phones.map((phone) => (
+                        <a key={phone.raw} href={phone.href} className="block hover:text-gold transition-colors">
+                          {phone.display}
+                        </a>
+                      ))}
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
-                  <MessageSquare className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                  <MessageSquare className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="block text-slate-300 font-medium text-[11px]">WhatsApp Desk</span>
                     <a
-                      href="https://wa.me/918745001570?text=Hello%20Kalka%20Co.%20Media%20Consultancy"
+                      href={companyConfig.whatsapp.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackWhatsAppClick('contact_sidebar')}
                       className="text-white hover:text-gold font-mono font-medium transition-colors"
                     >
-                      +91 87450 01570
+                      {companyConfig.whatsapp.display}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50">
-                  <Clock className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                  <Clock className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="block text-slate-300 font-medium text-[11px]">Business Hours</span>
-                    <span className="text-white font-mono font-medium">09:30 - 18:30 IST</span>
+                    <span className="text-white font-mono font-medium">{companyConfig.businessHours}</span>
                   </div>
                 </div>
+
+                {verifiedSocialLinks.length > 0 && (
+                  <div className="p-3 rounded-lg bg-navy-surface/50 border border-navy-border/50 space-y-2">
+                    <span className="block text-slate-300 font-medium text-[11px]">Official Social Channels</span>
+                    <div className="flex flex-wrap gap-2">
+                      {verifiedSocialLinks.map((social) => (
+                        <a
+                          key={social.platform}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-navy-border bg-navy-deep/60 text-white hover:text-gold hover:border-gold/50 transition-colors"
+                        >
+                          <span>{social.label}</span>
+                          <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="pt-4 border-t border-navy-border/70">
@@ -613,11 +683,11 @@ export const ContactFormSection: React.FC = () => {
         {/* Location & Presence */}
         <div className="space-y-6 sm:space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-gold block font-mono">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gold-ink block font-mono">
               Firm Location
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy">
-              Headquarters & Communications Bureau
+              Headquarters &amp; Communications Bureau
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
               National operations based in Haryana.
@@ -645,43 +715,42 @@ export const ContactFormSection: React.FC = () => {
                 <div className="space-y-1.5 border-b border-slate-100 pb-4">
                   <div className="flex items-center justify-between">
                     <span className="font-serif text-xl sm:text-2xl font-bold text-navy">
-                      Faridabad
+                      {companyConfig.location.city}
                     </span>
                     <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-navy/5 text-navy font-mono font-bold uppercase tracking-wider">
                       Headquarters
                     </span>
                   </div>
-                  <p className="text-xs font-semibold text-gold font-mono">
-                    Faridabad, Haryana 121003
+                  <p className="text-xs font-semibold text-gold-ink font-mono">
+                    {companyConfig.location.display}
                   </p>
                 </div>
 
                 <div className="space-y-3 text-xs text-slate-600">
                   <div className="flex items-center gap-2 text-navy font-medium">
-                    <MapPin className="w-4 h-4 text-gold flex-shrink-0" />
-                    <span>Faridabad, Haryana 121003</span>
+                    <MapPin className="w-4 h-4 text-gold-ink flex-shrink-0" aria-hidden="true" />
+                    <span>{companyConfig.location.display}</span>
                   </div>
 
                   <div>
                     <a
-                      href="https://maps.app.goo.gl/fo8sk45WeLVydMjv5?g_st=ic"
+                      href={companyConfig.location.mapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 min-h-[40px] rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-navy transition-colors"
                     >
-                      <ExternalLink className="w-3.5 h-3.5 text-gold" />
+                      <ExternalLink className="w-3.5 h-3.5 text-gold-ink" aria-hidden="true" />
                       <span>View on Google Maps</span>
                     </a>
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 space-y-1.5 font-mono text-xs text-slate-600">
                     <p>
-                      <strong>Business Hours:</strong> 9:30 am – 6:30 pm{' '}
-                      <abbr title="Indian Standard Time" className="no-underline">IST</abbr>
+                      <strong>Business Hours:</strong> {companyConfig.businessHours}
                     </p>
-                    <p><strong>Phones:</strong> +91 87450 01570 / +91 76830 15257</p>
-                    <p><strong>WhatsApp:</strong> +91 87450 01570</p>
-                    <p><strong>Email:</strong> <span className="text-navy font-semibold break-all">kalkacomediaconsultancy@gmail.com</span></p>
+                    <p><strong>Phones:</strong> {companyConfig.phones[0].display} / {companyConfig.phones[1].display}</p>
+                    <p><strong>WhatsApp:</strong> {companyConfig.whatsapp.display}</p>
+                    <p><strong>Email:</strong> <span className="text-navy font-semibold break-all">{companyConfig.email}</span></p>
                   </div>
                 </div>
               </div>

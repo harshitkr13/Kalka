@@ -83,7 +83,7 @@ export default async function CaseStudiesPage() {
                       />
                     </div>
                     <div className="p-6 flex flex-col flex-1">
-                      <span className="text-xs font-mono font-semibold uppercase text-gold tracking-wider mb-2">
+                      <span className="text-xs font-mono font-semibold uppercase text-gold-ink tracking-wider mb-2">
                         {item.clientIndustry}
                       </span>
                       <h3 className="font-serif text-xl font-bold text-navy group-hover:text-gold-dark transition-colors mb-2">

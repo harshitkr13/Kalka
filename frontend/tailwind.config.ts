@@ -19,6 +19,7 @@ const config: Config = {
           light: '#d4b86a',
           DEFAULT: '#c9a84c',
           dark: '#a88a3a',
+          ink: '#856a20',
           muted: 'rgba(201, 168, 76, 0.12)',
         },
         cream: {

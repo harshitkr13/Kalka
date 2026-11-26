@@ -11,7 +11,7 @@ export const ServicesGrid: React.FC = () => {
   const featuredServices = servicesData.slice(0, 6);
 
   return (
-    <section className="py-20 lg:py-28 bg-slate-50/50 border-b border-slate-200">
+    <section className="py-14 sm:py-20 lg:py-24 bg-slate-50/50 border-b border-slate-200">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           overline="Our Advisory Practices"
@@ -29,6 +29,7 @@ export const ServicesGrid: React.FC = () => {
               capabilities={service.capabilities.slice(0, 3)}
               badge={service.badge}
               href={`/services/${service.slug}`}
+              className="h-full"
             />
           ))}
         </div>

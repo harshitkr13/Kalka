@@ -31,7 +31,7 @@ export const ApproachSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-navy-deep text-white border-b border-navy-border text-left">
+    <section className="py-14 sm:py-20 lg:py-24 bg-navy-deep text-white border-b border-navy-border text-left">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           overline="Our Methodology"

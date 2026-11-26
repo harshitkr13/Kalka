@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section
       className={cn(
-        'relative bg-navy-deep text-white overflow-hidden py-20 lg:py-32 border-b border-navy-border',
+        'relative bg-navy-deep text-white overflow-hidden py-14 sm:py-20 lg:py-28 border-b border-navy-border',
         className
       )}
     >
